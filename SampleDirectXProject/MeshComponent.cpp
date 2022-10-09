@@ -108,12 +108,12 @@ void MeshComponent::Update(float deltaTime)
 	Matrix4x4 world;
 	world.setIdentity();
 
-	GameObject* current = GetOwner();
+	GameObject* _owner = GetOwner();
 
-	while (current != nullptr)
+	while (_owner != nullptr)
 	{
-		world *= current->transform->GetWorldMatrix();
-		current = current->GetParent();
+		world *= _owner->transform->GetWorldMatrix();
+		_owner = _owner->GetParent();
 	}
 
 	cc.m_world = world;
