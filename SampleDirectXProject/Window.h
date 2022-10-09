@@ -21,8 +21,10 @@ public:
 	virtual void onUpdate();
 	virtual void onDestroy();
 
+	virtual void onFocus();
+	virtual void onKillFocus();
 
-	~Window();
+	virtual ~Window();
 protected:
 	HWND m_hwnd;
 	bool m_is_run;
