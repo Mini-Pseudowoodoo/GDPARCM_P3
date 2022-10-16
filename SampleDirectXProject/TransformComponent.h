@@ -29,5 +29,5 @@ public:
 	void UpdateTransformMatrix();
 	Matrix4x4 GetTransformationMatrix();
 	Matrix4x4 GetWorldMatrix() const;
-	Matrix4x4 GetLocalMatrix() const;
+	//Matrix4x4 GetLocalMatrix() const;
 };
