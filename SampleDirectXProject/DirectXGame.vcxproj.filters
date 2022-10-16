@@ -108,6 +108,15 @@
     <ClCompile Include="RotationMovementComponent.cpp">
       <Filter>GameEngine\EntityComponentSystem</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>GameEngine\EntityComponentSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>GameEngine\EntityComponentSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>GameEngine\EntityComponentSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -184,6 +193,30 @@
     </ClInclude>
     <ClInclude Include="RotationMovementComponent.h">
       <Filter>GameEngine\EntityComponentSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>GameEngine\EntityComponentSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>GameEngine\EntityComponentSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>GameEngine\EntityComponentSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineMath.h">
+      <Filter>GameEngine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>GameEngine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineMathConstants.h">
+      <Filter>GameEngine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineMathOperations.h">
+      <Filter>GameEngine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3DConstants.h">
+      <Filter>GameEngine\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

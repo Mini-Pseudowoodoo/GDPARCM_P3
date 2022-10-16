@@ -16,6 +16,7 @@ public:
 	void DetachComponent(Component* _component);
 
 public:
+	GameObject* GetRoot();
 	GameObject* GetParent() const;
 	void SetParent(GameObject* _parent);
 
@@ -23,8 +24,13 @@ public:
 	virtual void Start();
 	virtual void Update(float deltaTime);
 
-public:
+	template <class T>
+	T* GetComponent();
+
+private:
 	TransformComponent* transform = nullptr;
+public:
+	TransformComponent* GetTransform() const;
 
 protected:
 	std::vector<GameObject*> m_children;
@@ -36,3 +42,17 @@ protected:
 public:
 	static GameObject* Instantiate();
 };
+
+template <class T>
+T* GameObject::GetComponent()
+{
+	for (auto* component : m_components)
+	{
+		if (T* comp = dynamic_cast<T*>(component))
+		{
+			return comp;
+		}
+	}
+
+	return nullptr;
+}

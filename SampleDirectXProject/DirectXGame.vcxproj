@@ -88,6 +88,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalDependencies>d3dcompiler.lib;d3d11.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -125,6 +126,7 @@
     <ClCompile Include="AppWindow.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
+    <ClCompile Include="Cube.cpp" />
     <ClCompile Include="DeviceContext.cpp" />
     <ClCompile Include="EngineTime.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -132,8 +134,10 @@
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="PixelShader.cpp" />
+    <ClCompile Include="Plane.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="RotationMovementComponent.cpp" />
     <ClCompile Include="SwapChain.cpp" />
@@ -146,7 +150,11 @@
     <ClInclude Include="AppWindow.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="Cube.h" />
     <ClInclude Include="DeviceContext.h" />
+    <ClInclude Include="EngineMath.h" />
+    <ClInclude Include="EngineMathConstants.h" />
+    <ClInclude Include="EngineMathOperations.h" />
     <ClInclude Include="EngineTime.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GraphicsEngine.h" />
@@ -154,15 +162,19 @@
     <ClInclude Include="InputListener.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="Matrix4x4.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="PixelShader.h" />
+    <ClInclude Include="Plane.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Prerequisites.h" />
+    <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="RotationMovementComponent.h" />
     <ClInclude Include="SwapChain.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="Vector3D.h" />
+    <ClInclude Include="Vector3DConstants.h" />
     <ClInclude Include="Vector4D.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="VertexBuffer.h" />

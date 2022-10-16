@@ -1,9 +1,10 @@
 #pragma once
 
+#include <vector>
+
 #include "Window.h"
 #include "InputListener.h"
 #include "GraphicsEngine.h"
-#include "Matrix4x4.h"
 #include "SwapChain.h"
 #include "DeviceContext.h"
 #include "VertexBuffer.h"
@@ -11,6 +12,8 @@
 #include "ConstantBuffer.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
+#include "Vector3D.h"
+#include "Matrix4x4.h"
 
 class GameObject;
 class AppWindow: public Window, public InputListener
@@ -75,5 +78,6 @@ private:
 	GameObject* gameObject_0 = nullptr;
 	GameObject* gameObject_1 = nullptr;
 	GameObject* gameObject_2 = nullptr;
+	std::vector<GameObject*> gameObjects;
 };
 

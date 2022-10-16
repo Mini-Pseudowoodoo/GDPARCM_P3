@@ -3,6 +3,7 @@
 
 #include "Vector3D.h"
 #include "Vector4D.h"
+#include "Quaternion.h"
 
 class Matrix4x4
 {
@@ -35,7 +36,7 @@ public:
 
 	void setRotationX(const float& angle)
 	{
-		const float rad = angle * deg_to_rad;
+		const float rad = angle * DEG_TO_RAD;
 		m_mat[1][1] = cosf(rad);
 		m_mat[1][2] = sinf(rad);
 		m_mat[2][1] = -sinf(rad);
@@ -44,7 +45,7 @@ public:
 
 	void setRotationY(const float& angle)
 	{
-		const float rad = angle * deg_to_rad;
+		const float rad = angle * DEG_TO_RAD;
 		m_mat[0][0] = cosf(rad);
 		m_mat[0][2] = -sinf(rad);
 		m_mat[2][0] = sinf(rad);
@@ -53,25 +54,37 @@ public:
 
 	void setRotationZ(const float& angle)
 	{
-		const float rad = angle * deg_to_rad;
+		const float rad = angle * DEG_TO_RAD;
 		m_mat[0][0] = cosf(rad);
 		m_mat[0][1] = sinf(rad);
 		m_mat[1][0] = -sinf(rad);
 		m_mat[1][1] = cosf(rad);
 	}
 
+	void setRotation(const Quaternion& quat)
+	{
+		const float x2 = quat.x + quat.x;		const float y2 = quat.y + quat.y;		const float z2 = quat.z + quat.z;
+		const float xx = quat.x * x2;			const float xy = quat.x * y2;			const float xz = quat.x * z2;
+		const float yy = quat.y * y2;			const float yz = quat.y * z2;			const float zz = quat.z * z2;
+		const float wx = quat.w * x2;			const float wy = quat.w * y2;			const float wz = quat.w * z2;
+
+		m_mat[0][0] = 1.0f - (yy + zz);	m_mat[1][0] = xy - wz;				m_mat[2][0] = xz + wy;			m_mat[3][0] = 0.0f;
+		m_mat[0][1] = xy + wz;			m_mat[1][1] = 1.0f - (xx + zz);		m_mat[2][1] = yz - wx;			m_mat[3][1] = 0.0f;
+		m_mat[0][2] = xz - wy;			m_mat[1][2] = yz + wx;				m_mat[2][2] = 1.0f - (xx + yy);	m_mat[3][2] = 0.0f;
+		m_mat[0][3] = 0.0f;				m_mat[1][3] = 0.0f;					m_mat[2][3] = 0.0f;				m_mat[3][3] = 1.0f;
+	}
+
 	float getDeterminant()
 	{
-		Vector4D minor, v1, v2, v3;
-		float det;
+		Vector4D minor;
 
-		v1 = Vector4D(this->m_mat[0][0], this->m_mat[1][0], this->m_mat[2][0], this->m_mat[3][0]);
-		v2 = Vector4D(this->m_mat[0][1], this->m_mat[1][1], this->m_mat[2][1], this->m_mat[3][1]);
-		v3 = Vector4D(this->m_mat[0][2], this->m_mat[1][2], this->m_mat[2][2], this->m_mat[3][2]);
+		Vector4D v1 = Vector4D(this->m_mat[0][0], this->m_mat[1][0], this->m_mat[2][0], this->m_mat[3][0]);
+		Vector4D v2 = Vector4D(this->m_mat[0][1], this->m_mat[1][1], this->m_mat[2][1], this->m_mat[3][1]);
+		Vector4D v3 = Vector4D(this->m_mat[0][2], this->m_mat[1][2], this->m_mat[2][2], this->m_mat[3][2]);
 
 
 		minor.cross(v1, v2, v3);
-		det = -(this->m_mat[0][3] * minor.x + this->m_mat[1][3] * minor.y + this->m_mat[2][3] * minor.z +
+		float det = -(this->m_mat[0][3] * minor.x + this->m_mat[1][3] * minor.y + this->m_mat[2][3] * minor.z +
 			this->m_mat[3][3] * minor.w);
 		return det;
 	}
@@ -141,7 +154,7 @@ public:
 
 	void setPerspectiveFovLH(float fov, float aspect, float znear, float zfar)
 	{
-		const float rad = fov * deg_to_rad;
+		const float rad = fov * DEG_TO_RAD;
 		float yscale = 1.0f / tanf(rad / 2.0f);
 		float xscale = yscale / aspect;
 		m_mat[0][0] = xscale;
@@ -182,6 +195,4 @@ public:
 
 public:
 	float m_mat[4][4] = {};
-
-	static constexpr float deg_to_rad = 0.01745329251f;
 };

@@ -1,16 +1,18 @@
 
 #include "AppWindow.h"
-#include <Windows.h>
 
-#include "Vector3D.h"
-#include "Matrix4x4.h"
 #include "EngineTime.h"
-#include "GameObject.h"
 #include "InputSystem.h"
 #include "RenderSystem.h"
+
+#include "GameObject.h"
+#include "Cube.h"
+#include "Plane.h"
+#include "MeshComponent.h"
 #include "TransformComponent.h"
 #include "RotationMovementComponent.h"
-#include "Vertex.h"
+
+#include <Windows.h>
 
 __declspec(align(16))
 struct constant
@@ -26,7 +28,6 @@ struct constant
 AppWindow::AppWindow()
 {
 }
-
 
 AppWindow::~AppWindow()
 {
@@ -186,6 +187,7 @@ Matrix4x4 AppWindow::GetProjectionMatrix() const
 void AppWindow::onCreate()
 {
 	Window::onCreate();
+	srand(time(NULL));
 	InputSystem::get()->addListener(this);
 
 	GraphicsEngine::get()->init();
@@ -195,67 +197,8 @@ void AppWindow::onCreate()
 
 	m_world_cam.setTranslation(Vector3D(0, 0, -2));
 
-	//vertex list[] = 
-	//{
-	//	//X - Y - Z
-	//	//FRONT
-	//	{{-0.5f,-0.5f,-0.5f},    {1,0,0}},
-	//	{{-0.5f, 0.5f,-0.5f},    {0,1,0}},
-	//	{{ 0.5f, 0.5f,-0.5f},    {0,0,1}},
-	//	{{ 0.5f,-0.5f,-0.5f},    {0,1,1}},
-
-	//	//BACK
-	//	{{ 0.5f,-0.5f, 0.5f},    {1,1,0}},
-	//	{{ 0.5f, 0.5f, 0.5f},    {1,0,1}},
-	//	{{-0.5f, 0.5f, 0.5f},    {1,1,1}},
-	//	{{-0.5f,-0.5f, 0.5f},    {0,0,0}},
-	//};
-
-	//UINT size_list = ARRAYSIZE(list);
-
-	//unsigned int index_list[] =
-	//{
-	//	//Front
-	//	0, 1, 2,
-	//	2, 3, 0,
-	//	//Back
-	//	4, 5, 6,
-	//	6, 7, 4,
-	//	//Top
-	//	1, 6, 5,
-	//	5, 2, 1,
-	//	//Bottom
-	//	7, 0, 3,
-	//	3, 4, 7,
-	//	//Right
-	//	3, 2, 5,
-	//	5, 4, 3,
-	//	//Left
-	//	7, 6, 1,
-	//	1, 0, 7,
-	//};
-
-	//UINT size_index_list = ARRAYSIZE(index_list);
-	//m_ib = GraphicsEngine::get()->getRenderSystem()->createIndexBuffer(index_list, size_index_list);
-
-	//void* shader_byte_code = nullptr;
-	//size_t size_shader = 0;
-
-	//GraphicsEngine::get()->getRenderSystem()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
-
-	//m_vs=GraphicsEngine::get()->getRenderSystem()->createVertexShader(shader_byte_code, size_shader);
-	//m_vb = GraphicsEngine::get()->getRenderSystem()->createVertexBuffer(list, sizeof(vertex), size_list, shader_byte_code, size_shader);
-
-	//GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
-
-	//GraphicsEngine::get()->getRenderSystem()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
-	//m_ps = GraphicsEngine::get()->getRenderSystem()->createPixelShader(shader_byte_code, size_shader);
-	//GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
-
-	/*constant cc;
-	cc.m_time = 0;
-
-	m_cb = GraphicsEngine::get()->getRenderSystem()->createConstantBuffer(&cc, sizeof(constant));*/
+	Cube* cube = new Cube();
+	Plane* plane = new Plane();
 
 	auto* rot_0 = new RotationMovementComponent();
 	rot_0->SetRotationRate(15.0f);
@@ -265,21 +208,49 @@ void AppWindow::onCreate()
 	rot_2->SetRotationRate(360.0f);
 
 	gameObject_0 = GameObject::Instantiate();
-	gameObject_0->transform->SetPosition({ 0, 0, 0 });
+	gameObject_0->GetTransform()->SetPosition({ 0, 0, 0 });
 	gameObject_0->AttachComponent(rot_0);
+	gameObject_0->GetComponent<MeshComponent>()->SetMesh(cube);
 
-	gameObject_1 = GameObject::Instantiate();
-	gameObject_1->transform->SetPosition({ 1, 0, 1 });
-	gameObject_1->transform->SetScale({ 0.5f, 0.5f, 0.5f });
+	/*gameObject_1 = GameObject::Instantiate();
+	gameObject_1->GetTransform()->SetPosition({ 1, 0, 1 });
+	gameObject_1->GetTransform()->SetScale({ 0.5f, 0.5f, 0.5f });
 	gameObject_1->AttachComponent(rot_1);
+	gameObject_1->GetComponent<MeshComponent>()->SetMesh(cube);
 
 	gameObject_2 = GameObject::Instantiate();
-	gameObject_2->transform->SetPosition({ -1, 0, 0 });
-	gameObject_2->transform->SetScale({ 0.3f, 0.3f, 0.3f });
+	gameObject_2->GetTransform()->SetPosition({ -1, 0, 0 });
+	gameObject_2->GetTransform()->SetScale({ 0.3f, 0.3f, 0.3f });
 	gameObject_2->AttachComponent(rot_2);
+	gameObject_2->GetComponent<MeshComponent>()->SetMesh(cube);
 
 	gameObject_0->AttachChild(gameObject_1);
-	gameObject_1->AttachChild(gameObject_2);
+	gameObject_1->AttachChild(gameObject_2);*/
+
+	/*for (int i = 0; i < 100; i++)
+	{
+		GameObject* gameObject = GameObject::Instantiate();
+
+		const float randomX = -5.0f + static_cast <float> (std::rand()) / static_cast <float> (RAND_MAX / (5.0f - -5.0f));
+		const float randomY = -5.0f + static_cast <float> (std::rand()) / static_cast <float> (RAND_MAX / (5.0f - -5.0f));
+		const float randomZ = -0.05f + static_cast <float> (std::rand()) / static_cast <float> (RAND_MAX / (0.05f - -0.05f));
+		gameObject->GetTransform()->SetPosition(Vector3D(randomX, randomY , randomZ));
+		gameObject->GetComponent<MeshComponent>()->SetMesh(cube);
+
+		RotationMovementComponent* rot = new RotationMovementComponent();
+		rot->SetRotationRate(15.0f);
+		gameObject->AttachComponent(rot);
+
+		gameObjects.push_back(gameObject);
+	}*/
+
+	/*gameObject_0 = GameObject::Instantiate();
+	gameObject_0->transform->SetPosition(Vector3D(0, 0, 0));
+	gameObject_0->GetComponent<MeshComponent>()->SetMesh(plane);
+
+	gameObject_1 = GameObject::Instantiate();
+	gameObject_1->transform->SetPosition(Vector3D(0, 0, 0));
+	gameObject_1->GetComponent<MeshComponent>()->SetMesh(cube);*/
 }
 
 void AppWindow::onUpdate()
@@ -295,6 +266,16 @@ void AppWindow::onUpdate()
 
 	update();
 	gameObject_0->Update(m_delta_time);
+	/*gameObject_1->Update(m_delta_time);
+	gameObject_2->Update(m_delta_time);*/
+
+	/*for (GameObject* gameObject : gameObjects)
+	{
+		gameObject->Update(m_delta_time);
+	}*/
+
+	/*gameObject_0->Update(m_delta_time);
+	gameObject_1->Update(m_delta_time);*/
 
 	/*GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_vs, m_cb);
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_ps, m_cb);

@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "Component.h"
-#include "Vector3D.h"
-#include "Matrix4x4.h"
+#include "EngineMath.h"
 
 class TransformComponent : public Component
 {
@@ -11,19 +10,24 @@ public:
 
 public:
 	Vector3D m_position;
-	Vector3D m_rotation;
-	Vector3D m_scale = Vector3D(1, 1, 1);
-	Matrix4x4 m_worldMatrix;
+	Vector3D m_euler_angles;
+	Quaternion m_rotation;
+	Vector3D m_scale;
+	Matrix4x4 transformMatrix;
 
 public:
 	Vector3D GetPosition() const;
-	Vector3D GetRotation() const;
+	Vector3D GetEulerAngles() const;
+	Quaternion GetRotation() const;
 	Vector3D GetScale() const;
 
 	void SetPosition(const Vector3D& _position);
-	void SetRotation(const Vector3D& _rotation);
+	void SetEulerAngles(const Vector3D& _angles);
+	void SetRotation(const Quaternion& _rotation);
 	void SetScale(const Vector3D& _scale);
 public:
-	void updateWorldMatrix();
+	void UpdateTransformMatrix();
+	Matrix4x4 GetTransformationMatrix();
 	Matrix4x4 GetWorldMatrix() const;
+	Matrix4x4 GetLocalMatrix() const;
 };

@@ -8,7 +8,7 @@ GameObject::GameObject()
 	transform = new TransformComponent();
 	AttachComponent(transform);
 
-	auto* mesh = new MeshComponent();
+	Component* mesh = new MeshComponent();
 	AttachComponent(mesh);
 }
 
@@ -45,6 +45,18 @@ void GameObject::DetachComponent(Component* _component)
 	auto i = remove(m_components.begin(), m_components.end(), _component);
 }
 
+GameObject* GameObject::GetRoot()
+{
+	GameObject* current = this;
+
+	while (GameObject* parent = current->GetParent())
+	{
+		current = parent;
+	}
+
+	return current;
+}
+
 GameObject* GameObject::GetParent() const
 {
 	return m_parent;
@@ -79,6 +91,11 @@ void GameObject::Update(float deltaTime)
 	{
 		child->Update(deltaTime);
 	}
+}
+
+TransformComponent* GameObject::GetTransform() const
+{
+	return transform;
 }
 
 GameObject* GameObject::Instantiate()

@@ -3,6 +3,8 @@
 #include "GameObject.h"
 #include "TransformComponent.h"
 
+#include <iostream>
+
 RotationMovementComponent::RotationMovementComponent()
 {
 }
@@ -20,13 +22,28 @@ void RotationMovementComponent::Update(float deltaTime)
 {
 	Component::Update(deltaTime);
 
-	if (!GetOwner() || !GetOwner()->transform)
+	if (!GetOwner())
 		return;
 
-	const Vector3D& currentRotation = GetOwner()->transform->GetRotation();
-	const Vector3D& newRotation = { currentRotation.x, currentRotation.y + (m_rotation_rate * deltaTime), currentRotation.z};
+	TransformComponent* transform = GetOwner()->GetTransform();
 
-	GetOwner()->transform->SetRotation(newRotation);
+	if (!transform)
+		return;
+
+	const Vector3D currentRotation = transform->GetEulerAngles();
+	const Vector3D newRotation = {currentRotation.x , currentRotation.y + (m_rotation_rate * deltaTime) , currentRotation.z};
+
+	const Quaternion currentQuat = transform->GetRotation();
+	const Quaternion newQuat = Quaternion::FromEuler(newRotation);
+	//const Quaternion delta = Quaternion::FromEuler(Vector3D(0, m_rotation_rate * deltaTime, 0));
+
+	/*std::cout << "Current: \n";
+	std::cout << "X:" << currentQuat.x << " Y: " << currentQuat.y << " Z: " << currentQuat.z << " W: " << currentQuat.w << std::endl;
+	std::cout << "New: \n";
+	std::cout << "X:" << newQuat.x << " Y: " << newQuat.y << " Z: " << newQuat.z << " W: " << newQuat.w << std::endl;*/
+
+	transform->SetEulerAngles(newRotation);
+	//transform->SetRotation(Quaternion::FromEuler(newRotation));
 }
 
 void RotationMovementComponent::SetRotationRate(const float& inRate)

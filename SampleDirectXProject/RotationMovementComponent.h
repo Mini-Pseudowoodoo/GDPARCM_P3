@@ -14,5 +14,5 @@ public:
 	void SetRotationRate(const float& inRate);
 
 protected:
-	float m_rotation_rate = 15.0f;
+	float m_rotation_rate = 360.0f;
 };

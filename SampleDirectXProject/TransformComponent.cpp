@@ -1,19 +1,26 @@
 ﻿#include "TransformComponent.h"
+#include "Vector3DConstants.h"
+#include "Quaternion.h"
+#include "GameObject.h"
 
 TransformComponent::TransformComponent() : Component()
 {
+	m_scale = Vector3D::oneVector;
 }
 
-TransformComponent::~TransformComponent()
-{
-}
+TransformComponent::~TransformComponent() = default;
 
 Vector3D TransformComponent::GetPosition() const
 {
 	return m_position;
 }
 
-Vector3D TransformComponent::GetRotation() const
+Vector3D TransformComponent::GetEulerAngles() const
+{
+	return m_euler_angles;
+}
+
+Quaternion TransformComponent::GetRotation() const
 {
 	return m_rotation;
 }
@@ -26,49 +33,64 @@ Vector3D TransformComponent::GetScale() const
 void TransformComponent::SetPosition(const Vector3D& _position)
 {
 	m_position = _position;
-	updateWorldMatrix();
+	UpdateTransformMatrix();
+}
+ 
+void TransformComponent::SetEulerAngles(const Vector3D& _angles)
+{
+	m_euler_angles = _angles;
+	m_rotation = Quaternion::FromEuler(_angles);
+	UpdateTransformMatrix();
 }
 
-void TransformComponent::SetRotation(const Vector3D& _rotation)
+void TransformComponent::SetRotation(const Quaternion& _rotation)
 {
 	m_rotation = _rotation;
-	updateWorldMatrix();
+	m_euler_angles = Quaternion::ToEuler(_rotation);
+	UpdateTransformMatrix();
 }
 
 void TransformComponent::SetScale(const Vector3D& _scale)
 {
 	m_scale = _scale;
-	updateWorldMatrix();
+	UpdateTransformMatrix();
 }
 
-void TransformComponent::updateWorldMatrix()
+void TransformComponent::UpdateTransformMatrix()
 {
 	Matrix4x4 temp;
 
-	m_worldMatrix.setIdentity();
+	transformMatrix.setIdentity();
 
 	temp.setIdentity();
 	temp.setScale(m_scale);
-	m_worldMatrix *= temp;
+	transformMatrix *= temp;
 
 	temp.setIdentity();
-	temp.setRotationX(m_rotation.x);
-	m_worldMatrix *= temp;
-
-	temp.setIdentity();
-	temp.setRotationY(m_rotation.y);
-	m_worldMatrix *= temp;
-
-	temp.setIdentity();
-	temp.setRotationZ(m_rotation.z);
-	m_worldMatrix *= temp;
+	temp.setRotation(m_rotation);
+	transformMatrix *= temp;
 
 	temp.setIdentity();
 	temp.setTranslation(m_position);
-	m_worldMatrix *= temp;
+	transformMatrix *= temp;
+}
+
+Matrix4x4 TransformComponent::GetTransformationMatrix()
+{
+	return transformMatrix;
 }
 
 Matrix4x4 TransformComponent::GetWorldMatrix() const
 {
-	return m_worldMatrix;
+	Matrix4x4 worldMatrix = Matrix4x4(transformMatrix);
+
+	GameObject* current = this->GetOwner();
+
+	while (GameObject* parent = current->GetParent())
+	{
+		current = parent;
+		worldMatrix *= current->GetTransform()->GetTransformationMatrix();
+	}
+
+	return worldMatrix;
 }
