@@ -1,21 +1,19 @@
 ﻿#include "TransformComponent.h"
-#include "Vector3DConstants.h"
-#include "Quaternion.h"
 #include "GameObject.h"
 
 TransformComponent::TransformComponent() : Component()
 {
-	m_scale = Vector3D::oneVector;
+	m_scale = Vector3::One;
 }
 
 TransformComponent::~TransformComponent() = default;
 
-Vector3D TransformComponent::GetPosition() const
+Vector3 TransformComponent::GetPosition() const
 {
 	return m_position;
 }
 
-Vector3D TransformComponent::GetEulerAngles() const
+Vector3 TransformComponent::GetEulerAngles() const
 {
 	return m_euler_angles;
 }
@@ -25,12 +23,12 @@ Quaternion TransformComponent::GetRotation() const
 	return m_rotation;
 }
 
-Vector3D TransformComponent::GetScale() const
+Vector3 TransformComponent::GetScale() const
 {
 	return m_scale;
 }
 
-void TransformComponent::SetPosition(const Vector3D& _position)
+void TransformComponent::SetPosition(const Vector3& _position)
 {
 	m_position = _position;
 	if (OnSetPosition)
@@ -38,21 +36,24 @@ void TransformComponent::SetPosition(const Vector3D& _position)
 	UpdateTransformMatrix();
 }
  
-void TransformComponent::SetEulerAngles(const Vector3D& _angles)
+void TransformComponent::SetEulerAngles(const Vector3& _angles)
 {
 	m_euler_angles = _angles;
-	m_rotation = Quaternion::FromEuler(_angles);
+	m_rotation.CreateFromYawPitchRoll(_angles);
 	UpdateTransformMatrix();
 }
 
 void TransformComponent::SetRotation(const Quaternion& _rotation)
 {
-	m_rotation = _rotation.Normalized();
-	m_euler_angles = Quaternion::ToEuler(_rotation);
+	Quaternion rot = _rotation;
+	rot.Normalize();
+
+	m_rotation = rot;
+	m_euler_angles = rot.ToEuler();
 	UpdateTransformMatrix();
 }
 
-void TransformComponent::SetScale(const Vector3D& _scale)
+void TransformComponent::SetScale(const Vector3& _scale)
 {
 	m_scale = _scale;
 	UpdateTransformMatrix();
@@ -60,47 +61,39 @@ void TransformComponent::SetScale(const Vector3D& _scale)
 
 void TransformComponent::UpdateTransformMatrix()
 {
-	Matrix4x4 temp;
+	Matrix temp;
 
-	transformMatrix.setIdentity();
+	transformMatrix = Matrix::Identity;
 
-	temp.setIdentity();
-	temp.setScale(m_scale);
+	temp = Matrix::Identity;
+	temp = Matrix::CreateScale(m_scale);
 	transformMatrix *= temp;
 
-	/*temp.setIdentity();
-	temp.setRotation(m_rotation);
-	transformMatrix *= temp;*/
-
-	/*temp.setIdentity();
-	temp.SetRotation(m_euler_angles);
-	transformMatrix *= temp;*/
-
-	temp.setIdentity();
-	temp.setRotationX(m_euler_angles.x);
+	temp = Matrix::Identity;
+	temp = Matrix::CreateRotationX(m_euler_angles.x);
 	transformMatrix *= temp;
 
-	temp.setIdentity();
-	temp.setRotationY(m_euler_angles.y);
+	temp = Matrix::Identity;
+	temp = Matrix::CreateRotationY(m_euler_angles.y);
 	transformMatrix *= temp;
 
-	temp.setIdentity();
-	temp.setRotationZ(m_euler_angles.z);
+	temp = Matrix::Identity;
+	temp = Matrix::CreateRotationZ(m_euler_angles.z);
 	transformMatrix *= temp;
 
-	temp.setIdentity();
-	temp.setTranslation(m_position);
+	temp = Matrix::Identity;
+	temp = Matrix::CreateTranslation(m_position);
 	transformMatrix *= temp;
 }
 
-Matrix4x4 TransformComponent::GetTransformationMatrix()
+Matrix TransformComponent::GetTransformationMatrix()
 {
 	return transformMatrix;
 }
 
-Matrix4x4 TransformComponent::GetWorldMatrix() const
+Matrix TransformComponent::GetWorldMatrix() const
 {
-	Matrix4x4 worldMatrix = Matrix4x4(transformMatrix);
+	Matrix worldMatrix = transformMatrix;
 
 	GameObject* current = this->GetOwner();
 
@@ -113,9 +106,10 @@ Matrix4x4 TransformComponent::GetWorldMatrix() const
 	return worldMatrix;
 }
 
-Matrix4x4 TransformComponent::GetLocalMatrix() const
+Matrix TransformComponent::GetLocalMatrix() const
 {
-	return GetWorldMatrix().GetInverse();
+	Matrix invWorld = GetWorldMatrix().Invert();
+	return invWorld;
 }
 
 std::function<void()>& TransformComponent::GetOnSetPositionDelegate()

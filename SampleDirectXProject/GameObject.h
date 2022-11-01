@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <vector>
+#include <string>
 
 class Component;
 class TransformComponent;
@@ -16,6 +17,10 @@ public:
 	void DetachComponent(Component* _component);
 
 public:
+	std::string GetName() const;
+	void SetName(const std::string& _name);
+
+public:
 	GameObject* GetRoot();
 	GameObject* GetParent() const;
 	void SetParent(GameObject* _parent);
@@ -28,6 +33,7 @@ public:
 	T* GetComponent();
 
 protected:
+	std::string name = "GameObject";
 	TransformComponent* transform = nullptr;
 public:
 	TransformComponent* GetTransform() const;

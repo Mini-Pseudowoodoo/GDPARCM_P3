@@ -135,6 +135,8 @@
     <ClCompile Include="SceneCamera.cpp">
       <Filter>GameEngine\Editor</Filter>
     </ClCompile>
+    <ClCompile Include="SimpleMath.cpp" />
+    <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -167,12 +169,6 @@
     <ClInclude Include="EngineTime.h">
       <Filter>GameEngine\Time</Filter>
     </ClInclude>
-    <ClInclude Include="Vector3D.h">
-      <Filter>GameEngine\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrix4x4.h">
-      <Filter>GameEngine\Math</Filter>
-    </ClInclude>
     <ClInclude Include="IndexBuffer.h">
       <Filter>GameEngine\GraphicsEngine\RenderSystem\IndexBuffer</Filter>
     </ClInclude>
@@ -183,9 +179,6 @@
       <Filter>GameEngine\InputSystem</Filter>
     </ClInclude>
     <ClInclude Include="Point.h">
-      <Filter>GameEngine\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector4D.h">
       <Filter>GameEngine\Math</Filter>
     </ClInclude>
     <ClInclude Include="RenderSystem.h">
@@ -224,16 +217,10 @@
     <ClInclude Include="EngineMath.h">
       <Filter>GameEngine\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Quaternion.h">
-      <Filter>GameEngine\Math</Filter>
-    </ClInclude>
     <ClInclude Include="EngineMathConstants.h">
       <Filter>GameEngine\Math</Filter>
     </ClInclude>
     <ClInclude Include="EngineMathOperations.h">
-      <Filter>GameEngine\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3DConstants.h">
       <Filter>GameEngine\Math</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
@@ -245,15 +232,14 @@
     <ClInclude Include="CameraProjection.h">
       <Filter>GameEngine\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Matrix4x4Constants.h">
-      <Filter>GameEngine\Math</Filter>
-    </ClInclude>
     <ClInclude Include="CameraComponent.h">
       <Filter>GameEngine\EntityComponentSystem</Filter>
     </ClInclude>
     <ClInclude Include="SceneCamera.h">
       <Filter>GameEngine\Editor</Filter>
     </ClInclude>
+    <ClInclude Include="SimpleMath.h" />
+    <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -262,5 +248,8 @@
     <FxCompile Include="PixelShader.hlsl">
       <Filter>App</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SimpleMath.inl" />
   </ItemGroup>
 </Project>

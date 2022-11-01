@@ -1,8 +1,9 @@
 #pragma once
 #include "GameObject.h"
 #include "InputListener.h"
-#include "Vector3D.h"
-#include "Matrix4x4.h"
+
+#include "SimpleMath.h"
+using namespace DirectX::SimpleMath;
 
 class CameraComponent;
 class SceneCamera : public GameObject, public InputListener
@@ -29,9 +30,11 @@ private:
 	virtual void onRightMouseButtonUp(const Point& mouse_pos) override;
 
 private:
-	Vector3D input;
-	float rotationX = 0.0f, rotationY = 0.0f;
+	Vector3 input;
+	float rotationX = 0.0f, rotationY = 0.0f; 
 	bool rmbDown = false;
+	bool lmbDown = false;
 	float cameraSpeed = 0.1f;
+	float cameraRotSpeed = 0.1f;
 };
 

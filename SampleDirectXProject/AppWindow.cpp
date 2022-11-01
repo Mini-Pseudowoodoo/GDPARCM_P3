@@ -19,17 +19,6 @@
 
 #include <Windows.h>
 
-__declspec(align(16))
-struct constant
-{
-	Matrix4x4 m_world;
-	Matrix4x4 m_view;
-	Matrix4x4 m_proj;
-
-	unsigned int m_time;
-};
-
-
 AppWindow::AppWindow()
 {
 }
@@ -54,6 +43,11 @@ void AppWindow::update()
 {
 }
 
+const std::vector<GameObject*>& AppWindow::GetGameObjects() const
+{
+	return gameObjects;
+}
+
 void AppWindow::onCreate()
 {
 	Window::onCreate();
@@ -61,7 +55,7 @@ void AppWindow::onCreate()
 	
 	sceneCamera = new SceneCamera();
 	InputSystem::get()->addListener(sceneCamera);
-	sceneCamera->GetTransform()->SetPosition(Vector3D(0.0f, 1.0f, -2.5f));
+	sceneCamera->GetTransform()->SetPosition(Vector3(0.0f, 0.0f, 2.5f));
 
 	GraphicsEngine::get()->init();
 	RECT rc = this->getClientWindowRect();
@@ -70,7 +64,7 @@ void AppWindow::onCreate()
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setRenderState(this->m_swap_chain);
 
 	Cube* cube = new Cube();
-	Plane* plane = new Plane();
+	PlaneMesh* plane = new PlaneMesh();
 
 	/*auto* rot_1 = new RotationMovementComponent();
 	rot_1->SetRotationRate(90.0f);
@@ -78,26 +72,27 @@ void AppWindow::onCreate()
 	rot_2->SetRotationRate(360.0f);*/
 
 	gameObject_0 = GameObject::Instantiate();
+	gameObject_0->SetName("Plane");
 	
 	MeshComponent* mesh_0 = new MeshComponent();
-	mesh_0->SetMesh(plane);
 	gameObject_0->AttachComponent(mesh_0);
+	mesh_0->SetMesh(plane);
 
 	gameObject_1 = GameObject::Instantiate();
+	gameObject_1->GetTransform()->SetPosition(Vector3::Zero);
+	gameObject_1->SetName("Cube");
 
 	MeshComponent* mesh_1 = new MeshComponent();
-	mesh_1->SetMesh(cube);
 	gameObject_1->AttachComponent(mesh_1);
-
-	gameObject_0->AttachChild(gameObject_1);
+	mesh_1->SetMesh(cube);
 
 	/*RotationMovementComponent* rot_0 = new RotationMovementComponent();
 	rot_0->SetRotationRate(1.0f);
 	rot_0->SetAxis(Vector3D::upVector);
 	gameObject_0->AttachComponent(rot_0);*/
 
-	gameObjects.push_back(gameObject_0);
 	gameObjects.push_back(gameObject_1);
+	//gameObjects.push_back(gameObject_0);
 
 	/*gameObject_1 = GameObject::Instantiate();
 	gameObject_1->GetTransform()->SetPosition({ 1, 0, 1 });

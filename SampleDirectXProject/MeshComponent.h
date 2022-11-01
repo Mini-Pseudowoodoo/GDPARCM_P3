@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Component.h"
+#include "SimpleMath.h"
 
 class ConstantBuffer;
 class PixelShader;
@@ -8,6 +9,9 @@ class IndexBuffer;
 class VertexBuffer;
 
 class Mesh;
+
+using namespace DirectX;
+using namespace DirectX::SimpleMath;
 
 class MeshComponent: public Component
 {
@@ -20,6 +24,10 @@ public:
 	void Update(float deltaTime) override;
 	void SetMesh(Mesh* inMesh);
 
+	void CalculateBounds();
+	const BoundingBox& GetBounds() const;
+	const BoundingSphere& GetSphereBounds() const;
+
 protected:
 	Mesh* mesh = nullptr;
 
@@ -29,6 +37,9 @@ protected:
 	VertexShader* m_vs = nullptr;
 	PixelShader* m_ps = nullptr;
 	ConstantBuffer* m_cb = nullptr;
+
+	BoundingBox bounds;
+	BoundingSphere sphereBounds;
 
 protected:
 	friend class Mesh;

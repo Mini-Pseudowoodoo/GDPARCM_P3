@@ -1,4 +1,5 @@
 #include "InputSystem.h"
+#include "AppWindow.h"
 #include <Windows.h>
 
 InputSystem::InputSystem()
@@ -101,6 +102,15 @@ void InputSystem::setCursorPosition(const Point& point)
 void InputSystem::showCursor(bool show)
 {
 	::ShowCursor(show);
+}
+
+Point InputSystem::GetMousePositionInWindow() const
+{
+	POINT current_mouse_window_pos;
+	::GetCursorPos(&current_mouse_window_pos);
+	::ScreenToClient(AppWindow::Get()->GetWindowHandle(), &current_mouse_window_pos);
+
+	return Point(current_mouse_window_pos.x, current_mouse_window_pos.y);
 }
 
 InputSystem* InputSystem::get()

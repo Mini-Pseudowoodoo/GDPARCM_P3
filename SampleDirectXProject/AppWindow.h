@@ -13,9 +13,6 @@
 #include "VertexShader.h"
 #include "PixelShader.h"
 
-#include "Vector3D.h"
-#include "Matrix4x4.h"
-
 class GameObject;
 class AppWindow: public Window
 {
@@ -37,6 +34,9 @@ public:
 	static void Initialize();
 
 	void update();
+
+public:
+	const std::vector<GameObject*>& GetGameObjects() const;
 private:
 	SwapChain * m_swap_chain;
 

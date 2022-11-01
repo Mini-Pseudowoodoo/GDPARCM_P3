@@ -1,13 +1,13 @@
 #include "SceneCamera.h"
 #include "Camera.h"
-#include "CameraManager.h"
 #include "CameraComponent.h"
-#include "Matrix4x4.h"
+#include "CameraManager.h"
 #include "AppWindow.h"
 #include "EngineTime.h"
 #include "InputSystem.h"
 #include "Camera.h"
 #include "TransformComponent.h"
+#include "MeshComponent.h"
 
 #include <iostream>
 
@@ -35,15 +35,18 @@ void SceneCamera::Update(float deltaTime)
 
 	if (transform)
 	{
-		const Vector3D moveInput = input.ToUnitVector() * cameraSpeed;
+		Vector3 moveInput = input;
+		moveInput.Normalize();
 
-		const Matrix4x4& mat = transform->GetTransformationMatrix();
+		Vector3 move = moveInput * cameraSpeed;
 
-		Vector3D new_pos = mat.getTranslation() + mat.getZDirection() * (moveInput.z);
+		const Matrix& mat = transform->GetTransformationMatrix();
 
-		new_pos = new_pos + mat.getXDirection() * (moveInput.x);
+		Vector3 new_pos = mat.Translation() + mat.Forward() * (move.z);
 
-		new_pos = new_pos + mat.getYDirection() * (moveInput.y);
+		new_pos = new_pos + mat.Right() * (move.x);
+
+		new_pos = new_pos + mat.Up() * (move.y);
 
 		transform->SetPosition(new_pos);
 	}
@@ -100,7 +103,7 @@ void SceneCamera::onKeyDown(int key)
 
 void SceneCamera::onKeyUp(int key)
 {
-	input = Vector3D::zeroVector;
+	input = Vector3::Zero;
 }
 
 void SceneCamera::onMouseMove(const Point& delta_mouse)
@@ -111,28 +114,87 @@ void SceneCamera::onMouseMove(const Point& delta_mouse)
 	float width, height;
 	AppWindow::Get()->GetWindowSize(width, height);
 
-	Vector3D euler = transform->GetEulerAngles();
+	Vector3 euler = transform->GetEulerAngles();
 
 	const float deltaTime = EngineTime::getDeltaTime();
 
-	euler.y += (delta_mouse.x - (width / 2.0f)) * deltaTime;
-	euler.x += (delta_mouse.y - (height / 2.0f)) * deltaTime;
+	euler.y -= (delta_mouse.x - (width / 2.0f)) * deltaTime * cameraRotSpeed;
+	euler.x -= (delta_mouse.y - (height / 2.0f)) * deltaTime * cameraRotSpeed;
 
-	if (transform)
-	{
-		transform->SetEulerAngles(euler);
-	}
+	transform->SetEulerAngles(euler);
 
 	InputSystem::get()->setCursorPosition(Point((int)(width / 2.0f), (int)(height / 2.0f)));
 }
 
 void SceneCamera::onLeftMouseButtonDown(const Point& mouse_pos)
 {
+	if (!lmbDown)
+	{
+		lmbDown = true;
+	}
+}
+
+bool CheckIntersect(Vector3 rayOrigin, Vector3 rayDirection, float radius)
+{
+	float a, b, c, discriminant;
+
+	// Calculate the a, b, and c coefficients.
+	a = (rayDirection.x * rayDirection.x) + (rayDirection.y * rayDirection.y) + (rayDirection.z * rayDirection.z);
+	b = ((rayDirection.x * rayOrigin.x) + (rayDirection.y * rayOrigin.y) + (rayDirection.z * rayOrigin.z)) * 2.0f;
+	c = ((rayOrigin.x * rayOrigin.x) + (rayOrigin.y * rayOrigin.y) + (rayOrigin.z * rayOrigin.z)) - (radius * radius);
+
+	// Find the discriminant.
+	discriminant = (b * b) - (4 * a * c);
+
+	// if discriminant is negative the picking ray missed the sphere, otherwise it intersected the sphere.
+	if (discriminant < 0.0f)
+	{
+		return false;
+	}
+
+	return true;
 }
 
 void SceneCamera::onLeftMouseButtonUp(const Point& mouse_pos)
 {
+	if (lmbDown)
+	{
+		lmbDown = false;
+
+		Point p = InputSystem::get()->GetMousePositionInWindow();
+		//std::cout << "X: " << p.x << " Y: " << p.y << std::endl;
+
+		Ray r = camera->GetCamera()->ScreenPointToRay(Vector3(p.x, p.y, 0));
+		//std::cout << "X: " << r.direction.x << " Y: " << r.direction.y << " Z: " << r.direction.z << std::endl;
+
+		const Vector3& pos = r.position;
+
+		for (GameObject* obj : AppWindow::Get()->GetGameObjects())
+		{
+			if (MeshComponent* mesh = obj->GetComponent<MeshComponent>())
+			{
+				const auto& bounds = mesh->GetBounds();
+
+				float dist = 100.0f;
+
+				if (bounds.Intersects(r.position, r.direction, dist))
+				{
+					std::cout << obj->GetName() << std::endl;
+				}
+
+				/*if (CheckIntersect(r.position, r.direction, 1.0f))
+				{
+					std::cout << obj->GetName() << std::endl;
+				}*/
+
+				//std::cout << dist << std::endl;
+
+				//std::cout << "X: " << r.position.x << " Y: " << r.position.y << " Z: " << r.position.z << std::endl;
+			}
+		}
+	}
 }
+
 
 void SceneCamera::onRightMouseButtonDown(const Point& mouse_pos)
 {

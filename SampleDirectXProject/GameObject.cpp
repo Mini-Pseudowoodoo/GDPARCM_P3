@@ -41,6 +41,16 @@ void GameObject::DetachComponent(Component* _component)
 	auto i = remove(m_components.begin(), m_components.end(), _component);
 }
 
+std::string GameObject::GetName() const
+{
+	return name;
+}
+
+void GameObject::SetName(const std::string& _name)
+{
+	name = _name;
+}
+
 GameObject* GameObject::GetRoot()
 {
 	GameObject* current = this;

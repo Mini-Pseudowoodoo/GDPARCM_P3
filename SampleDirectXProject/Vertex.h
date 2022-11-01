@@ -1,8 +1,10 @@
 ﻿#pragma once
-#include "Vector3D.h"
+#include "SimpleMath.h"
+
+using namespace DirectX::SimpleMath;
 
 struct vertex
 {
-	Vector3D position;
-	Vector3D color;
+	Vector3 position;
+	Vector3 color;
 };

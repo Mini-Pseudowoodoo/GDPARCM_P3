@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include "Mesh.h"
 
-class Plane : public Mesh
+class PlaneMesh : public Mesh
 {
 public:
-	Plane();
+	PlaneMesh();
 };

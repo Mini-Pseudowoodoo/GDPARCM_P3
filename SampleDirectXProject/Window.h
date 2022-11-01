@@ -31,7 +31,10 @@ public:
 	float GetHeight() const;
 	void GetWindowSize(float& width, float& height) const;
 
+	const HWND& GetWindowHandle() const;
+
 protected:
+	HINSTANCE m_hinstance;
 	HWND m_hwnd;
 	bool m_is_run;
 };

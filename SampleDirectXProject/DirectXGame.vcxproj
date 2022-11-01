@@ -91,7 +91,7 @@
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>d3dcompiler.lib;d3d11.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3dcompiler.lib;d3d11.lib;dxguid.lib;dinput8.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -139,11 +139,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshComponent.cpp" />
+    <ClCompile Include="pch.cpp" />
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="RotationMovementComponent.cpp" />
     <ClCompile Include="SceneCamera.cpp" />
+    <ClCompile Include="SimpleMath.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
@@ -169,23 +171,19 @@
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="InputListener.h" />
     <ClInclude Include="InputSystem.h" />
-    <ClInclude Include="Matrix4x4.h" />
-    <ClInclude Include="Matrix4x4Constants.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshComponent.h" />
+    <ClInclude Include="pch.h" />
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Prerequisites.h" />
-    <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="RotationMovementComponent.h" />
     <ClInclude Include="SceneCamera.h" />
+    <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="SwapChain.h" />
     <ClInclude Include="TransformComponent.h" />
-    <ClInclude Include="Vector3D.h" />
-    <ClInclude Include="Vector3DConstants.h" />
-    <ClInclude Include="Vector4D.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="VertexShader.h" />
@@ -208,6 +206,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SimpleMath.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

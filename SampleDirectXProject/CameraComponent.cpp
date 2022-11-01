@@ -18,7 +18,7 @@ void CameraComponent::Start()
 
 	if (camera)
 	{
-		camera->SetViewMatrix(GetOwner()->GetTransform()->GetWorldMatrix().GetInverse());
+		camera->SetViewMatrix(GetOwner()->GetTransform()->GetWorldMatrix().Invert());
 		camera->SetCameraProjection(CameraProjectionType::Perspective);
 	}
 
@@ -45,7 +45,7 @@ void CameraComponent::SetActive() const
 
 void CameraComponent::UpdateViewMatrix()
 {
-	camera->SetViewMatrix(GetOwner()->GetTransform()->GetWorldMatrix().GetInverse());
+	camera->SetViewMatrix(GetOwner()->GetTransform()->GetWorldMatrix().Invert());
 }
 
 Camera* CameraComponent::GetCamera() const

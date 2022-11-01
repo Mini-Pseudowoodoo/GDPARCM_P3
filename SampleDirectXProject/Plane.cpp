@@ -1,6 +1,6 @@
 ﻿#include "Plane.h"
 
-Plane::Plane()
+PlaneMesh::PlaneMesh()
 {
 	vertices =
 	{
@@ -19,6 +19,8 @@ Plane::Plane()
 		2, 3, 0,
 		1, 0, 3,
 	};
+
+	std::reverse(indices.begin(), indices.end());
 
 	size_index_list = indices.size();
 }

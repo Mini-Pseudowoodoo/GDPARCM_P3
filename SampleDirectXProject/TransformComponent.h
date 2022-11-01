@@ -1,9 +1,10 @@
 ﻿#pragma once
 #include "Component.h"
-#include "Vector3D.h"
-#include "Quaternion.h"
-#include "Matrix4x4.h"
 #include <functional>
+
+#include "SimpleMath.h"
+
+using namespace DirectX::SimpleMath;
 
 class TransformComponent : public Component
 {
@@ -12,27 +13,27 @@ public:
 	~TransformComponent() override;
 
 public:
-	Vector3D m_position;
-	Vector3D m_euler_angles;
+	Vector3 m_position;
+	Vector3 m_euler_angles;
 	Quaternion m_rotation;
-	Vector3D m_scale;
-	Matrix4x4 transformMatrix;
+	Vector3 m_scale;
+	Matrix transformMatrix;
 
 public:
-	Vector3D GetPosition() const;
-	Vector3D GetEulerAngles() const;
+	Vector3 GetPosition() const;
+	Vector3 GetEulerAngles() const;
 	Quaternion GetRotation() const;
-	Vector3D GetScale() const;
+	Vector3 GetScale() const;
 
-	void SetPosition(const Vector3D& _position);
-	void SetEulerAngles(const Vector3D& _angles);
+	void SetPosition(const Vector3& _position);
+	void SetEulerAngles(const Vector3& _angles);
 	void SetRotation(const Quaternion& _rotation);
-	void SetScale(const Vector3D& _scale);
+	void SetScale(const Vector3& _scale);
 public:
 	void UpdateTransformMatrix();
-	Matrix4x4 GetTransformationMatrix();
-	Matrix4x4 GetWorldMatrix() const;
-	Matrix4x4 GetLocalMatrix() const;
+	Matrix GetTransformationMatrix();
+	Matrix GetWorldMatrix() const;
+	Matrix GetLocalMatrix() const;
 
 private:
 	std::function<void()> OnSetPosition;

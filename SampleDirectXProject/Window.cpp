@@ -60,6 +60,8 @@ bool Window::init()
 {
 	EngineTime::initialize();
 
+	m_hinstance = GetModuleHandle(NULL);
+
 	WNDCLASSEX wc;
 	wc.cbClsExtra = NULL;
 	wc.cbSize = sizeof(WNDCLASSEX);
@@ -79,7 +81,7 @@ bool Window::init()
 	
 	m_hwnd=::CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, "MyWindowClass", "DirectX Application", 
 		WS_CAPTION|WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, 1024, 768,
-		NULL, NULL, NULL, this);
+		NULL, NULL, m_hinstance, this);
 	
 	if (!m_hwnd) 
 		return false;
@@ -185,4 +187,9 @@ void Window::GetWindowSize(float& width, float& height) const
 
 	width = rc.right - rc.left;
 	height = rc.bottom - rc.top;
+}
+
+const HWND& Window::GetWindowHandle() const
+{
+	return m_hwnd;
 }
