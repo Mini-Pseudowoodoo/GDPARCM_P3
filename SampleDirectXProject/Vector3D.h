@@ -109,15 +109,15 @@ public:
 		return Vector3D(*this) / Magnitude();
 	}
 
-	static Vector3D Lerp(const Vector3D& a, const Vector3D& b, float delta)
-	{
-		//(A + Alpha * (B-A));
-		return {
-			a.x + delta * (b.x - a.x),
-			a.y + delta * (b.y - a.y),
-			a.z + delta * (b.z - a.z),
-		};
-	}
+	//static Vector3D Lerp(const Vector3D& a, const Vector3D& b, float delta)
+	//{
+	//	//(A + Alpha * (B-A));
+	//	return {
+	//		a.x + delta * (b.x - a.x),
+	//		a.y + delta * (b.y - a.y),
+	//		a.z + delta * (b.z - a.z),
+	//	};
+	//}
 
 	static const Vector3D zeroVector;
 	static const Vector3D oneVector;

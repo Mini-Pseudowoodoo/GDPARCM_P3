@@ -40,6 +40,11 @@ void DeviceContext::setDepthStencilState(SwapChain* swap_chain)
 	m_device_context->OMSetDepthStencilState(swap_chain->m_dss, 0);
 }
 
+void DeviceContext::setRenderState(SwapChain* swap_chain)
+{
+	m_device_context->RSSetState(swap_chain->m_rasterizer_state);
+}
+
 void DeviceContext::setVertexBuffer(VertexBuffer * vertex_buffer)
 {
 	UINT stride = vertex_buffer->m_size_vertex;

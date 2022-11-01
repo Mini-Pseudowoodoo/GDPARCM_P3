@@ -27,7 +27,7 @@ public:
 	template <class T>
 	T* GetComponent();
 
-private:
+protected:
 	TransformComponent* transform = nullptr;
 public:
 	TransformComponent* GetTransform() const;

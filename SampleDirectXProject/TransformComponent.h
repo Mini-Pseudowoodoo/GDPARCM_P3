@@ -1,6 +1,9 @@
 ﻿#pragma once
 #include "Component.h"
-#include "EngineMath.h"
+#include "Vector3D.h"
+#include "Quaternion.h"
+#include "Matrix4x4.h"
+#include <functional>
 
 class TransformComponent : public Component
 {
@@ -29,5 +32,11 @@ public:
 	void UpdateTransformMatrix();
 	Matrix4x4 GetTransformationMatrix();
 	Matrix4x4 GetWorldMatrix() const;
-	//Matrix4x4 GetLocalMatrix() const;
+	Matrix4x4 GetLocalMatrix() const;
+
+private:
+	std::function<void()> OnSetPosition;
+
+public:
+	std::function<void()>& GetOnSetPositionDelegate();
 };

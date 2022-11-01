@@ -120,7 +120,7 @@ bool Window::release()
 	return true;
 }
 
-bool Window::isRun()
+bool Window::IsRunning()
 {
 	return m_is_run;
 }
@@ -160,4 +160,29 @@ void Window::onKillFocus()
 
 Window::~Window()
 {
+}
+
+float Window::GetWidth() const
+{
+	RECT rc;
+	::GetClientRect(this->m_hwnd, &rc);
+
+	return rc.right - rc.left;
+}
+
+float Window::GetHeight() const
+{
+	RECT rc;
+	::GetClientRect(this->m_hwnd, &rc);
+
+	return rc.bottom - rc.top;
+}
+
+void Window::GetWindowSize(float& width, float& height) const
+{
+	RECT rc;
+	::GetClientRect(this->m_hwnd, &rc);
+
+	width = rc.right - rc.left;
+	height = rc.bottom - rc.top;
 }

@@ -1,15 +1,11 @@
 ﻿#include "GameObject.h"
 #include "Component.h"
 #include "TransformComponent.h"
-#include "MeshComponent.h"
 
 GameObject::GameObject()
 {
 	transform = new TransformComponent();
 	AttachComponent(transform);
-
-	Component* mesh = new MeshComponent();
-	AttachComponent(mesh);
 }
 
 GameObject::~GameObject()

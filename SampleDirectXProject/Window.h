@@ -10,7 +10,7 @@ public:
 	bool broadcast();
 	//Release the window
 	bool release();
-	bool isRun();
+	bool IsRunning();
 
 	RECT getClientWindowRect();
 	void setHWND(HWND hwnd);
@@ -25,6 +25,12 @@ public:
 	virtual void onKillFocus();
 
 	virtual ~Window();
+
+public:
+	float GetWidth() const;
+	float GetHeight() const;
+	void GetWindowSize(float& width, float& height) const;
+
 protected:
 	HWND m_hwnd;
 	bool m_is_run;

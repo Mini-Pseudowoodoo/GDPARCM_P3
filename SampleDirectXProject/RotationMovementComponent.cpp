@@ -31,7 +31,7 @@ void RotationMovementComponent::Update(float deltaTime)
 		return;
 
 	const Vector3D currentRotation = transform->GetEulerAngles();
-	const Vector3D newRotation = {currentRotation.x , currentRotation.y + (m_rotation_rate * deltaTime) , currentRotation.z};
+	const Vector3D newRotation = currentRotation + (axis * m_rotation_rate);
 
 	const Quaternion currentQuat = transform->GetRotation();
 	const Quaternion newQuat = Quaternion::FromEuler(newRotation);
@@ -43,7 +43,12 @@ void RotationMovementComponent::Update(float deltaTime)
 	std::cout << "X:" << newQuat.x << " Y: " << newQuat.y << " Z: " << newQuat.z << " W: " << newQuat.w << std::endl;*/
 
 	transform->SetEulerAngles(newRotation);
-	//transform->SetRotation(Quaternion::FromEuler(newRotation));
+	//transform->SetRotation(newQuat);
+}
+
+void RotationMovementComponent::SetAxis(const Vector3D& inAxis)
+{
+	axis = inAxis.ToUnitVector();
 }
 
 void RotationMovementComponent::SetRotationRate(const float& inRate)

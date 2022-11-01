@@ -4,6 +4,7 @@
 #include "RenderSystem.h"
 #include <exception>
 
+
 SwapChain::SwapChain(HWND hwnd, UINT width, UINT height, RenderSystem* system) : m_system(system)
 {
 	ID3D11Device* device = m_system->m_d3d_device;
@@ -85,11 +86,53 @@ SwapChain::SwapChain(HWND hwnd, UINT width, UINT height, RenderSystem* system) :
 	{
 		throw std::exception("DepthBuffer not created successfully");
 	}
+
+	D3D11_RASTERIZER_DESC rastDesc; 
+	ZeroMemory(&rastDesc, sizeof(D3D11_RASTERIZER_DESC));
+	rastDesc.FillMode = fillMode;
+	rastDesc.CullMode = cullMode;
+	hr = device->CreateRasterizerState(&rastDesc, &m_rasterizer_state);
+
+	if (FAILED(hr))
+	{
+		throw std::exception("DepthBuffer not created successfully");
+	}
 }
 
 SwapChain::~SwapChain()
 {
 	m_swap_chain->Release();
+	m_rtv->Release();
+	m_dsv->Release();
+}
+
+void SwapChain::SetFillMode(D3D11_FILL_MODE fill_mode)
+{
+	fillMode = fill_mode;
+}
+
+void SwapChain::SetCullMode(D3D11_CULL_MODE cull_mode)
+{
+	cullMode = cull_mode;
+}
+
+bool SwapChain::UpdateRasterizerState()
+{
+	ID3D11Device* device = m_system->m_d3d_device;
+
+	D3D11_RASTERIZER_DESC rastDesc;
+	ZeroMemory(&rastDesc, sizeof(D3D11_RASTERIZER_DESC));
+	rastDesc.FillMode = fillMode;
+	rastDesc.CullMode = cullMode;
+	HRESULT hr = device->CreateRasterizerState(&rastDesc, &m_rasterizer_state);
+
+	if (FAILED(hr))
+	{
+		throw std::exception("Rasterizer state not updated");
+		return false;
+	}
+
+	return true;
 }
 
 bool SwapChain::present(bool vsync)

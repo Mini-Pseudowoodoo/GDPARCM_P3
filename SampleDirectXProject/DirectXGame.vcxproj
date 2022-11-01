@@ -124,6 +124,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AppWindow.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraComponent.cpp" />
+    <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="Cube.cpp" />
@@ -140,6 +143,7 @@
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="RotationMovementComponent.cpp" />
+    <ClCompile Include="SceneCamera.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
@@ -148,6 +152,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="CameraManager.h" />
+    <ClInclude Include="CameraProjection.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="Cube.h" />
@@ -162,6 +170,7 @@
     <ClInclude Include="InputListener.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="Matrix4x4.h" />
+    <ClInclude Include="Matrix4x4Constants.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="PixelShader.h" />
@@ -171,6 +180,7 @@
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="RotationMovementComponent.h" />
+    <ClInclude Include="SceneCamera.h" />
     <ClInclude Include="SwapChain.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="Vector3D.h" />

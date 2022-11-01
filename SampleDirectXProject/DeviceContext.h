@@ -11,6 +11,7 @@ public:
 	void clearDepthStencilView(SwapChain* swap_chain);
 	void setRenderTargets(SwapChain* swap_chain);
 	void setDepthStencilState(SwapChain* swap_chain);
+	void setRenderState(SwapChain* swap_chain);
 
 	void setVertexBuffer(VertexBuffer* vertex_buffer);
 	void setIndexBuffer(IndexBuffer* index_buffer);

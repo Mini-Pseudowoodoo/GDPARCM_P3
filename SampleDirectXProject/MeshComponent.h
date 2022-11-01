@@ -24,11 +24,11 @@ protected:
 	Mesh* mesh = nullptr;
 
 protected:
-	VertexBuffer* m_vb;
-	IndexBuffer* m_ib;
-	VertexShader* m_vs;
-	PixelShader* m_ps;
-	ConstantBuffer* m_cb;
+	VertexBuffer* m_vb = nullptr;
+	IndexBuffer* m_ib = nullptr;
+	VertexShader* m_vs = nullptr;
+	PixelShader* m_ps = nullptr;
+	ConstantBuffer* m_cb = nullptr;
 
 protected:
 	friend class Mesh;

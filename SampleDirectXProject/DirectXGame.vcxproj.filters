@@ -49,6 +49,12 @@
     <Filter Include="GameEngine\EntityComponentSystem">
       <UniqueIdentifier>{7cef8d5e-ff53-40de-b8e4-73e42b37f215}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\Camera">
+      <UniqueIdentifier>{8129c104-7b04-4d3b-aea7-7bee78d468f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Editor">
+      <UniqueIdentifier>{3d1e435c-33f4-4bf1-96d9-63fbd3256a44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -116,6 +122,18 @@
     </ClCompile>
     <ClCompile Include="Plane.cpp">
       <Filter>GameEngine\EntityComponentSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>GameEngine\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraManager.cpp">
+      <Filter>GameEngine\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraComponent.cpp">
+      <Filter>GameEngine\EntityComponentSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneCamera.cpp">
+      <Filter>GameEngine\Editor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -217,6 +235,24 @@
     </ClInclude>
     <ClInclude Include="Vector3DConstants.h">
       <Filter>GameEngine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>GameEngine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraManager.h">
+      <Filter>GameEngine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraProjection.h">
+      <Filter>GameEngine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4x4Constants.h">
+      <Filter>GameEngine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraComponent.h">
+      <Filter>GameEngine\EntityComponentSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneCamera.h">
+      <Filter>GameEngine\Editor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

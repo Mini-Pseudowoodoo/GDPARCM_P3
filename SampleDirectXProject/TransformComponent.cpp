@@ -33,6 +33,8 @@ Vector3D TransformComponent::GetScale() const
 void TransformComponent::SetPosition(const Vector3D& _position)
 {
 	m_position = _position;
+	if (OnSetPosition)
+		OnSetPosition();
 	UpdateTransformMatrix();
 }
  
@@ -45,7 +47,7 @@ void TransformComponent::SetEulerAngles(const Vector3D& _angles)
 
 void TransformComponent::SetRotation(const Quaternion& _rotation)
 {
-	m_rotation = _rotation;
+	m_rotation = _rotation.Normalized();
 	m_euler_angles = Quaternion::ToEuler(_rotation);
 	UpdateTransformMatrix();
 }
@@ -66,8 +68,24 @@ void TransformComponent::UpdateTransformMatrix()
 	temp.setScale(m_scale);
 	transformMatrix *= temp;
 
-	temp.setIdentity();
+	/*temp.setIdentity();
 	temp.setRotation(m_rotation);
+	transformMatrix *= temp;*/
+
+	/*temp.setIdentity();
+	temp.SetRotation(m_euler_angles);
+	transformMatrix *= temp;*/
+
+	temp.setIdentity();
+	temp.setRotationX(m_euler_angles.x);
+	transformMatrix *= temp;
+
+	temp.setIdentity();
+	temp.setRotationY(m_euler_angles.y);
+	transformMatrix *= temp;
+
+	temp.setIdentity();
+	temp.setRotationZ(m_euler_angles.z);
 	transformMatrix *= temp;
 
 	temp.setIdentity();
@@ -93,4 +111,14 @@ Matrix4x4 TransformComponent::GetWorldMatrix() const
 	}
 
 	return worldMatrix;
+}
+
+Matrix4x4 TransformComponent::GetLocalMatrix() const
+{
+	return GetWorldMatrix().GetInverse();
+}
+
+std::function<void()>& TransformComponent::GetOnSetPositionDelegate()
+{
+	return OnSetPosition;
 }

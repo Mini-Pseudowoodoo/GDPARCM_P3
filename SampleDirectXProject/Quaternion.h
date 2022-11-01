@@ -75,47 +75,63 @@ public:
 
 		if (test > threshold * unit)
 		{
-			Pitch = (2.0f * std::atan2f(q.x, q.w) * RAD_TO_DEG);
-			Yaw = -90.0f;
+			Yaw = (2.0f * std::atan2f(q.x, q.w) * RAD_TO_DEG);
+			Pitch = -90.0f;
 			Roll = 0;
 		}
 		else if (test < -threshold * unit)
 		{
-			Pitch = (-2.0f * std::atan2f(q.x, q.w) * RAD_TO_DEG);
-			Yaw = 90.0f;
+			Yaw = (-2.0f * std::atan2f(q.x, q.w) * RAD_TO_DEG);
+			Pitch = 90.0f;
 			Roll = 0;
 		}
 		else
 		{
-			Pitch = std::atan2f(YawY, YawX) * RAD_TO_DEG;
-			Yaw = std::asinf(2.0f * test / unit) * RAD_TO_DEG;
+			Yaw = std::atan2f(YawY, YawX) * RAD_TO_DEG;
+			Pitch = std::asinf(2.0f * test / unit) * RAD_TO_DEG;
 			Roll = std::atan2f(RollY, RollX) * RAD_TO_DEG;
 		}
 
-		return Vector3D(Pitch, Yaw, Roll);
+		return Vector3D(Yaw, Pitch, Roll);
 	}
 
 	static Quaternion FromEuler(const Vector3D& euler)
 	{
-		constexpr float RADS_DIVIDED_BY_2 = DEG_TO_RAD / 2.0f;
+		//constexpr float RADS_DIVIDED_BY_2 = DEG_TO_RAD / 2.0f;
 
-		Vector3D e = Vector3D(euler);
-		e.x = EngineMathOperations::FMod(euler.x, 360.0f) * RADS_DIVIDED_BY_2;
-		e.y = EngineMathOperations::FMod(euler.y, 360.0f) * RADS_DIVIDED_BY_2;
-		e.z = EngineMathOperations::FMod(euler.z, 360.0f) * RADS_DIVIDED_BY_2;
+		Vector3D e = Vector3D(euler) * DEG_TO_RAD;
+		//e.x = EngineMathOperations::FMod(euler.x, 360.0f) * DEG_TO_RAD;
+		//e.y = EngineMathOperations::FMod(euler.y, 360.0f) * DEG_TO_RAD;
+		//e.z = EngineMathOperations::FMod(euler.z, 360.0f) * DEG_TO_RAD;
 
-		const float sr = std::sinf(e.x); // Pitch
-		const float cr = std::cosf(e.x); // Pitch
-		const float sp = std::sinf(e.y); // Yaw
-		const float cp = std::cosf(e.y); // Yaw
-		const float sy = std::sinf(e.z); // Roll
-		const float cy = std::cosf(e.z); // Roll
+		//const float sr = std::sinf(e.x / 2.0f); // Pitch
+		//const float cr = std::cosf(e.x / 2.0f); // Pitch
+		//const float sp = std::sinf(e.y / 2.0f); // Yaw
+		//const float cp = std::cosf(e.y / 2.0f); // Yaw
+		//const float sy = std::sinf(e.z / 2.0f); // Roll
+		//const float cy = std::cosf(e.z / 2.0f); // Roll
+
+		float c1, c2, c3;
+		float s1, s2, s3;
+
+		c1 = std::cosf(e.x / 2);
+		c2 = std::cosf(e.y / 2);
+		c3 = std::cosf(e.z / 2);
+
+		s1 = std::sinf(e.x / 2);
+		s2 = std::sinf(e.y / 2);
+		s3 = std::sinf(e.z / 2);
 
 		Quaternion q;
-		q.x = cr * sp * sy - sr * cp * cy;
+		/*q.x = cr * sp * sy - sr * cp * cy;
 		q.y = cr * sp * cy - sr * cp * sy;
 		q.z = cr * cp * sy - sr * sp * cy;
-		q.w = cr * cp * cy + sr * sp * sy;
+		q.w = cr * cp * cy + sr * sp * sy;*/
+
+		q.w = c1 * c2 * c3 - s1 * s2 * s3;
+		q.x = s1 * s2 * c3 + c1 * c2 * s3;
+		q.y = s1 * c2 * c3 + c1 * s2 * s3;
+		q.z = c1 * s2 * c3 - s1 * c2 * s3;
 
 		return q;
 	}
