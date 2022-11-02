@@ -12,6 +12,7 @@
 #include "ConstantBuffer.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
+#include "IMObjectProperty.h"
 
 class GameObject;
 class AppWindow: public Window
@@ -47,5 +48,7 @@ private:
 	std::vector<GameObject*> gameObjects;
 
 	class SceneCamera* sceneCamera = nullptr;
+
+	IMObjectProperty* imObjProp;
 };
 

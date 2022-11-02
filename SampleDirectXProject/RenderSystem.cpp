@@ -146,3 +146,13 @@ DeviceContext* RenderSystem::getImmediateDeviceContext()
 {
 	return this->m_imm_device_context;
 }
+
+ID3D11DeviceContext* RenderSystem::getID3D11DeviceContext()
+{
+	return this->m_imm_context;
+}
+
+ID3D11Device* RenderSystem::getDevice()
+{
+	return this->m_d3d_device;
+}

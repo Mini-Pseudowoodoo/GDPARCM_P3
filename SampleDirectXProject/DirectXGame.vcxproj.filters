@@ -55,6 +55,12 @@
     <Filter Include="GameEngine\Editor">
       <UniqueIdentifier>{3d1e435c-33f4-4bf1-96d9-63fbd3256a44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\ImGui">
+      <UniqueIdentifier>{2a65c0d9-4c73-4f3b-9278-2610608c1e86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\ImGuiWindow">
+      <UniqueIdentifier>{861b3101-c993-447b-970c-39ad272896a6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -137,6 +143,27 @@
     </ClCompile>
     <ClCompile Include="SimpleMath.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="ImGui\imgui.cpp">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_draw.cpp">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_dx11.cpp">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_win32.cpp">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_tables.cpp">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_widgets.cpp">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="IMObjectProperty.cpp">
+      <Filter>GameEngine\ImGuiWindow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -240,6 +267,33 @@
     </ClInclude>
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="ImGui\imconfig.h">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui.h">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_dx11.h">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_win32.h">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_internal.h">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_rectpack.h">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_textedit.h">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_truetype.h">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="IMObjectProperty.h">
+      <Filter>GameEngine\ImGuiWindow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">

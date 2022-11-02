@@ -17,6 +17,14 @@
 
 #include "SceneCamera.h"
 
+// IMGUI
+#include <ctype.h> 
+#include <limits.h> 
+#include <math.h> 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+
 #include <Windows.h>
 
 AppWindow::AppWindow()
@@ -37,6 +45,7 @@ AppWindow* AppWindow::Get()
 void AppWindow::Initialize()
 {
 	sharedInstance = new AppWindow();
+	
 }
 
 void AppWindow::update()
@@ -128,6 +137,10 @@ void AppWindow::onCreate()
 	gameObject_1 = GameObject::Instantiate();
 	gameObject_1->transform->SetPosition(Vector3D(0, 0, 0));
 	gameObject_1->GetComponent<MeshComponent>()->SetMesh(cube);*/
+
+	// Create ImGui Windows
+	imObjProp = new IMObjectProperty();
+	imObjProp->Initialize(this->m_hwnd);
 }
 
 void AppWindow::onUpdate()
@@ -150,6 +163,9 @@ void AppWindow::onUpdate()
 	{
 		gameObject->Update(deltaTime);
 	}
+
+	// Render ImGui
+	imObjProp->Render();
 
 	m_swap_chain->present(true);
 }
