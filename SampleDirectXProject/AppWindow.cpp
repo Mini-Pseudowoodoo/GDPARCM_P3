@@ -165,7 +165,7 @@ void AppWindow::onUpdate()
 	}
 
 	// Render ImGui
-	imObjProp->Render();
+	imObjProp->Render(sceneCamera->GetSelectedObj());
 
 	m_swap_chain->present(true);
 }

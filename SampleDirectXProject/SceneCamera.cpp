@@ -52,6 +52,11 @@ void SceneCamera::Update(float deltaTime)
 	}
 }
 
+GameObject* SceneCamera::GetSelectedObj()
+{
+	return selectedObj;
+}
+
 void SceneCamera::onKeyDown(int key)
 {
 	if (key == 'W')
@@ -179,7 +184,13 @@ void SceneCamera::onLeftMouseButtonUp(const Point& mouse_pos)
 
 				if (bounds.Intersects(r.position, r.direction, dist))
 				{
+					selectedObj = obj;
 					std::cout << obj->GetName() << std::endl;
+					return;
+				}
+				else
+				{
+					selectedObj = NULL;
 				}
 
 				/*if (CheckIntersect(r.position, r.direction, 1.0f))

@@ -16,6 +16,9 @@ public:
 	void Start() override;
 	void Update(float deltaTime) override;
 	
+public:
+	GameObject* GetSelectedObj();
+
 private:
 	CameraComponent* camera = nullptr;
 
@@ -36,5 +39,7 @@ private:
 	bool lmbDown = false;
 	float cameraSpeed = 0.1f;
 	float cameraRotSpeed = 0.1f;
+
+	GameObject* selectedObj;
 };
 

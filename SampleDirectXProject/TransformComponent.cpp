@@ -1,6 +1,6 @@
 ﻿#include "TransformComponent.h"
 #include "GameObject.h"
-
+#include <iostream>
 TransformComponent::TransformComponent() : Component()
 {
 	m_scale = Vector3::One;

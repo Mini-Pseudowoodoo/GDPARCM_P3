@@ -23,7 +23,7 @@ void IMObjectProperty::Initialize(HWND hwnd)
 	ImGui::StyleColorsDark();
 }
 
-void IMObjectProperty::Render()
+void IMObjectProperty::Render(GameObject* selectedObj)
 {
 	// Start Dear ImGui Frame
 	ImGui_ImplDX11_NewFrame();
@@ -31,10 +31,32 @@ void IMObjectProperty::Render()
 	ImGui::NewFrame();
 	// Create ImGui Window;
 	ImGui::Begin("Object Property");
+
+	string objName;
+	if (selectedObj == NULL)
+		objName = "N/A";
+	else
+		objName = selectedObj->GetName();
+
+	string selectedObjTxt = "Selected Object: " + objName;
+	ImGui::Text(selectedObjTxt.c_str());
+
+	if (selectedObj != NULL)
+	{
+		// Object Transform
+		TransformComponent* objTransform = selectedObj->GetTransform();
+
+		// Position
+		Vector3 objPos = objTransform->GetPosition();
+		static float pos[3] = { objPos.x, objPos.y,  objPos.z };
+		ImGui::DragFloat3("Position", pos, 0.1f, -10.0f, 10.0f);
+		objTransform->SetPosition(Vector3(pos[0], pos[1], pos[2]));
+	}
+	
 	ImGui::End();
 	// Assemble Draw Data
 	ImGui::Render();
 	// Render Draw Data
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	
 }
-
