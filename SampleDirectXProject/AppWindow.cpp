@@ -146,7 +146,6 @@ void AppWindow::onCreate()
 void AppWindow::onUpdate()
 {
 	Window::onUpdate();
-	InputSystem::get()->update();
 
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain, 0.5f, 0.5f,0.5f, 1);
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->clearDepthStencilView(this->m_swap_chain);
@@ -166,6 +165,7 @@ void AppWindow::onUpdate()
 
 	// Render ImGui
 	imObjProp->Render(sceneCamera->GetSelectedObj());
+	InputSystem::get()->update();
 
 	m_swap_chain->present(true);
 }

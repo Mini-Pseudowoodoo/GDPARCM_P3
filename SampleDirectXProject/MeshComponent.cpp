@@ -90,7 +90,7 @@ void MeshComponent::SetMesh(Mesh* inMesh)
 	}
 
 	BoundingBox::CreateFromPoints(bounds, mesh->size_list, points, sizeof(Vector3));
-	BoundingSphere::CreateFromPoints(sphereBounds, mesh->size_list, points, sizeof(Vector3));
+	//BoundingSphere::CreateFromPoints(sphereBounds, mesh->size_list, points, sizeof(Vector3));
 
 	//sphereBounds = BoundingSphere(Vector3::Zero, 1.f);
 
@@ -120,8 +120,19 @@ void MeshComponent::SetMesh(Mesh* inMesh)
 
 void MeshComponent::CalculateBounds()
 {
+	if (!mesh)
+		return;
+
+	Vector3* points = new Vector3[mesh->size_list];
+
+	for (size_t i = 0; i < mesh->size_list; i++)
+	{
+		points[i] = mesh->vertices[i].position;
+	}
+
+	BoundingBox::CreateFromPoints(bounds, mesh->size_list, points, sizeof(Vector3));
 	bounds.Transform(bounds, GetOwner()->GetTransform()->GetWorldMatrix());
-	sphereBounds.Transform(sphereBounds, GetOwner()->GetTransform()->GetWorldMatrix());
+	//sphereBounds.Transform(sphereBounds, GetOwner()->GetTransform()->GetWorldMatrix());
 
 	//std::cout << "Extents: ";
 	//std::cout << "X: " << bounds.Extents.x << " Y: " << bounds.Extents.y << " Z: " << bounds.Extents.z << std::endl;

@@ -1,4 +1,6 @@
 #include "IMObjectProperty.h"
+#include "InputSystem.h"
+#include <iostream>
 
 IMObjectProperty::IMObjectProperty()
 {
@@ -51,6 +53,11 @@ void IMObjectProperty::Render(GameObject* selectedObj)
 		static float pos[3] = { objPos.x, objPos.y,  objPos.z };
 		ImGui::DragFloat3("Position", pos, 0.1f, -10.0f, 10.0f);
 		objTransform->SetPosition(Vector3(pos[0], pos[1], pos[2]));
+
+		if (ImGui::IsItemClicked(0))
+		{
+			InputSystem::get()->ConsumeLeftMouseButton();
+		}
 	}
 	
 	ImGui::End();

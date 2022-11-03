@@ -139,32 +139,12 @@ void SceneCamera::onLeftMouseButtonDown(const Point& mouse_pos)
 	}
 }
 
-bool CheckIntersect(Vector3 rayOrigin, Vector3 rayDirection, float radius)
-{
-	float a, b, c, discriminant;
-
-	// Calculate the a, b, and c coefficients.
-	a = (rayDirection.x * rayDirection.x) + (rayDirection.y * rayDirection.y) + (rayDirection.z * rayDirection.z);
-	b = ((rayDirection.x * rayOrigin.x) + (rayDirection.y * rayOrigin.y) + (rayDirection.z * rayOrigin.z)) * 2.0f;
-	c = ((rayOrigin.x * rayOrigin.x) + (rayOrigin.y * rayOrigin.y) + (rayOrigin.z * rayOrigin.z)) - (radius * radius);
-
-	// Find the discriminant.
-	discriminant = (b * b) - (4 * a * c);
-
-	// if discriminant is negative the picking ray missed the sphere, otherwise it intersected the sphere.
-	if (discriminant < 0.0f)
-	{
-		return false;
-	}
-
-	return true;
-}
-
 void SceneCamera::onLeftMouseButtonUp(const Point& mouse_pos)
 {
 	if (lmbDown)
 	{
 		lmbDown = false;
+
 
 		Point p = InputSystem::get()->GetMousePositionInWindow();
 		//std::cout << "X: " << p.x << " Y: " << p.y << std::endl;
@@ -173,6 +153,8 @@ void SceneCamera::onLeftMouseButtonUp(const Point& mouse_pos)
 		//std::cout << "X: " << r.direction.x << " Y: " << r.direction.y << " Z: " << r.direction.z << std::endl;
 
 		const Vector3& pos = r.position;
+
+		selectedObj = nullptr;
 
 		for (GameObject* obj : AppWindow::Get()->GetGameObjects())
 		{
@@ -187,10 +169,6 @@ void SceneCamera::onLeftMouseButtonUp(const Point& mouse_pos)
 					selectedObj = obj;
 					std::cout << obj->GetName() << std::endl;
 					return;
-				}
-				else
-				{
-					selectedObj = NULL;
 				}
 
 				/*if (CheckIntersect(r.position, r.direction, 1.0f))

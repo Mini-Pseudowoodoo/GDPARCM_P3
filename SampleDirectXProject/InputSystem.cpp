@@ -42,7 +42,7 @@ void InputSystem::update()
 				auto it = m_set_listeners.begin();
 				while (it != m_set_listeners.end()) {
 
-					if(i == VK_LBUTTON)
+					if(i == VK_LBUTTON && !lmbConsumed)
 					{
 						if (m_keys_state[i] != m_old_keys_state[i])
 							(*it)->onLeftMouseButtonDown(Point(current_mouse_pos.x, current_mouse_pos.y));
@@ -82,6 +82,8 @@ void InputSystem::update()
 
 		::memcpy(m_old_keys_state, m_keys_state, sizeof(unsigned char) * 256);
 	}
+
+	lmbConsumed = false;
 }
 
 void InputSystem::addListener(InputListener* listener)
@@ -117,4 +119,9 @@ InputSystem* InputSystem::get()
 {
 	static InputSystem system;
 	return &system;
+}
+
+void InputSystem::ConsumeLeftMouseButton()
+{
+	lmbConsumed = true;
 }

@@ -1,6 +1,8 @@
 ﻿#include "TransformComponent.h"
+#include "MeshComponent.h"
 #include "GameObject.h"
 #include <iostream>
+
 TransformComponent::TransformComponent() : Component()
 {
 	m_scale = Vector3::One;
@@ -84,6 +86,11 @@ void TransformComponent::UpdateTransformMatrix()
 	temp = Matrix::Identity;
 	temp = Matrix::CreateTranslation(m_position);
 	transformMatrix *= temp;
+
+	if (MeshComponent* mesh = GetOwner()->GetComponent<MeshComponent>())
+	{
+		mesh->CalculateBounds();
+	}
 }
 
 Matrix TransformComponent::GetTransformationMatrix()
