@@ -49,10 +49,20 @@ void IMObjectProperty::Render(GameObject* selectedObj)
 		TransformComponent* objTransform = selectedObj->GetTransform();
 
 		// Position
-		Vector3 objPos = objTransform->GetPosition();
-		static float pos[3] = { objPos.x, objPos.y,  objPos.z };
-		ImGui::DragFloat3("Position", pos, 0.1f, -10.0f, 10.0f);
+		Vector3 origPos = objTransform->GetPosition();
+		static float pos[3] = { origPos.x, origPos.y,  origPos.z };
+		ImGui::DragFloat3("Position", pos, 0.05f, -10.0f, 10.0f);
 		objTransform->SetPosition(Vector3(pos[0], pos[1], pos[2]));
+
+		Quaternion origRot = objTransform->GetRotation();
+		static float rot[3] = { origRot.x, origRot.y, origRot.z };
+		ImGui::DragFloat3("Rotation", rot, 0.01f, -1.0f, 1.0f);
+		objTransform->SetRotation(Quaternion(rot[0], rot[1], rot[2], 1.0f));
+
+		Vector3 origScale = objTransform->GetScale();
+		static float scale[3] = { origScale.x, origScale.y, origScale.z };
+		ImGui::DragFloat3("Scale", scale, 0.05f, 0.0f, 10.0f);
+		objTransform->SetScale(Vector3(scale[0], scale[1], scale[2]));
 
 		if (ImGui::IsItemClicked(0))
 		{
