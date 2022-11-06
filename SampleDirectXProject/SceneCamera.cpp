@@ -156,6 +156,15 @@ void SceneCamera::onLeftMouseButtonUp(const Point& mouse_pos)
 
 		selectedObj = nullptr;
 
+		// Toggle off all outline effect
+		for (GameObject* obj : AppWindow::Get()->GetGameObjects())
+		{
+			if (MeshComponent* mesh = obj->GetComponent<MeshComponent>())
+			{
+				mesh->SetOutlined(false);
+			}
+		}
+
 		for (GameObject* obj : AppWindow::Get()->GetGameObjects())
 		{
 			if (MeshComponent* mesh = obj->GetComponent<MeshComponent>())
@@ -166,6 +175,7 @@ void SceneCamera::onLeftMouseButtonUp(const Point& mouse_pos)
 
 				if (bounds.Intersects(r.position, r.direction, dist))
 				{
+					mesh->SetOutlined(true);
 					selectedObj = obj;
 					std::cout << obj->GetName() << std::endl;
 					return;

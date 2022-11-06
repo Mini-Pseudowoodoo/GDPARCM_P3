@@ -72,9 +72,16 @@ void MeshComponent::Update(float deltaTime)
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexShader(m_vs);
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setPixelShader(m_ps);
 
-	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setIndexBuffer(m_ib);
 
+	// Draw Outline
+	if (isOutlined)
+	{
+		GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(m_vb_outline);
+		GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList(m_ib->getSizeIndexList(), 0, 0);
+	}
+	
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList(m_ib->getSizeIndexList(), 0, 0);
 }
 
@@ -104,6 +111,18 @@ void MeshComponent::SetMesh(Mesh* inMesh)
 	GraphicsEngine::get()->getRenderSystem()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
 
 	m_vs = GraphicsEngine::get()->getRenderSystem()->createVertexShader(shader_byte_code, size_shader);
+
+	Mesh mesh_outline;
+	for (vertex const mesh_ver : mesh->vertices)
+	{
+		vertex ver;
+
+		ver.position = mesh_ver.position * 1.05f;
+		ver.color = Vector3(1, 0.5f, 0);
+		mesh_outline.vertices.push_back(ver);
+	}
+
+	m_vb_outline = GraphicsEngine::get()->getRenderSystem()->createVertexBuffer(&mesh_outline.vertices[0], sizeof(vertex), mesh->size_list, shader_byte_code, size_shader);
 	m_vb = GraphicsEngine::get()->getRenderSystem()->createVertexBuffer(&mesh->vertices[0], sizeof(vertex), mesh->size_list, shader_byte_code, size_shader);
 
 	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
@@ -146,4 +165,9 @@ const BoundingBox& MeshComponent::GetBounds() const
 const BoundingSphere& MeshComponent::GetSphereBounds() const
 {
 	return sphereBounds;
+}
+
+void MeshComponent::SetOutlined(bool flag)
+{
+	isOutlined = flag;
 }

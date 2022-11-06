@@ -28,10 +28,12 @@ public:
 	const BoundingBox& GetBounds() const;
 	const BoundingSphere& GetSphereBounds() const;
 
+	void SetOutlined(bool flag);
 protected:
 	Mesh* mesh = nullptr;
 
 protected:
+	VertexBuffer* m_vb_outline = nullptr;
 	VertexBuffer* m_vb = nullptr;
 	IndexBuffer* m_ib = nullptr;
 	VertexShader* m_vs = nullptr;
@@ -40,7 +42,8 @@ protected:
 
 	BoundingBox bounds;
 	BoundingSphere sphereBounds;
-
+private:
+	bool isOutlined = false;
 protected:
 	friend class Mesh;
 };
