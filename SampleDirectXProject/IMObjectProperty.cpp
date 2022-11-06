@@ -1,6 +1,7 @@
 #include "IMObjectProperty.h"
 #include "InputSystem.h"
 #include <iostream>
+#include "EngineMathConstants.h"
 
 IMObjectProperty::IMObjectProperty()
 {
@@ -50,8 +51,8 @@ void IMObjectProperty::Render(GameObject* selectedObj)
 
 		// Position
 		Vector3 origPos = objTransform->GetPosition();
-		static float pos[3] = { origPos.x, origPos.y,  origPos.z };
-		ImGui::DragFloat3("Position", pos, 0.05f, -10.0f, 10.0f);
+		pos = new float[3]{ origPos.x, origPos.y,  origPos.z };
+		ImGui::DragFloat3("Position", pos, 0.1f, 0.0f, 0.0f);
 		objTransform->SetPosition(Vector3(pos[0], pos[1], pos[2]));
 
 		if (ImGui::IsItemClicked(0) || (ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()))
@@ -60,9 +61,10 @@ void IMObjectProperty::Render(GameObject* selectedObj)
 		}
 
 		Quaternion origRot = objTransform->GetRotation();
-		static float rot[3] = { origRot.x, origRot.y, origRot.z };
-		ImGui::DragFloat3("Rotation", rot, 0.01f, -1.0f, 1.0f);
-		objTransform->SetRotation(Quaternion(rot[0], rot[1], rot[2], 1.0f));
+		rot = new float[3]{ origRot.x, origRot.y, origRot.z };
+		ImGui::DragFloat3("Rotation", rot, 0.1f, -360.0f, 360.0f);
+		//objTransform->SetRotation(Quaternion(rot[0], rot[1], rot[2], 1.0f));
+		objTransform->SetEulerAngles(Vector3(rot[0], rot[1], rot[2]) * DEG_TO_RAD);
 
 		if (ImGui::IsItemClicked(0) || (ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()))
 		{
@@ -70,8 +72,8 @@ void IMObjectProperty::Render(GameObject* selectedObj)
 		}
 
 		Vector3 origScale = objTransform->GetScale();
-		static float scale[3] = { origScale.x, origScale.y, origScale.z };
-		ImGui::DragFloat3("Scale", scale, 0.05f, 0.0f, 10.0f);
+		scale = new float[3]{ origScale.x, origScale.y, origScale.z };
+		ImGui::DragFloat3("Scale", scale, 0.1f, 0.0f, 0.0f);
 		objTransform->SetScale(Vector3(scale[0], scale[1], scale[2]));
 
 		if (ImGui::IsItemClicked(0) || (ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()))

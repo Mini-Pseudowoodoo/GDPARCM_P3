@@ -73,33 +73,21 @@ void MeshComponent::Update(float deltaTime)
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setPixelShader(m_ps);
 
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setIndexBuffer(m_ib);
-
-	// Draw Outline
-	if (isOutlined)
-	{
-		GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(m_vb_outline);
-		GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList(m_ib->getSizeIndexList(), 0, 0);
-	}
 	
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList(m_ib->getSizeIndexList(), 0, 0);
+
+	if (isOutlined)
+	{
+		GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(m_ps_outline, m_cb);
+		GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setPixelShader(m_ps_outline);
+		GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList_Line(m_ib->getSizeIndexList(), 0, 0);
+	}
 }
 
 void MeshComponent::SetMesh(Mesh* inMesh)
 {
 	mesh = inMesh;
-
-	Vector3* points = new Vector3[mesh->size_list];
-
-	for (size_t i = 0; i < mesh->size_list; i++)
-	{
-		points[i] = mesh->vertices[i].position;
-	}
-
-	BoundingBox::CreateFromPoints(bounds, mesh->size_list, points, sizeof(Vector3));
-	//BoundingSphere::CreateFromPoints(sphereBounds, mesh->size_list, points, sizeof(Vector3));
-
-	//sphereBounds = BoundingSphere(Vector3::Zero, 1.f);
 
 	CalculateBounds();
 
@@ -131,6 +119,10 @@ void MeshComponent::SetMesh(Mesh* inMesh)
 	m_ps = GraphicsEngine::get()->getRenderSystem()->createPixelShader(shader_byte_code, size_shader);
 	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
 
+	GraphicsEngine::get()->getRenderSystem()->compilePixelShader(L"PS_Outline.hlsl", "psmain", &shader_byte_code, &size_shader);
+	m_ps_outline = GraphicsEngine::get()->getRenderSystem()->createPixelShader(shader_byte_code, size_shader);
+	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
+
 	constant cc;
 	cc.m_time = 0;
 
@@ -157,14 +149,15 @@ void MeshComponent::CalculateBounds()
 	//std::cout << "X: " << bounds.Extents.x << " Y: " << bounds.Extents.y << " Z: " << bounds.Extents.z << std::endl;
 }
 
-const BoundingBox& MeshComponent::GetBounds() const
+BoundingBox MeshComponent::GetBounds() const
 {
 	return bounds;
 }
 
-const BoundingSphere& MeshComponent::GetSphereBounds() const
+
+bool MeshComponent::GetOutlined() const
 {
-	return sphereBounds;
+	return isOutlined;
 }
 
 void MeshComponent::SetOutlined(bool flag)

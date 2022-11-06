@@ -25,9 +25,9 @@ public:
 	void SetMesh(Mesh* inMesh);
 
 	void CalculateBounds();
-	const BoundingBox& GetBounds() const;
-	const BoundingSphere& GetSphereBounds() const;
+	BoundingBox GetBounds() const;
 
+	bool GetOutlined() const;
 	void SetOutlined(bool flag);
 protected:
 	Mesh* mesh = nullptr;
@@ -38,10 +38,10 @@ protected:
 	IndexBuffer* m_ib = nullptr;
 	VertexShader* m_vs = nullptr;
 	PixelShader* m_ps = nullptr;
+	PixelShader* m_ps_outline = nullptr;
 	ConstantBuffer* m_cb = nullptr;
 
 	BoundingBox bounds;
-	BoundingSphere sphereBounds;
 private:
 	bool isOutlined = false;
 protected:

@@ -38,6 +38,7 @@ public:
 
 public:
 	const std::vector<GameObject*>& GetGameObjects() const;
+	SwapChain* GetSwapChain() const;
 private:
 	SwapChain * m_swap_chain;
 

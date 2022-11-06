@@ -20,4 +20,9 @@ public:
 public:
 	void Initialize(HWND hwnd);
 	void Render(GameObject* selectedObj);
+
+private:
+	float* pos;
+	float* rot;
+	float* scale;
 };

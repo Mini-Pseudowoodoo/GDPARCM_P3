@@ -11,7 +11,7 @@ SwapChain::SwapChain(HWND hwnd, UINT width, UINT height, RenderSystem* system) :
 
 	DXGI_SWAP_CHAIN_DESC desc;
 	ZeroMemory(&desc, sizeof(desc));
-	desc.BufferCount = 1;
+	desc.BufferCount = 2;
 	desc.BufferDesc.Width = width;
 	desc.BufferDesc.Height = height;
 	desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -77,9 +77,9 @@ SwapChain::SwapChain(HWND hwnd, UINT width, UINT height, RenderSystem* system) :
 	D3D11_DEPTH_STENCIL_DESC depthStencildesc;
 	ZeroMemory(&depthStencildesc, sizeof(D3D11_DEPTH_STENCIL_DESC));
 
-	depthStencildesc.DepthEnable = false;
-	depthStencildesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK::D3D11_DEPTH_WRITE_MASK_ALL;
-	depthStencildesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS_EQUAL;
+	depthStencildesc.DepthEnable = true;
+	depthStencildesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	depthStencildesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
 	depthStencildesc.StencilReadMask = D3D11_DEFAULT_STENCIL_READ_MASK;
 	depthStencildesc.StencilWriteMask = D3D11_DEFAULT_STENCIL_WRITE_MASK;
 	depthStencildesc.StencilEnable = true;
@@ -93,7 +93,7 @@ SwapChain::SwapChain(HWND hwnd, UINT width, UINT height, RenderSystem* system) :
 	depthStencildesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
 	depthStencildesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_INCR_SAT;
 
-	depthStencildesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_GREATER;
+	//depthStencildesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_GREATER;
 
 
 	hr = m_system->m_d3d_device->CreateDepthStencilState(&depthStencildesc, &m_dss);
@@ -121,14 +121,47 @@ SwapChain::~SwapChain()
 	m_dsv->Release();
 }
 
+void SwapChain::SetDepthEnabled(bool enable)
+{
+	D3D11_DEPTH_STENCIL_DESC depthStencildesc;
+	ZeroMemory(&depthStencildesc, sizeof(D3D11_DEPTH_STENCIL_DESC));
+
+	depthStencildesc.DepthEnable = enable;
+	depthStencildesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	depthStencildesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
+	depthStencildesc.StencilReadMask = D3D11_DEFAULT_STENCIL_READ_MASK;
+	depthStencildesc.StencilWriteMask = D3D11_DEFAULT_STENCIL_WRITE_MASK;
+	depthStencildesc.StencilEnable = true;
+
+	depthStencildesc.BackFace.StencilFunc = D3D11_COMPARISON_NEVER;
+	depthStencildesc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;
+	depthStencildesc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	depthStencildesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	depthStencildesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+	depthStencildesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;
+	depthStencildesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	depthStencildesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_INCR_SAT;
+
+	//depthStencildesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_GREATER;
+
+
+	HRESULT hr = m_system->m_d3d_device->CreateDepthStencilState(&depthStencildesc, &m_dss);
+	if (FAILED(hr))
+	{
+		throw std::exception("DepthBuffer not created successfully");
+	}
+}
+
 void SwapChain::SetFillMode(D3D11_FILL_MODE fill_mode)
 {
 	fillMode = fill_mode;
+	UpdateRasterizerState();
 }
 
 void SwapChain::SetCullMode(D3D11_CULL_MODE cull_mode)
 {
 	cullMode = cull_mode;
+	UpdateRasterizerState();
 }
 
 bool SwapChain::UpdateRasterizerState()

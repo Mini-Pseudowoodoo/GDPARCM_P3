@@ -59,7 +59,9 @@ GameObject* SceneCamera::GetSelectedObj()
 
 void SceneCamera::onKeyDown(int key)
 {
-	if (key == 'W')
+	if (rmbDown)
+	{
+		if (key == 'W')
 	{
 		input.z = 1.0f;
 	}
@@ -87,6 +89,7 @@ void SceneCamera::onKeyDown(int key)
 	else if (key == 'E')
 	{
 		input.y = 1.0f;
+	}
 	}
 
 	/*if (key == '1')

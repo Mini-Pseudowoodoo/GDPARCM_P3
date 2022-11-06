@@ -57,6 +57,11 @@ const std::vector<GameObject*>& AppWindow::GetGameObjects() const
 	return gameObjects;
 }
 
+SwapChain* AppWindow::GetSwapChain() const
+{
+	return m_swap_chain;
+}
+
 void AppWindow::onCreate()
 {
 	Window::onCreate();
@@ -81,15 +86,16 @@ void AppWindow::onCreate()
 	rot_2->SetRotationRate(360.0f);*/
 
 	gameObject_0 = GameObject::Instantiate();
-	gameObject_0->SetName("Plane");
+	gameObject_0->SetName("Cube 0");
 	
 	MeshComponent* mesh_0 = new MeshComponent();
+	gameObject_0->GetTransform()->SetPosition(Vector3::Zero);
 	gameObject_0->AttachComponent(mesh_0);
-	mesh_0->SetMesh(plane);
+	mesh_0->SetMesh(cube);
 
 	gameObject_1 = GameObject::Instantiate();
-	gameObject_1->GetTransform()->SetPosition(Vector3::Zero);
-	gameObject_1->SetName("Cube");
+	gameObject_1->GetTransform()->SetPosition(Vector3::One);
+	gameObject_1->SetName("Cube 1");
 
 	MeshComponent* mesh_1 = new MeshComponent();
 	gameObject_1->AttachComponent(mesh_1);
@@ -101,7 +107,7 @@ void AppWindow::onCreate()
 	gameObject_0->AttachComponent(rot_0);*/
 
 	gameObjects.push_back(gameObject_1);
-	//gameObjects.push_back(gameObject_0);
+	gameObjects.push_back(gameObject_0);
 
 	/*gameObject_1 = GameObject::Instantiate();
 	gameObject_1->GetTransform()->SetPosition({ 1, 0, 1 });
@@ -157,6 +163,7 @@ void AppWindow::onUpdate()
 
 	const float deltaTime = EngineTime::getDeltaTime();
 
+	m_swap_chain->SetFillMode(D3D11_FILL_SOLID);
 	// Update scene camera
 	sceneCamera->Update(deltaTime);
 
