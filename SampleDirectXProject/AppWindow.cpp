@@ -101,13 +101,15 @@ void AppWindow::onCreate()
 	gameObject_1->AttachComponent(mesh_1);
 	mesh_1->SetMesh(cube);
 
+	gameObject_0->AttachChild(gameObject_1);
+
 	/*RotationMovementComponent* rot_0 = new RotationMovementComponent();
 	rot_0->SetRotationRate(1.0f);
 	rot_0->SetAxis(Vector3D::upVector);
 	gameObject_0->AttachComponent(rot_0);*/
 
-	gameObjects.push_back(gameObject_1);
 	gameObjects.push_back(gameObject_0);
+	gameObjects.push_back(gameObject_1);
 
 	/*gameObject_1 = GameObject::Instantiate();
 	gameObject_1->GetTransform()->SetPosition({ 1, 0, 1 });

@@ -47,6 +47,8 @@ void MeshComponent::Start()
 
 void MeshComponent::Update(float deltaTime)
 {
+	CalculateBounds();
+
 	constant cc;
 	cc.m_time = deltaTime;
 

@@ -60,7 +60,7 @@ void IMObjectProperty::Render(GameObject* selectedObj)
 			InputSystem::get()->ConsumeLeftMouseButton();
 		}
 
-		Quaternion origRot = objTransform->GetRotation();
+		Vector3 origRot = objTransform->GetEulerAngles() * RAD_TO_DEG;
 		rot = new float[3]{ origRot.x, origRot.y, origRot.z };
 		ImGui::DragFloat3("Rotation", rot, 0.1f, -360.0f, 360.0f);
 		//objTransform->SetRotation(Quaternion(rot[0], rot[1], rot[2], 1.0f));

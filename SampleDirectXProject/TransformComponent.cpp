@@ -87,10 +87,10 @@ void TransformComponent::UpdateTransformMatrix()
 	temp = Matrix::CreateTranslation(m_position);
 	transformMatrix *= temp;
 
-	if (MeshComponent* mesh = GetOwner()->GetComponent<MeshComponent>())
+	/*if (MeshComponent* mesh = GetOwner()->GetComponent<MeshComponent>())
 	{
 		mesh->CalculateBounds();
-	}
+	}*/
 }
 
 Matrix TransformComponent::GetTransformationMatrix()
