@@ -147,8 +147,10 @@ void AppWindow::onCreate()
 	gameObject_1->GetComponent<MeshComponent>()->SetMesh(cube);*/
 
 	// Create ImGui Windows
-	imObjProp = new IMObjectProperty();
-	imObjProp->Initialize(this->m_hwnd);
+	//imObjProp = new IMObjectProperty();
+	//imObjProp->Initialize(this->m_hwnd);
+
+	UIManager::Initialize(this->m_hwnd);
 }
 
 void AppWindow::onUpdate()
@@ -175,7 +177,10 @@ void AppWindow::onUpdate()
 	}
 
 	// Render ImGui
-	imObjProp->Render(sceneCamera->GetSelectedObj());
+	//imObjProp->Render(sceneCamera->GetSelectedObj());
+
+	// Draw UI
+	UIManager::Get()->DrawAllUI();
 	InputSystem::get()->update();
 
 	m_swap_chain->present(true);

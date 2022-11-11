@@ -58,8 +58,11 @@
     <Filter Include="GameEngine\ImGui">
       <UniqueIdentifier>{2a65c0d9-4c73-4f3b-9278-2610608c1e86}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameEngine\ImGuiWindow">
-      <UniqueIdentifier>{861b3101-c993-447b-970c-39ad272896a6}</UniqueIdentifier>
+    <Filter Include="GameEngine\UI">
+      <UniqueIdentifier>{e29f8055-eca7-4bcb-adbf-f608c914b512}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\UIScreen">
+      <UniqueIdentifier>{6b62c2c4-4929-44ae-ba5c-04087c3ba5b0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -161,8 +164,17 @@
     <ClCompile Include="ImGui\imgui_widgets.cpp">
       <Filter>GameEngine\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="IMObjectProperty.cpp">
-      <Filter>GameEngine\ImGuiWindow</Filter>
+    <ClCompile Include="UIScreen.cpp">
+      <Filter>GameEngine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>GameEngine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuBar.cpp">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectProperty.cpp">
+      <Filter>GameEngine\UIScreen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -291,8 +303,18 @@
     <ClInclude Include="ImGui\imstb_truetype.h">
       <Filter>GameEngine\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="IMObjectProperty.h">
-      <Filter>GameEngine\ImGuiWindow</Filter>
+    <ClInclude Include="UIScreen.h">
+      <Filter>GameEngine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>GameEngine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\stb_image.h" />
+    <ClInclude Include="MenuBar.h">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectProperty.h">
+      <Filter>GameEngine\UIScreen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,7 @@
 #include "VertexShader.h"
 #include "PixelShader.h"
 #include "IMObjectProperty.h"
+#include "UIManager.h"
 
 class GameObject;
 class AppWindow: public Window
