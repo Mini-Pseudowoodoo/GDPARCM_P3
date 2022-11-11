@@ -13,6 +13,8 @@ public:
 public:
 	void AttachChild(GameObject* _child);
 	void DetachChild(GameObject* _child);
+	void RemoveFromParent();
+	bool IsChildOf(GameObject* _parent);
 	void AttachComponent(Component* _component);
 	void DetachComponent(Component* _component);
 

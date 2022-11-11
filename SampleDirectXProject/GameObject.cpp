@@ -28,6 +28,20 @@ void GameObject::DetachChild(GameObject* _child)
 	auto i = remove(m_children.begin(), m_children.end(), _child);
 }
 
+void GameObject::RemoveFromParent()
+{
+	if (m_parent)
+	{
+		m_parent->DetachChild(this);
+		m_parent = nullptr;
+	}
+}
+
+bool GameObject::IsChildOf(GameObject* _parent)
+{
+	return m_parent == _parent;
+}
+
 void GameObject::AttachComponent(Component* _component)
 {
 	_component->SetOwner(this);
@@ -75,7 +89,11 @@ GameObject* GameObject::GetParent() const
 
 void GameObject::SetParent(GameObject* _parent)
 {
-	m_parent = _parent;
+	if (!IsChildOf(_parent))
+	{
+		m_parent = _parent;
+		m_parent->AttachChild(this);
+	}
 }
 
 void GameObject::Start()
