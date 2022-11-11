@@ -14,6 +14,7 @@
 #include "MenuBar.h"
 #include "ObjectProperty.h"
 #include "ObjectParentingScreen.h";
+#include "Hierarchy.h"
 
 typedef std::string String;
 class UINames {

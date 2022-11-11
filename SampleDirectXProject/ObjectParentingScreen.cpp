@@ -10,9 +10,9 @@ ObjectParentingScreen::~ObjectParentingScreen()
 
 void ObjectParentingScreen::DrawUI()
 {
-	GameObject* selectedObj = GameObjectManager::Get()->GetSelectedGameObject();
+	ImGui::Begin("Object Parenting", &isActive);
 
-	ImGui::Begin("Object Parenting");
+	GameObject* selectedObj = GameObjectManager::Get()->GetSelectedGameObject();
 	String selectedObjTxt = "Selected Object: " + ((selectedObj == nullptr) ? "N/A" : selectedObj->GetName());
 	ImGui::Text(selectedObjTxt.c_str());
 

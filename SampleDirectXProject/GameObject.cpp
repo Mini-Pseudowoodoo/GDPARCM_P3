@@ -101,6 +101,11 @@ GameObject* GameObject::GetParent() const
 	return m_parent;
 }
 
+std::vector<GameObject*> GameObject::GetChildren() const
+{
+	return m_children;
+}
+
 void GameObject::SetParent(GameObject* _parent) 
 {
 	// If incoming parent is a child, then don't

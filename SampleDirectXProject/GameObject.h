@@ -27,6 +27,7 @@ public:
 public:
 	GameObject* GetRoot() const;
 	GameObject* GetParent() const;
+	std::vector<GameObject*> GetChildren() const;
 	void SetParent(GameObject* _parent);
 
 public:

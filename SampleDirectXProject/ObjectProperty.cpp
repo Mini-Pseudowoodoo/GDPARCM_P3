@@ -14,10 +14,10 @@ ObjectProperty::~ObjectProperty()
 
 void ObjectProperty::DrawUI()
 {
-	const GameObject* const& selectedObj = GameObjectManager::Get()->GetSelectedGameObject();
 	// Create ImGui Window
-	ImGui::Begin("Object Property");
+	ImGui::Begin("Object Property", &isActive);
 
+	const GameObject* const& selectedObj = GameObjectManager::Get()->GetSelectedGameObject();
 	String selectedObjTxt = "Selected Object: " + ((selectedObj == nullptr) ? "N/A" : selectedObj->GetName());
 	ImGui::Text(selectedObjTxt.c_str());
 

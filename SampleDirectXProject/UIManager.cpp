@@ -68,6 +68,10 @@ UIManager::UIManager(HWND hwnd)
 	ObjectParentingScreen* objParenting = new ObjectParentingScreen();
 	this->uiTable[uiNames.OBJECT_PARENTING] = objParenting;
 	this->uiList.push_back(objParenting);
+
+	Hierarchy* hierarchy = new Hierarchy();
+	this->uiTable[uiNames.HIERARCHY] = hierarchy;
+	this->uiList.push_back(hierarchy);
 }
 
 UIManager::~UIManager()
