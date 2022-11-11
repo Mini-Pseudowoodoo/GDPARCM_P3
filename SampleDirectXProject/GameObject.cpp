@@ -87,10 +87,11 @@ GameObject* GameObject::GetParent() const
 	return m_parent;
 }
 
-void GameObject::SetParent(GameObject* _parent)
+void GameObject::SetParent(GameObject* _parent) 
 {
 	if (!IsChildOf(_parent))
 	{
+		this->RemoveFromParent();
 		m_parent = _parent;
 		m_parent->AttachChild(this);
 	}
