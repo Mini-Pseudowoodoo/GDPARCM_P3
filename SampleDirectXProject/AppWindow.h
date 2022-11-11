@@ -12,7 +12,7 @@
 #include "ConstantBuffer.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
-#include "IMObjectProperty.h"
+//#include "IMObjectProperty.h"
 #include "UIManager.h"
 
 class GameObject;
@@ -38,19 +38,13 @@ public:
 	void update();
 
 public:
-	const std::vector<GameObject*>& GetGameObjects() const;
 	SwapChain* GetSwapChain() const;
 private:
 	SwapChain * m_swap_chain;
 
 private:
-	GameObject* gameObject_0 = nullptr;
-	GameObject* gameObject_1 = nullptr;
-	GameObject* gameObject_2 = nullptr;
-	std::vector<GameObject*> gameObjects;
-
 	class SceneCamera* sceneCamera = nullptr;
 
-	IMObjectProperty* imObjProp;
+	//IMObjectProperty* imObjProp;
 };
 

@@ -15,8 +15,6 @@ public:
 	~ObjectProperty();
 	void DrawUI() override;
 private:
-	GameObject* selectedObj;
-
 	float* pos;
 	float* rot;
 	float* scale;

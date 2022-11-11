@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "TransformComponent.h"
 #include "MeshComponent.h"
+#include "GameObjectManager.h"
 
 #include <iostream>
 
@@ -50,11 +51,6 @@ void SceneCamera::Update(float deltaTime)
 
 		transform->SetPosition(new_pos);
 	}
-}
-
-GameObject* SceneCamera::GetSelectedObj()
-{
-	return selectedObj;
 }
 
 void SceneCamera::onKeyDown(int key)
@@ -148,7 +144,6 @@ void SceneCamera::onLeftMouseButtonUp(const Point& mouse_pos)
 	{
 		lmbDown = false;
 
-
 		Point p = InputSystem::get()->GetMousePositionInWindow();
 		//std::cout << "X: " << p.x << " Y: " << p.y << std::endl;
 
@@ -157,10 +152,8 @@ void SceneCamera::onLeftMouseButtonUp(const Point& mouse_pos)
 
 		const Vector3& pos = r.position;
 
-		selectedObj = nullptr;
-
 		// Toggle off all outline effect
-		for (GameObject* obj : AppWindow::Get()->GetGameObjects())
+		for (GameObject* obj : GameObjectManager::Get()->GetGameObjectList())
 		{
 			if (MeshComponent* mesh = obj->GetComponent<MeshComponent>())
 			{
@@ -168,7 +161,7 @@ void SceneCamera::onLeftMouseButtonUp(const Point& mouse_pos)
 			}
 		}
 
-		for (GameObject* obj : AppWindow::Get()->GetGameObjects())
+		for (GameObject* obj : GameObjectManager::Get()->GetGameObjectList())
 		{
 			if (MeshComponent* mesh = obj->GetComponent<MeshComponent>())
 			{
@@ -178,20 +171,10 @@ void SceneCamera::onLeftMouseButtonUp(const Point& mouse_pos)
 
 				if (bounds.Intersects(r.position, r.direction, dist))
 				{
-					mesh->SetOutlined(true);
-					selectedObj = obj;
+					GameObjectManager::Get()->SelectGameObject(obj);
 					std::cout << obj->GetName() << std::endl;
 					return;
 				}
-
-				/*if (CheckIntersect(r.position, r.direction, 1.0f))
-				{
-					std::cout << obj->GetName() << std::endl;
-				}*/
-
-				//std::cout << dist << std::endl;
-
-				//std::cout << "X: " << r.position.x << " Y: " << r.position.y << " Z: " << r.position.z << std::endl;
 			}
 		}
 	}

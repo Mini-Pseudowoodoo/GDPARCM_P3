@@ -21,7 +21,7 @@ public:
 	void SetName(const std::string& _name);
 
 public:
-	GameObject* GetRoot();
+	GameObject* GetRoot() const;
 	GameObject* GetParent() const;
 	void SetParent(GameObject* _parent);
 
@@ -47,6 +47,7 @@ protected:
 
 public:
 	static GameObject* Instantiate();
+	static GameObject* Instantiate(std::string _name);
 };
 
 template <class T>

@@ -1,4 +1,5 @@
 #include "MenuBar.h"
+#include "GameObjectManager.h"
 
 MenuBar::MenuBar() : UIScreen("MenuBar", true)
 {
@@ -24,6 +25,23 @@ void MenuBar::DrawUI()
             }
             ImGui::EndMenu();
         }
+        if (ImGui::BeginMenu("GameObject"))
+        {
+            if (ImGui::BeginMenu("Create GameObject"))
+            {
+                if (ImGui::MenuItem("Cube"))
+                {
+                    GameObjectManager::Get()->CreateCube();
+                }
+                if (ImGui::MenuItem("Plane"))
+                {
+                    GameObjectManager::Get()->CreatePlane();
+                }
+                ImGui::EndMenu();
+            }
+            ImGui::EndMenu();
+        }
+
         if (ImGui::BeginMenu("About"))
         {
             if (ImGui::MenuItem("Credits"))
@@ -33,6 +51,8 @@ void MenuBar::DrawUI()
             }
             ImGui::EndMenu();
         }
+
+
         ImGui::EndMainMenuBar();
     }
 }

@@ -1,8 +1,8 @@
 #include "ObjectProperty.h"
+#include "GameObjectManager.h"
 
 ObjectProperty::ObjectProperty() : UIScreen("ObjectProperty", true)
 {
-	selectedObj = nullptr;
 	pos = 0;
 	rot = 0;
 	scale = 0;
@@ -14,7 +14,8 @@ ObjectProperty::~ObjectProperty()
 
 void ObjectProperty::DrawUI()
 {
-	// Create ImGui Window;
+	const GameObject* const& selectedObj = GameObjectManager::Get()->GetSelectedGameObject();
+	// Create ImGui Window
 	ImGui::Begin("Object Property");
 
 	String objName;

@@ -51,11 +51,11 @@ void GameObject::SetName(const std::string& _name)
 	name = _name;
 }
 
-GameObject* GameObject::GetRoot()
+GameObject* GameObject::GetRoot() const
 {
-	GameObject* current = this;
+	GameObject* current = nullptr;
 
-	while (GameObject* parent = current->GetParent())
+	while (GameObject* parent = this->GetParent())
 	{
 		current = parent;
 	}
@@ -106,7 +106,15 @@ TransformComponent* GameObject::GetTransform() const
 
 GameObject* GameObject::Instantiate()
 {
-	auto* obj = new GameObject();
+	GameObject* obj = new GameObject();
 	obj->Start();
+	return obj;
+}
+
+GameObject* GameObject::Instantiate(std::string _name)
+{
+	GameObject* obj = new GameObject();
+	obj->Start();
+	obj->SetName(_name);
 	return obj;
 }

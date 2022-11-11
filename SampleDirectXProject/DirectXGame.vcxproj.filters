@@ -176,6 +176,9 @@
     <ClCompile Include="ObjectProperty.cpp">
       <Filter>GameEngine\UIScreen</Filter>
     </ClCompile>
+    <ClCompile Include="GameObjectManager.cpp">
+      <Filter>GameEngine\EntityComponentSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -315,6 +318,9 @@
     </ClInclude>
     <ClInclude Include="ObjectProperty.h">
       <Filter>GameEngine\UIScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectManager.h">
+      <Filter>GameEngine\EntityComponentSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
