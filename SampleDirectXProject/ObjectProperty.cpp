@@ -18,13 +18,7 @@ void ObjectProperty::DrawUI()
 	// Create ImGui Window
 	ImGui::Begin("Object Property");
 
-	String objName;
-	if (selectedObj == nullptr)
-		objName = "N/A";
-	else
-		objName = selectedObj->GetName();
-
-	String selectedObjTxt = "Selected Object: " + objName;
+	String selectedObjTxt = "Selected Object: " + ((selectedObj == nullptr) ? "N/A" : selectedObj->GetName());
 	ImGui::Text(selectedObjTxt.c_str());
 
 	if (selectedObj != nullptr)

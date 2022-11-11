@@ -13,17 +13,24 @@ void ObjectParentingScreen::DrawUI()
 	GameObject* selectedObj = GameObjectManager::Get()->GetSelectedGameObject();
 
 	ImGui::Begin("Object Parenting");
-	String selectedObjName;
-	if (selectedObj == nullptr)
-		selectedObjName = "N/A";
-	else
-		selectedObjName = selectedObj->GetName();
-
-	String selectedObjTxt = "Selected Object: " + selectedObjName;
+	String selectedObjTxt = "Selected Object: " + ((selectedObj == nullptr) ? "N/A" : selectedObj->GetName());
 	ImGui::Text(selectedObjTxt.c_str());
 
 	if (selectedObj != nullptr)
 	{
+		// Display Current Parent
+		String currParentText = "Current Parent: " + ((selectedObj->GetParent() == nullptr) ? "N/A" : selectedObj->GetParent()->GetName());
+		ImGui::Text(currParentText.c_str());
+		// Display Detach Button
+		if (selectedObj->GetParent() != nullptr)
+		{
+			if (ImGui::Button("Detach from Parent"))
+			{
+				selectedObj->RemoveFromParent();
+			}
+		}
+
+		// Display list of game objects to parent
 		static String objToParentName = "";
 		
 		unordered_map<String, GameObject*> gameObjsMap;
@@ -35,6 +42,8 @@ void ObjectParentingScreen::DrawUI()
 			// Continue if same object
 			if (selectedObj == obj) continue; 
 			
+			if (selectedObj->GetParent() != nullptr && selectedObj->GetParent() == obj) continue;
+
 			gameObjsMap.emplace(obj->GetName(), gameObjList[i]);
 		}
 
@@ -43,7 +52,6 @@ void ObjectParentingScreen::DrawUI()
 		{
 			for (pair<String, GameObject*> it : gameObjsMap)
 			{
-				//static const char* select = it.first.c_str();
 				bool isSelected = objToParentName == it.first.c_str();
 
 				if (ImGui::Selectable(it.first.c_str(), isSelected))
@@ -57,21 +65,12 @@ void ObjectParentingScreen::DrawUI()
 
 			ImGui::EndCombo();
 		}
-		
-		//ImGui::Text("Object To Parent: " + (objToParentName == nullptr) ? objToParentName : "N/A");
 
 		if (ImGui::Button("Set Parent"))
 		{
-			cout << objToParentName << endl;
 			// Set Parent
 			selectedObj->SetParent(gameObjsMap[objToParentName]);
-		}
-		if (selectedObj->GetParent() != nullptr)
-		{
-			if (ImGui::Button("Detach from Parent"))
-			{
-				selectedObj->RemoveFromParent();
-			}
+			objToParentName = "";
 		}
 	}
 
