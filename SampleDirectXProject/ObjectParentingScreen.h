@@ -17,8 +17,5 @@ public:
 	void DrawUI() override;
 private:
 	void CreateComboObj(GameObject* obj);
-
-private:
-	vector<GameObject*> selectedParentList;
 };
 

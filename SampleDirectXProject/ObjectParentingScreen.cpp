@@ -10,7 +10,7 @@ ObjectParentingScreen::~ObjectParentingScreen()
 
 void ObjectParentingScreen::DrawUI()
 {
-	const GameObject* const& selectedObj = GameObjectManager::Get()->GetSelectedGameObject();
+	GameObject* selectedObj = GameObjectManager::Get()->GetSelectedGameObject();
 
 	ImGui::Begin("Object Parenting");
 	String selectedObjName;
@@ -24,30 +24,31 @@ void ObjectParentingScreen::DrawUI()
 
 	if (selectedObj != nullptr)
 	{
-		static const char* currentRootObj = NULL;
-		unordered_map<String, GameObject*> rootObjMap;
-		vector<GameObject*> rootObjVec = GameObjectManager::Get()->GetRoots();
+		static String objToParentName = "";
+		
+		unordered_map<String, GameObject*> gameObjsMap;
+		vector<GameObject*> gameObjList = GameObjectManager::Get()->GetGameObjectList();
 
-		for (int i = 0; i < rootObjVec.size(); i++)
+		for (int i = 0; i < gameObjList.size(); i++)
 		{
-			GameObject* obj = rootObjVec[i];
+			GameObject* obj = gameObjList[i];
 			// Continue if same object
 			if (selectedObj == obj) continue; 
 			
-			rootObjMap.emplace(obj->GetName(), rootObjVec[i]);
+			gameObjsMap.emplace(obj->GetName(), gameObjList[i]);
 		}
 
 		// Display root parent objects
-		if (ImGui::BeginCombo("Select Parent", currentRootObj))
+		if (ImGui::BeginCombo("Select Parent", objToParentName.c_str()))
 		{
-			for (pair<String, GameObject*> it : rootObjMap)
+			for (pair<String, GameObject*> it : gameObjsMap)
 			{
 				//static const char* select = it.first.c_str();
-				bool isSelected = currentRootObj == it.first.c_str();
+				bool isSelected = objToParentName == it.first.c_str();
 
 				if (ImGui::Selectable(it.first.c_str(), isSelected))
 				{
-					currentRootObj = it.first.c_str();
+					objToParentName = it.first;
 				}
 					
 				if (isSelected)
@@ -57,26 +58,20 @@ void ObjectParentingScreen::DrawUI()
 			ImGui::EndCombo();
 		}
 		
+		//ImGui::Text("Object To Parent: " + (objToParentName == nullptr) ? objToParentName : "N/A");
 
-		for (int i = 0; i < selectedParentList.size(); i++)
+		if (ImGui::Button("Set Parent"))
 		{
-
-		}
-		String objToParentName;
-		if (!selectedParentList.empty())
-		{
-			objToParentName = selectedParentList.back()->GetName();
-		}
-		else
-		{
-			objToParentName = "N/A";
-		}
-		String selectedObjTxt = "Object To Parent: " + objToParentName;
-		ImGui::Text(selectedObjTxt.c_str());
-
-		if (!selectedParentList.empty() && ImGui::Button("Set Parent"))
-		{
+			cout << objToParentName << endl;
 			// Set Parent
+			selectedObj->SetParent(gameObjsMap[objToParentName]);
+		}
+		if (selectedObj->GetParent() != nullptr)
+		{
+			if (ImGui::Button("Detach from Parent"))
+			{
+				selectedObj->RemoveFromParent();
+			}
 		}
 	}
 
