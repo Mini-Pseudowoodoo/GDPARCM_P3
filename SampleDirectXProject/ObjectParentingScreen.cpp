@@ -69,8 +69,12 @@ void ObjectParentingScreen::DrawUI()
 		if (ImGui::Button("Set Parent"))
 		{
 			// Set Parent
-			selectedObj->SetParent(gameObjsMap[objToParentName]);
-			objToParentName = "";
+			GameObject* objToParent = gameObjsMap[objToParentName];
+			if (objToParent != nullptr)
+			{
+				selectedObj->SetParent(gameObjsMap[objToParentName]);
+				objToParentName = "";
+			}
 		}
 	}
 
