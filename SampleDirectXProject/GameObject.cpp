@@ -18,14 +18,21 @@ GameObject::~GameObject()
 
 void GameObject::AttachChild(GameObject* _child)
 {
-	_child->SetParent(this);
+	_child->m_parent = this;
 	m_children.push_back(_child);
 }
 
 void GameObject::DetachChild(GameObject* _child)
 {
-	_child->SetParent(nullptr);
-	auto i = remove(m_children.begin(), m_children.end(), _child);
+	if (_child)
+	{
+		auto i = std::remove(m_children.begin(), m_children.end(), _child);
+		if (i != m_children.end())
+		{
+			m_children.erase(i);
+			_child->m_parent = nullptr;
+		}
+	}
 }
 
 void GameObject::RemoveFromParent()
@@ -33,13 +40,12 @@ void GameObject::RemoveFromParent()
 	if (m_parent)
 	{
 		m_parent->DetachChild(this);
-		m_parent = nullptr;
 	}
 }
 
 bool GameObject::IsChildOf(GameObject* _parent)
 {
-	return m_parent == _parent;
+	return std::count(_parent->m_children.begin(), _parent->m_children.end(), this);
 }
 
 void GameObject::AttachComponent(Component* _component)
@@ -89,12 +95,9 @@ GameObject* GameObject::GetParent() const
 
 void GameObject::SetParent(GameObject* _parent) 
 {
-	if (!IsChildOf(_parent))
-	{
-		this->RemoveFromParent();
-		m_parent = _parent;
-		m_parent->AttachChild(this);
-	}
+	this->RemoveFromParent();
+	m_parent = _parent;
+	m_parent->AttachChild(this);
 }
 
 void GameObject::Start()
