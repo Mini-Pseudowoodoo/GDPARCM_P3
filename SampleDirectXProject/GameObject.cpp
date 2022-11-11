@@ -20,19 +20,27 @@ void GameObject::AttachChild(GameObject* _child)
 {
 	_child->m_parent = this;
 	m_children.push_back(_child);
+
+	const Vector3 v = Vector3::Transform(_child->transform->GetPosition(), transform->GetLocalMatrix());
+	const Quaternion q = _child->transform->GetRotation() * Quaternion::CreateFromRotationMatrix(transform->GetLocalMatrix());
+
+	_child->transform->SetPosition(v);
+	_child->transform->SetRotation(q);
 }
 
 void GameObject::DetachChild(GameObject* _child)
 {
-	if (_child)
+	auto i = std::remove(m_children.begin(), m_children.end(), _child);
+	if (i != m_children.end())
 	{
-		auto i = std::remove(m_children.begin(), m_children.end(), _child);
-		if (i != m_children.end())
-		{
-			m_children.erase(i);
-			_child->m_parent = nullptr;
-		}
+		m_children.erase(i);
+		_child->m_parent = nullptr;
 	}
+
+	const Vector3 v = Vector3::Transform(_child->transform->GetPosition(), transform->GetWorldMatrix());
+	const Quaternion q = _child->transform->GetRotation() * Quaternion::CreateFromRotationMatrix(transform->GetWorldMatrix());
+	_child->transform->SetPosition(v);
+	_child->transform->SetRotation(q);
 }
 
 void GameObject::RemoveFromParent()
@@ -95,6 +103,12 @@ GameObject* GameObject::GetParent() const
 
 void GameObject::SetParent(GameObject* _parent) 
 {
+	// If incoming parent is a child, then don't
+	if (std::find(m_children.begin(), m_children.end(), _parent) != m_children.end())
+	{
+		return;
+	}
+
 	this->RemoveFromParent();
 	m_parent = _parent;
 	m_parent->AttachChild(this);
