@@ -25,7 +25,7 @@ void ObjectParentingScreen::DrawUI()
 	if (selectedObj != nullptr)
 	{
 		static const char* currentRootObj = NULL;
-		unordered_map<const char*, GameObject*> rootObjMap;
+		unordered_map<String, GameObject*> rootObjMap;
 		vector<GameObject*> rootObjVec = GameObjectManager::Get()->GetRoots();
 
 		for (int i = 0; i < rootObjVec.size(); i++)
@@ -34,20 +34,22 @@ void ObjectParentingScreen::DrawUI()
 			// Continue if same object
 			if (selectedObj == obj) continue; 
 			
-			rootObjMap.emplace(obj->GetName().c_str(), rootObjVec[i]);
+			rootObjMap.emplace(obj->GetName(), rootObjVec[i]);
 		}
 
 		// Display root parent objects
 		if (ImGui::BeginCombo("Select Parent", currentRootObj))
 		{
-			for (pair<const char*, GameObject*> it : rootObjMap)
+			for (pair<String, GameObject*> it : rootObjMap)
 			{
-				cout << (it.first == NULL) << endl;
-				bool isSelected = currentRootObj == it.first;
+				//static const char* select = it.first.c_str();
+				bool isSelected = currentRootObj == it.first.c_str();
 
-				if (ImGui::Selectable(it.first, isSelected))
-					currentRootObj = it.first;
-
+				if (ImGui::Selectable(it.first.c_str(), isSelected))
+				{
+					currentRootObj = it.first.c_str();
+				}
+					
 				if (isSelected)
 					ImGui::SetItemDefaultFocus();
 			}

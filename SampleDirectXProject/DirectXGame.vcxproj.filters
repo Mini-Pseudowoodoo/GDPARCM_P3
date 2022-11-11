@@ -179,6 +179,12 @@
     <ClCompile Include="GameObjectManager.cpp">
       <Filter>GameEngine\EntityComponentSystem</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectParentingScreen.cpp">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="Hierarchy.cpp">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -321,6 +327,12 @@
     </ClInclude>
     <ClInclude Include="GameObjectManager.h">
       <Filter>GameEngine\EntityComponentSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectParentingScreen.h">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="Hierarchy.h">
+      <Filter>GameEngine\UIScreen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
