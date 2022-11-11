@@ -64,9 +64,12 @@ UIManager::UIManager(HWND hwnd)
 	ObjectProperty* objProp = new ObjectProperty();
 	this->uiTable[uiNames.OBJECT_PROPERTY] = objProp;
 	this->uiList.push_back(objProp);
+
+	ObjectParentingScreen* objParenting = new ObjectParentingScreen();
+	this->uiTable[uiNames.OBJECT_PARENTING] = objParenting;
+	this->uiList.push_back(objParenting);
 }
 
 UIManager::~UIManager()
 {
-	//EventManager::UnbindListener("ToggleCreditsScreen", );
 }

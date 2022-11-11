@@ -13,6 +13,7 @@
 
 #include "MenuBar.h"
 #include "ObjectProperty.h"
+#include "ObjectParentingScreen.h";
 
 typedef std::string String;
 class UINames {
@@ -20,6 +21,8 @@ public:
 	const String CREDITS_SCREEN = "CREDITS_SCREEN";
 	const String MENU_BAR = "MENU_BAR";
 	const String OBJECT_PROPERTY = "OBJECT_PROPERTY";
+	const String OBJECT_PARENTING = "OBJECT_PARENTING";
+	const String HIERARCHY = "HIERARCHY";
 };
 
 class UIManager

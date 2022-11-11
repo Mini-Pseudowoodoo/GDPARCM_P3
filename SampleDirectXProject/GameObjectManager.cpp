@@ -107,7 +107,7 @@ const std::vector<GameObject*>& GameObjectManager::GetGameObjectList() const
     return gameObjectList;
 }
 
-std::vector<GameObject*> GameObjectManager::GetRoots() const
+const std::vector<GameObject*> GameObjectManager::GetRoots() const
 {
     std::vector<GameObject*> roots;
 
