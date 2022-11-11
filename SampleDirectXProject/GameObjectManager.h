@@ -27,6 +27,7 @@ public:
 
 public:
 	const std::vector<GameObject*>& GetGameObjectList() const;
+	std::vector<GameObject*> GetRoots() const;
 
 private:
 	std::vector<GameObject*> gameObjectList;

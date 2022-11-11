@@ -41,6 +41,11 @@ void GameObject::DetachComponent(Component* _component)
 	auto i = remove(m_components.begin(), m_components.end(), _component);
 }
 
+bool GameObject::IsRoot() const
+{
+	return !m_parent;
+}
+
 std::string GameObject::GetName() const
 {
 	return name;

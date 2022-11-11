@@ -16,6 +16,8 @@ public:
 	void AttachComponent(Component* _component);
 	void DetachComponent(Component* _component);
 
+	bool IsRoot() const;
+
 public:
 	std::string GetName() const;
 	void SetName(const std::string& _name);
