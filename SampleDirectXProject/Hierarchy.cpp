@@ -1,4 +1,5 @@
 #include "Hierarchy.h"
+#include "GameObjectManager.h"
 
 Hierarchy::Hierarchy() : UIScreen("Hierarchy", true)
 {
@@ -33,8 +34,14 @@ void Hierarchy::SetupNode(GameObject* obj)
 	vector<GameObject*> children = obj->GetChildren();
 	if (children.size() > 0)
 	{
-		if (ImGui::TreeNode(obj->GetName().c_str()))
+		ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen;
+
+		if (ImGui::TreeNodeEx(obj->GetName().c_str(), flags))
 		{
+			if (ImGui::IsMouseClicked(ImGuiMouseButton_Left) && ImGui::IsItemHovered())
+			{
+				GameObjectManager::Get()->SelectGameObject(obj);
+			}
 			for (int i = 0; i < children.size(); i++)
 			{
 				SetupNode(children[i]);
@@ -45,7 +52,10 @@ void Hierarchy::SetupNode(GameObject* obj)
 	}
 	else
 	{
-		ImGui::BulletText(obj->GetName().c_str());
+		if (ImGui::Selectable(obj->GetName().c_str(), false))
+		{
+			GameObjectManager::Get()->SelectGameObject(obj);
+		}
 	}
 }
 
