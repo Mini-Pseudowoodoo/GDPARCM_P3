@@ -163,6 +163,8 @@ void SceneCamera::onLeftMouseButtonUp(const Point& mouse_pos)
 
 		for (GameObject* obj : GameObjectManager::Get()->GetGameObjectList())
 		{
+			if (obj == GameObjectManager::Get()->GetSelectedGameObject())
+				continue;
 			if (MeshComponent* mesh = obj->GetComponent<MeshComponent>())
 			{
 				const auto& bounds = mesh->GetBounds();
