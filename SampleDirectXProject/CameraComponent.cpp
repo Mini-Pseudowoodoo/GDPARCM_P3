@@ -18,13 +18,8 @@ void CameraComponent::Start()
 
 	if (camera)
 	{
-		camera->SetViewMatrix(GetOwner()->GetTransform()->GetWorldMatrix().Invert());
+		camera->SetViewMatrix(GetOwner()->GetTransform()->GetLocalToWorldMatrix().Invert());
 		camera->SetCameraProjection(CameraProjectionType::Perspective);
-	}
-
-	if (TransformComponent* transform = m_owner->GetTransform())
-	{
-		transform->GetOnSetPositionDelegate() = std::bind(&CameraComponent::UpdateViewMatrix, this);
 	}
 }
 
@@ -32,6 +27,7 @@ void CameraComponent::Update(float deltaTime)
 {
 	Component::Update(deltaTime);
 
+	UpdateViewMatrix();
 	//camera->SetViewMatrix(GetOwner()->GetTransform()->GetWorldMatrix().GetInverse());
 }
 
@@ -45,7 +41,7 @@ void CameraComponent::SetActive() const
 
 void CameraComponent::UpdateViewMatrix()
 {
-	camera->SetViewMatrix(GetOwner()->GetTransform()->GetWorldMatrix().Invert());
+	camera->SetViewMatrix(GetOwner()->GetTransform()->GetLocalToWorldMatrix().Invert());
 }
 
 Camera* CameraComponent::GetCamera() const

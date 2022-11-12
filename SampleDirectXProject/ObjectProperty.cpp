@@ -28,9 +28,9 @@ void ObjectProperty::DrawUI()
 
 		// Position
 		Vector3 origPos = objTransform->GetPosition();
-		pos = new float[3] { origPos.x, origPos.y, origPos.z };
+		pos = new float[3] { origPos.x, origPos.y, origPos.z != 0 ? -origPos.z : 0 };
 		ImGui::DragFloat3("Position", pos, 0.1f, 0.0f, 0.0f);
-		objTransform->SetPosition(Vector3(pos[0], pos[1], pos[2]));
+		objTransform->SetPosition(Vector3(pos[0], pos[1], -pos[2]));
 
 		if (ImGui::IsItemClicked(0) || (ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()))
 		{

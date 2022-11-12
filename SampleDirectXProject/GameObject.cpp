@@ -21,26 +21,23 @@ void GameObject::AttachChild(GameObject* _child)
 	_child->m_parent = this;
 	m_children.push_back(_child);
 
-	const Vector3 v = Vector3::Transform(_child->transform->GetPosition(), transform->GetLocalMatrix());
-	const Quaternion q = _child->transform->GetRotation() * Quaternion::CreateFromRotationMatrix(transform->GetLocalMatrix());
-
-	_child->transform->SetPosition(v);
-	_child->transform->SetRotation(q);
+	Vector3 pos = _child->transform->GetPosition();
+	
+	const Matrix m = _child->transform->GetTransformationMatrix() * this->transform->GetWorldToLocalMatrix();
+	_child->transform->SetTransformationMatrix(m);
 }
 
 void GameObject::DetachChild(GameObject* _child)
 {
+	const Matrix m = _child->transform->GetTransformationMatrix() * this->transform->GetLocalToWorldMatrix();
+	_child->transform->SetTransformationMatrix(m);
+
 	auto i = std::remove(m_children.begin(), m_children.end(), _child);
 	if (i != m_children.end())
 	{
 		m_children.erase(i);
 		_child->m_parent = nullptr;
 	}
-
-	const Vector3 v = Vector3::Transform(_child->transform->GetPosition(), transform->GetWorldMatrix());
-	const Quaternion q = _child->transform->GetRotation() * Quaternion::CreateFromRotationMatrix(transform->GetWorldMatrix());
-	_child->transform->SetPosition(v);
-	_child->transform->SetRotation(q);
 }
 
 void GameObject::RemoveFromParent()

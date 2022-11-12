@@ -56,7 +56,7 @@ void MeshComponent::Update(float deltaTime)
 
 	if (GetOwner())
 	{
-		world = GetOwner()->GetTransform()->GetWorldMatrix();
+		world = GetOwner()->GetTransform()->GetLocalToWorldMatrix();
 	}
 
 	Matrix view = Matrix::Identity;
@@ -144,7 +144,7 @@ void MeshComponent::CalculateBounds()
 	}
 
 	BoundingBox::CreateFromPoints(bounds, mesh->size_list, points, sizeof(Vector3));
-	bounds.Transform(bounds, GetOwner()->GetTransform()->GetWorldMatrix());
+	bounds.Transform(bounds, GetOwner()->GetTransform()->GetLocalToWorldMatrix());
 	//sphereBounds.Transform(sphereBounds, GetOwner()->GetTransform()->GetWorldMatrix());
 
 	//std::cout << "Extents: ";

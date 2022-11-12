@@ -32,12 +32,7 @@ public:
 public:
 	void UpdateTransformMatrix();
 	Matrix GetTransformationMatrix();
-	Matrix GetWorldMatrix() const;
-	Matrix GetLocalMatrix() const;
-
-private:
-	std::function<void()> OnSetPosition;
-
-public:
-	std::function<void()>& GetOnSetPositionDelegate();
+	void SetTransformationMatrix(Matrix m);
+	Matrix GetLocalToWorldMatrix() const;
+	Matrix GetWorldToLocalMatrix() const;
 };
