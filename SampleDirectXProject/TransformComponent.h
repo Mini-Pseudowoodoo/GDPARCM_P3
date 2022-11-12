@@ -12,7 +12,7 @@ public:
 	TransformComponent();
 	~TransformComponent() override;
 
-public:
+private:
 	Vector3 m_position;
 	Vector3 m_euler_angles;
 	Quaternion m_rotation;
