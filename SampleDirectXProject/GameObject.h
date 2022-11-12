@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <vector>
+#include <string>
 
 class Component;
 class TransformComponent;
@@ -12,12 +13,21 @@ public:
 public:
 	void AttachChild(GameObject* _child);
 	void DetachChild(GameObject* _child);
+	void RemoveFromParent();
+	bool IsChildOf(GameObject* _parent);
 	void AttachComponent(Component* _component);
 	void DetachComponent(Component* _component);
 
+	bool IsRoot() const;
+
 public:
-	GameObject* GetRoot();
+	std::string GetName() const;
+	void SetName(const std::string& _name);
+
+public:
+	GameObject* GetRoot() const;
 	GameObject* GetParent() const;
+	std::vector<GameObject*> GetChildren() const;
 	void SetParent(GameObject* _parent);
 
 public:
@@ -28,6 +38,7 @@ public:
 	T* GetComponent();
 
 protected:
+	std::string name = "GameObject";
 	TransformComponent* transform = nullptr;
 public:
 	TransformComponent* GetTransform() const;
@@ -41,6 +52,7 @@ protected:
 
 public:
 	static GameObject* Instantiate();
+	static GameObject* Instantiate(std::string _name);
 };
 
 template <class T>

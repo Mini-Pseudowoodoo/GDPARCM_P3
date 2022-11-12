@@ -1,6 +1,8 @@
 #pragma once
 #include "CameraProjection.h"
-#include "Matrix4x4.h"
+#include "SimpleMath.h"
+
+using namespace DirectX::SimpleMath;
 
 class Camera
 {
@@ -8,11 +10,14 @@ public:
 	Camera();
 
 public:
-	Matrix4x4 GetViewMatrix() const;
-	Matrix4x4 GetProjectionMatrix() const;
+	Matrix GetViewMatrix() const;
+	Matrix GetProjectionMatrix() const;
 
 public:
-	void SetViewMatrix(const Matrix4x4& matrix);
+	Ray ScreenPointToRay(Vector3 point);
+
+public:
+	void SetViewMatrix(const Matrix& matrix);
 
 public:
 	void SetCameraProjection(const CameraProjectionType& projection);
@@ -25,12 +30,12 @@ protected:
 
 // Perspective
 protected:
-	float fov = 60.0f;
+	float fov = 1.57f;
 	float zNearPlane = 0.01f;
 	float zFarPlane = 100.0f;
 
 protected:
-	Matrix4x4 viewMatrix;
-	Matrix4x4 projectionMatrix;
+	Matrix viewMatrix;
+	Matrix projectionMatrix;
 };
 

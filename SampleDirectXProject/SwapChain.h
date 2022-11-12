@@ -11,6 +11,8 @@ public:
 	~SwapChain();
 
 public:
+	void SetDepthEnabled(bool enable);
+
 	void SetFillMode(D3D11_FILL_MODE fill_mode);
 	void SetCullMode(D3D11_CULL_MODE cull_mode);
 

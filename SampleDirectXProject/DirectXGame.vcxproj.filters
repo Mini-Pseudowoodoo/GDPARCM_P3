@@ -55,6 +55,15 @@
     <Filter Include="GameEngine\Editor">
       <UniqueIdentifier>{3d1e435c-33f4-4bf1-96d9-63fbd3256a44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\ImGui">
+      <UniqueIdentifier>{2a65c0d9-4c73-4f3b-9278-2610608c1e86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\UI">
+      <UniqueIdentifier>{e29f8055-eca7-4bcb-adbf-f608c914b512}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\UIScreen">
+      <UniqueIdentifier>{6b62c2c4-4929-44ae-ba5c-04087c3ba5b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -135,6 +144,47 @@
     <ClCompile Include="SceneCamera.cpp">
       <Filter>GameEngine\Editor</Filter>
     </ClCompile>
+    <ClCompile Include="SimpleMath.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="ImGui\imgui.cpp">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_draw.cpp">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_dx11.cpp">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_win32.cpp">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_tables.cpp">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_widgets.cpp">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="UIScreen.cpp">
+      <Filter>GameEngine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>GameEngine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuBar.cpp">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectProperty.cpp">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectManager.cpp">
+      <Filter>GameEngine\EntityComponentSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectParentingScreen.cpp">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="Hierarchy.cpp">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -167,12 +217,6 @@
     <ClInclude Include="EngineTime.h">
       <Filter>GameEngine\Time</Filter>
     </ClInclude>
-    <ClInclude Include="Vector3D.h">
-      <Filter>GameEngine\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrix4x4.h">
-      <Filter>GameEngine\Math</Filter>
-    </ClInclude>
     <ClInclude Include="IndexBuffer.h">
       <Filter>GameEngine\GraphicsEngine\RenderSystem\IndexBuffer</Filter>
     </ClInclude>
@@ -183,9 +227,6 @@
       <Filter>GameEngine\InputSystem</Filter>
     </ClInclude>
     <ClInclude Include="Point.h">
-      <Filter>GameEngine\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector4D.h">
       <Filter>GameEngine\Math</Filter>
     </ClInclude>
     <ClInclude Include="RenderSystem.h">
@@ -224,16 +265,10 @@
     <ClInclude Include="EngineMath.h">
       <Filter>GameEngine\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Quaternion.h">
-      <Filter>GameEngine\Math</Filter>
-    </ClInclude>
     <ClInclude Include="EngineMathConstants.h">
       <Filter>GameEngine\Math</Filter>
     </ClInclude>
     <ClInclude Include="EngineMathOperations.h">
-      <Filter>GameEngine\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3DConstants.h">
       <Filter>GameEngine\Math</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
@@ -245,14 +280,59 @@
     <ClInclude Include="CameraProjection.h">
       <Filter>GameEngine\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Matrix4x4Constants.h">
-      <Filter>GameEngine\Math</Filter>
-    </ClInclude>
     <ClInclude Include="CameraComponent.h">
       <Filter>GameEngine\EntityComponentSystem</Filter>
     </ClInclude>
     <ClInclude Include="SceneCamera.h">
       <Filter>GameEngine\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleMath.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="ImGui\imconfig.h">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui.h">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_dx11.h">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_win32.h">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_internal.h">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_rectpack.h">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_textedit.h">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_truetype.h">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="UIScreen.h">
+      <Filter>GameEngine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>GameEngine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\stb_image.h" />
+    <ClInclude Include="MenuBar.h">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectProperty.h">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectManager.h">
+      <Filter>GameEngine\EntityComponentSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectParentingScreen.h">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="Hierarchy.h">
+      <Filter>GameEngine\UIScreen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -262,5 +342,11 @@
     <FxCompile Include="PixelShader.hlsl">
       <Filter>App</Filter>
     </FxCompile>
+    <FxCompile Include="PS_Outline.hlsl">
+      <Filter>App</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SimpleMath.inl" />
   </ItemGroup>
 </Project>

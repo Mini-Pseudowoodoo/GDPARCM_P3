@@ -18,14 +18,39 @@ GameObject::~GameObject()
 
 void GameObject::AttachChild(GameObject* _child)
 {
-	_child->SetParent(this);
+	_child->m_parent = this;
 	m_children.push_back(_child);
+
+	Vector3 pos = _child->transform->GetPosition();
+	
+	const Matrix m = _child->transform->GetTransformationMatrix() * this->transform->GetWorldToLocalMatrix();
+	_child->transform->SetTransformationMatrix(m);
 }
 
 void GameObject::DetachChild(GameObject* _child)
 {
-	_child->SetParent(nullptr);
-	auto i = remove(m_children.begin(), m_children.end(), _child);
+	const Matrix m = _child->transform->GetTransformationMatrix() * this->transform->GetLocalToWorldMatrix();
+	_child->transform->SetTransformationMatrix(m);
+
+	auto i = std::remove(m_children.begin(), m_children.end(), _child);
+	if (i != m_children.end())
+	{
+		m_children.erase(i);
+		_child->m_parent = nullptr;
+	}
+}
+
+void GameObject::RemoveFromParent()
+{
+	if (m_parent)
+	{
+		m_parent->DetachChild(this);
+	}
+}
+
+bool GameObject::IsChildOf(GameObject* _parent)
+{
+	return std::count(_parent->m_children.begin(), _parent->m_children.end(), this);
 }
 
 void GameObject::AttachComponent(Component* _component)
@@ -41,11 +66,26 @@ void GameObject::DetachComponent(Component* _component)
 	auto i = remove(m_components.begin(), m_components.end(), _component);
 }
 
-GameObject* GameObject::GetRoot()
+bool GameObject::IsRoot() const
 {
-	GameObject* current = this;
+	return !m_parent;
+}
 
-	while (GameObject* parent = current->GetParent())
+std::string GameObject::GetName() const
+{
+	return name;
+}
+
+void GameObject::SetName(const std::string& _name)
+{
+	name = _name;
+}
+
+GameObject* GameObject::GetRoot() const
+{
+	GameObject* current = nullptr;
+
+	while (GameObject* parent = this->GetParent())
 	{
 		current = parent;
 	}
@@ -58,9 +98,22 @@ GameObject* GameObject::GetParent() const
 	return m_parent;
 }
 
-void GameObject::SetParent(GameObject* _parent)
+std::vector<GameObject*> GameObject::GetChildren() const
 {
+	return m_children;
+}
+
+void GameObject::SetParent(GameObject* _parent) 
+{
+	// If incoming parent is a child, then don't
+	if (std::find(m_children.begin(), m_children.end(), _parent) != m_children.end())
+	{
+		return;
+	}
+
+	this->RemoveFromParent();
 	m_parent = _parent;
+	m_parent->AttachChild(this);
 }
 
 void GameObject::Start()
@@ -96,7 +149,15 @@ TransformComponent* GameObject::GetTransform() const
 
 GameObject* GameObject::Instantiate()
 {
-	auto* obj = new GameObject();
+	GameObject* obj = new GameObject();
 	obj->Start();
+	return obj;
+}
+
+GameObject* GameObject::Instantiate(std::string _name)
+{
+	GameObject* obj = new GameObject();
+	obj->Start();
+	obj->SetName(_name);
 	return obj;
 }

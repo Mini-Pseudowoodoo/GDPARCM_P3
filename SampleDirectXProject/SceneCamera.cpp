@@ -1,13 +1,14 @@
 #include "SceneCamera.h"
 #include "Camera.h"
-#include "CameraManager.h"
 #include "CameraComponent.h"
-#include "Matrix4x4.h"
+#include "CameraManager.h"
 #include "AppWindow.h"
 #include "EngineTime.h"
 #include "InputSystem.h"
 #include "Camera.h"
 #include "TransformComponent.h"
+#include "MeshComponent.h"
+#include "GameObjectManager.h"
 
 #include <iostream>
 
@@ -35,15 +36,18 @@ void SceneCamera::Update(float deltaTime)
 
 	if (transform)
 	{
-		const Vector3D moveInput = input.ToUnitVector() * cameraSpeed;
+		Vector3 moveInput = input;
+		moveInput.Normalize();
 
-		const Matrix4x4& mat = transform->GetTransformationMatrix();
+		Vector3 move = moveInput * cameraSpeed;
 
-		Vector3D new_pos = mat.getTranslation() + mat.getZDirection() * (moveInput.z);
+		const Matrix& mat = transform->GetTransformationMatrix();
 
-		new_pos = new_pos + mat.getXDirection() * (moveInput.x);
+		Vector3 new_pos = mat.Translation() + mat.Forward() * (move.z);
 
-		new_pos = new_pos + mat.getYDirection() * (moveInput.y);
+		new_pos = new_pos + mat.Right() * (move.x);
+
+		new_pos = new_pos + mat.Up() * (move.y);
 
 		transform->SetPosition(new_pos);
 	}
@@ -51,7 +55,9 @@ void SceneCamera::Update(float deltaTime)
 
 void SceneCamera::onKeyDown(int key)
 {
-	if (key == 'W')
+	if (rmbDown)
+	{
+		if (key == 'W')
 	{
 		input.z = 1.0f;
 	}
@@ -80,6 +86,7 @@ void SceneCamera::onKeyDown(int key)
 	{
 		input.y = 1.0f;
 	}
+	}
 
 	/*if (key == '1')
 	{
@@ -100,7 +107,7 @@ void SceneCamera::onKeyDown(int key)
 
 void SceneCamera::onKeyUp(int key)
 {
-	input = Vector3D::zeroVector;
+	input = Vector3::Zero;
 }
 
 void SceneCamera::onMouseMove(const Point& delta_mouse)
@@ -111,28 +118,70 @@ void SceneCamera::onMouseMove(const Point& delta_mouse)
 	float width, height;
 	AppWindow::Get()->GetWindowSize(width, height);
 
-	Vector3D euler = transform->GetEulerAngles();
+	Vector3 euler = transform->GetEulerAngles();
 
 	const float deltaTime = EngineTime::getDeltaTime();
 
-	euler.y += (delta_mouse.x - (width / 2.0f)) * deltaTime;
-	euler.x += (delta_mouse.y - (height / 2.0f)) * deltaTime;
+	euler.y -= (delta_mouse.x - (width / 2.0f)) * deltaTime * cameraRotSpeed;
+	euler.x -= (delta_mouse.y - (height / 2.0f)) * deltaTime * cameraRotSpeed;
 
-	if (transform)
-	{
-		transform->SetEulerAngles(euler);
-	}
+	transform->SetEulerAngles(euler);
 
 	InputSystem::get()->setCursorPosition(Point((int)(width / 2.0f), (int)(height / 2.0f)));
 }
 
 void SceneCamera::onLeftMouseButtonDown(const Point& mouse_pos)
 {
+	if (!lmbDown)
+	{
+		lmbDown = true;
+	}
 }
 
 void SceneCamera::onLeftMouseButtonUp(const Point& mouse_pos)
 {
+	if (lmbDown)
+	{
+		lmbDown = false;
+
+		Point p = InputSystem::get()->GetMousePositionInWindow();
+		//std::cout << "X: " << p.x << " Y: " << p.y << std::endl;
+
+		Ray r = camera->GetCamera()->ScreenPointToRay(Vector3(p.x, p.y, 0));
+		//std::cout << "X: " << r.direction.x << " Y: " << r.direction.y << " Z: " << r.direction.z << std::endl;
+
+		const Vector3& pos = r.position;
+
+		// Toggle off all outline effect
+		for (GameObject* obj : GameObjectManager::Get()->GetGameObjectList())
+		{
+			if (MeshComponent* mesh = obj->GetComponent<MeshComponent>())
+			{
+				mesh->SetOutlined(false);
+			}
+		}
+
+		for (GameObject* obj : GameObjectManager::Get()->GetGameObjectList())
+		{
+			if (obj == GameObjectManager::Get()->GetSelectedGameObject())
+				continue;
+			if (MeshComponent* mesh = obj->GetComponent<MeshComponent>())
+			{
+				const auto& bounds = mesh->GetBounds();
+
+				float dist = 100.0f;
+
+				if (bounds.Intersects(r.position, r.direction, dist))
+				{
+					GameObjectManager::Get()->SelectGameObject(obj);
+					std::cout << obj->GetName() << std::endl;
+					return;
+				}
+			}
+		}
+	}
 }
+
 
 void SceneCamera::onRightMouseButtonDown(const Point& mouse_pos)
 {

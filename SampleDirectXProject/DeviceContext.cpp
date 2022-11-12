@@ -22,6 +22,7 @@ DeviceContext::~DeviceContext()
 void DeviceContext::clearRenderTargetColor(SwapChain* swap_chain, float red, float green, float blue, float alpha)
 {
 	FLOAT clear_color[] = {red,green,blue,alpha};
+	
 	m_device_context->ClearRenderTargetView(swap_chain->m_rtv, clear_color);
 }
 
@@ -37,7 +38,7 @@ void DeviceContext::setRenderTargets(SwapChain* swap_chain)
 
 void DeviceContext::setDepthStencilState(SwapChain* swap_chain)
 {
-	m_device_context->OMSetDepthStencilState(swap_chain->m_dss, 0);
+	m_device_context->OMSetDepthStencilState(swap_chain->m_dss, 1);
 }
 
 void DeviceContext::setRenderState(SwapChain* swap_chain)
@@ -67,6 +68,12 @@ void DeviceContext::drawTriangleList(UINT vertex_count, UINT start_vertex_index)
 void DeviceContext::drawIndexedTriangleList(UINT index_count, UINT start_vertex_index, UINT start_index_location)
 {
 	m_device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	m_device_context->DrawIndexed(index_count, start_index_location, start_vertex_index);
+}
+
+void DeviceContext::drawIndexedTriangleList_Line(UINT index_count, UINT start_vertex_index, UINT start_index_location)
+{
+	m_device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 	m_device_context->DrawIndexed(index_count, start_index_location, start_vertex_index);
 }
 

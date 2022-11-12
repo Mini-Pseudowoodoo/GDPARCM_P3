@@ -16,8 +16,13 @@ public:
 	void setCursorPosition(const Point& point);
 	void showCursor(bool show);
 
+	Point GetMousePositionInWindow() const;
+
 public:
 	static InputSystem* get();
+
+public:
+	void ConsumeLeftMouseButton();
 
 private:
 	std::unordered_set<InputListener*> m_set_listeners;
@@ -25,5 +30,7 @@ private:
 	unsigned char m_old_keys_state[256] = {};
 	Point m_old_mouse_pos;
 	bool m_first_time = true;
+
+	bool lmbConsumed = false;
 };
 

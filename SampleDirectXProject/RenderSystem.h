@@ -26,6 +26,8 @@ public:
 
 public:
 	DeviceContext* getImmediateDeviceContext();
+	ID3D11DeviceContext* getID3D11DeviceContext();
+	ID3D11Device* getDevice();
 
 private:
 	DeviceContext* m_imm_device_context;
