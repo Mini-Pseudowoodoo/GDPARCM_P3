@@ -17,11 +17,19 @@ void MenuBar::DrawUI()
         {
             ImGui::EndMenu();
         }
-        if (ImGui::BeginMenu("Tools"))
+        if (ImGui::BeginMenu("Window"))
         {
             if (ImGui::MenuItem("Object Property"))
             {
                 UIManager::Get()->ToggleUI("OBJECT_PROPERTY");
+            }
+            if (ImGui::MenuItem("Object Parenting"))
+            {
+                UIManager::Get()->ToggleUI("OBJECT_PARENTING");
+            }
+            if (ImGui::MenuItem("Hierarchy"))
+            {
+                UIManager::Get()->ToggleUI("HIERARCHY");
             }
             ImGui::EndMenu();
         }
@@ -46,8 +54,7 @@ void MenuBar::DrawUI()
         {
             if (ImGui::MenuItem("Credits"))
             {
-
-                //UIManager::Get()->ToggleUI("CREDITS_SCREEN");
+                UIManager::Get()->ToggleUI("CREDITS_SCREEN");
             }
             ImGui::EndMenu();
         }

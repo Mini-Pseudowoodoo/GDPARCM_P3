@@ -11,10 +11,15 @@ ObjectParentingScreen::~ObjectParentingScreen()
 void ObjectParentingScreen::DrawUI()
 {
 	ImGui::Begin("Object Parenting", &isActive);
+	if (ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered())
+	{
+		InputSystem::get()->ConsumeLeftMouseButton();
+	}
 
 	GameObject* selectedObj = GameObjectManager::Get()->GetSelectedGameObject();
-	String selectedObjTxt = "Selected Object: " + ((selectedObj == nullptr) ? "N/A" : selectedObj->GetName());
-	ImGui::Text(selectedObjTxt.c_str());
+	
+	//String selectedObjTxt = "Selected Object: " + ((selectedObj == nullptr) ? "N/A" : selectedObj->GetName());
+	//ImGui::Text(selectedObjTxt.c_str());
 
 	if (selectedObj != nullptr)
 	{
@@ -47,6 +52,7 @@ void ObjectParentingScreen::DrawUI()
 			gameObjsMap.emplace(obj->GetName(), gameObjList[i]);
 		}
 
+		ImGui::Dummy(ImVec2(0.0f, 10.0f));
 		// Display root parent objects
 		if (ImGui::BeginCombo("Select Parent", objToParentName.c_str()))
 		{
@@ -60,7 +66,9 @@ void ObjectParentingScreen::DrawUI()
 				}
 					
 				if (isSelected)
+				{
 					ImGui::SetItemDefaultFocus();
+				}
 			}
 
 			ImGui::EndCombo();
@@ -77,8 +85,6 @@ void ObjectParentingScreen::DrawUI()
 			}
 		}
 	}
-
-	
 
 	ImGui::End();
 }

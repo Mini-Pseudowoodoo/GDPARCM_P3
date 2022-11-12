@@ -16,7 +16,7 @@ void ObjectProperty::DrawUI()
 {
 	// Create ImGui Window
 	ImGui::Begin("Object Property", &isActive);
-
+	
 	const GameObject* const& selectedObj = GameObjectManager::Get()->GetSelectedGameObject();
 	String selectedObjTxt = "Selected Object: " + ((selectedObj == nullptr) ? "N/A" : selectedObj->GetName());
 	ImGui::Text(selectedObjTxt.c_str());
@@ -40,8 +40,8 @@ void ObjectProperty::DrawUI()
 		Vector3 origRot = objTransform->GetEulerAngles() * RAD_TO_DEG;
 		rot = new float[3] { origRot.x, origRot.y, origRot.z };
 		ImGui::DragFloat3("Rotation", rot, 0.1f, -360.0f, 360.0f);
-		//objTransform->SetRotation(Quaternion(rot[0], rot[1], rot[2], 1.0f));
 		objTransform->SetEulerAngles(Vector3(rot[0], rot[1], rot[2]) * DEG_TO_RAD);
+		//objTransform->SetRotation(Quaternion(rot[0], rot[1], rot[2], 1.0f));
 
 		if (ImGui::IsItemClicked(0) || (ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()))
 		{

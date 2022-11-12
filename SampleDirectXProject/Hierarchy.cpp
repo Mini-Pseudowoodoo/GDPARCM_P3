@@ -46,7 +46,6 @@ void Hierarchy::SetupNode(GameObject* obj)
 			for (int i = 0; i < children.size(); i++)
 			{
 				SetupNode(children[i]);
-				//ImGui::BulletText(children[j]->GetName().c_str());
 			}
 			ImGui::TreePop();
 		}

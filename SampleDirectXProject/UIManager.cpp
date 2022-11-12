@@ -72,6 +72,10 @@ UIManager::UIManager(HWND hwnd)
 	Hierarchy* hierarchy = new Hierarchy();
 	this->uiTable[uiNames.HIERARCHY] = hierarchy;
 	this->uiList.push_back(hierarchy);
+
+	CreditsScreen* credits = new CreditsScreen();
+	this->uiTable[uiNames.CREDITS_SCREEN] = credits;
+	this->uiList.push_back(credits);
 }
 
 UIManager::~UIManager()

@@ -15,6 +15,7 @@
 #include "ObjectProperty.h"
 #include "ObjectParentingScreen.h";
 #include "Hierarchy.h"
+#include "CreditsScreen.h"
 
 typedef std::string String;
 class UINames {
