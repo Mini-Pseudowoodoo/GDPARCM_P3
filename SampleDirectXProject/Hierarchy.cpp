@@ -16,7 +16,8 @@ void Hierarchy::DrawUI()
 
 	vector<GameObject*> rootObjs = GameObjectManager::Get()->GetRoots();
 
-	if (ImGui::TreeNode("Scene"))
+	ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen;
+	if (ImGui::TreeNodeEx("Scene", flags))
 	{
 		for (int i = 0; i < rootObjs.size(); i++)
 		{
@@ -52,9 +53,14 @@ void Hierarchy::SetupNode(GameObject* obj)
 	}
 	else
 	{
-		if (ImGui::Selectable(obj->GetName().c_str(), false))
+		ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Leaf;
+		if (ImGui::TreeNodeEx(obj->GetName().c_str(), flags))
 		{
-			GameObjectManager::Get()->SelectGameObject(obj);
+			if (ImGui::IsMouseClicked(ImGuiMouseButton_Left) && ImGui::IsItemHovered())
+			{
+				GameObjectManager::Get()->SelectGameObject(obj);
+			}
+			ImGui::TreePop();
 		}
 	}
 }
