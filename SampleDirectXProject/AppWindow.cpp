@@ -7,8 +7,6 @@
 
 #include "GameObjectManager.h"
 #include "GameObject.h"
-#include "Cube.h"
-#include "Plane.h"
 #include "MeshComponent.h"
 #include "TransformComponent.h"
 #include "RotationMovementComponent.h"
@@ -67,7 +65,7 @@ void AppWindow::onCreate()
 	InputSystem::get()->addListener(sceneCamera);
 	sceneCamera->GetTransform()->SetPosition(Vector3(0.0f, 0.0f, 2.5f));
 
-	GraphicsEngine::get()->init();
+	GraphicsEngine::create();
 	RECT rc = this->getClientWindowRect();
 	m_swap_chain=GraphicsEngine::get()->getRenderSystem()->createSwapChain(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setRenderTargets(this->m_swap_chain);

@@ -16,6 +16,9 @@
 #include "CameraManager.h"
 #include "Camera.h"
 
+#include "TextureManager.h"
+#include "VertexMesh.h"
+
 #include "SimpleMath.h"
 #include <iostream>
 
@@ -74,6 +77,9 @@ void MeshComponent::Update(float deltaTime)
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexShader(m_vs);
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setPixelShader(m_ps);
 
+	if (texture)
+		GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setTexture(m_ps, texture);
+
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setIndexBuffer(m_ib);
 	
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
@@ -93,27 +99,14 @@ void MeshComponent::SetMesh(Mesh* inMesh)
 
 	CalculateBounds();
 
-	m_ib = GraphicsEngine::get()->getRenderSystem()->createIndexBuffer(&mesh->indices[0], mesh->size_index_list);
-
 	void* shader_byte_code = nullptr;
 	size_t size_shader = 0;
 
 	GraphicsEngine::get()->getRenderSystem()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
 
 	m_vs = GraphicsEngine::get()->getRenderSystem()->createVertexShader(shader_byte_code, size_shader);
-
-	Mesh mesh_outline;
-	for (vertex const mesh_ver : mesh->vertices)
-	{
-		vertex ver;
-
-		ver.position = mesh_ver.position * 1.05f;
-		ver.color = Vector3(1, 0.5f, 0);
-		mesh_outline.vertices.push_back(ver);
-	}
-
-	m_vb_outline = GraphicsEngine::get()->getRenderSystem()->createVertexBuffer(&mesh_outline.vertices[0], sizeof(vertex), mesh->size_list, shader_byte_code, size_shader);
-	m_vb = GraphicsEngine::get()->getRenderSystem()->createVertexBuffer(&mesh->vertices[0], sizeof(vertex), mesh->size_list, shader_byte_code, size_shader);
+	m_vb = mesh->GetVertexBuffer();
+	m_ib = mesh->GetIndexBuffer();
 
 	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
 
@@ -136,14 +129,16 @@ void MeshComponent::CalculateBounds()
 	if (!mesh)
 		return;
 
-	Vector3* points = new Vector3[mesh->size_list];
+	size_t size = mesh->GetVertices().size();
 
-	for (size_t i = 0; i < mesh->size_list; i++)
+	Vector3* points = new Vector3[size];
+
+	for (size_t i = 0; i < size; i++)
 	{
-		points[i] = mesh->vertices[i].position;
+		points[i] = mesh->GetVertices()[i].position;
 	}
 
-	BoundingBox::CreateFromPoints(bounds, mesh->size_list, points, sizeof(Vector3));
+	BoundingBox::CreateFromPoints(bounds, size, points, sizeof(Vector3));
 	bounds.Transform(bounds, GetOwner()->GetTransform()->GetLocalToWorldMatrix());
 	//sphereBounds.Transform(sphereBounds, GetOwner()->GetTransform()->GetWorldMatrix());
 
@@ -165,4 +160,9 @@ bool MeshComponent::GetOutlined() const
 void MeshComponent::SetOutlined(bool flag)
 {
 	isOutlined = flag;
+}
+
+void MeshComponent::SetTexture(Texture* inTexture)
+{
+	texture = inTexture;
 }

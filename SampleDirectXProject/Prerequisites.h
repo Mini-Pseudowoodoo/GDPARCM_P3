@@ -10,3 +10,5 @@ class VertexShader;
 class PixelShader;
 class RenderSystem;
 class GraphicsEngine;
+class Resource;
+class ResourceManager;

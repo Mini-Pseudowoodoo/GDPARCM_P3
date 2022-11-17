@@ -12,10 +12,6 @@
 
 RenderSystem::RenderSystem()
 {
-}
-
-bool RenderSystem::init()
-{
 	D3D_DRIVER_TYPE driver_types[] =
 	{
 		D3D_DRIVER_TYPE_HARDWARE,
@@ -42,7 +38,7 @@ bool RenderSystem::init()
 	}
 	if (FAILED(res))
 	{
-		return false;
+		return;
 	}
 
 	m_imm_device_context = new DeviceContext(m_imm_context, this);
@@ -50,12 +46,9 @@ bool RenderSystem::init()
 	m_d3d_device->QueryInterface(__uuidof(IDXGIDevice), (void**)&m_dxgi_device);
 	m_dxgi_device->GetParent(__uuidof(IDXGIAdapter), (void**)&m_dxgi_adapter);
 	m_dxgi_adapter->GetParent(__uuidof(IDXGIFactory), (void**)&m_dxgi_factory);
-
-	return true;
 }
 
-
-bool RenderSystem::release()
+RenderSystem::~RenderSystem()
 {
 	if (m_vs)m_vs->Release();
 	if (m_ps)m_ps->Release();
@@ -70,11 +63,6 @@ bool RenderSystem::release()
 	//m_imm_device_context->release();
 
 	m_d3d_device->Release();
-	return true;
-}
-
-RenderSystem::~RenderSystem()
-{
 }
 
 SwapChain* RenderSystem::createSwapChain(HWND hwnd, UINT width, UINT height)

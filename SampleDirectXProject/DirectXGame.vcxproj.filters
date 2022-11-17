@@ -64,6 +64,15 @@
     <Filter Include="GameEngine\UIScreen">
       <UniqueIdentifier>{6b62c2c4-4929-44ae-ba5c-04087c3ba5b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\ResourceManager">
+      <UniqueIdentifier>{1ed315e5-4aa9-49cc-b527-96542047a98b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\TextureManager">
+      <UniqueIdentifier>{59dd243e-8031-47b8-8b66-65ab038f6e87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\MeshManager">
+      <UniqueIdentifier>{35edbb52-52bc-400d-974a-945e3373c82a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -123,15 +132,6 @@
     <ClCompile Include="RotationMovementComponent.cpp">
       <Filter>GameEngine\EntityComponentSystem</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>GameEngine\EntityComponentSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>GameEngine\EntityComponentSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Plane.cpp">
-      <Filter>GameEngine\EntityComponentSystem</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>GameEngine\Camera</Filter>
     </ClCompile>
@@ -184,6 +184,27 @@
     </ClCompile>
     <ClCompile Include="Hierarchy.cpp">
       <Filter>GameEngine\UIScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>GameEngine\GraphicsEngine\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>GameEngine\GraphicsEngine\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>GameEngine\GraphicsEngine\TextureManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>GameEngine\GraphicsEngine\TextureManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CreditsScreen.cpp">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>GameEngine\GraphicsEngine\MeshManager</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshManager.cpp">
+      <Filter>GameEngine\GraphicsEngine\MeshManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -251,15 +272,6 @@
       <Filter>GameEngine\Math</Filter>
     </ClInclude>
     <ClInclude Include="RotationMovementComponent.h">
-      <Filter>GameEngine\EntityComponentSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>GameEngine\EntityComponentSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>GameEngine\EntityComponentSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Plane.h">
       <Filter>GameEngine\EntityComponentSystem</Filter>
     </ClInclude>
     <ClInclude Include="EngineMath.h">
@@ -334,6 +346,30 @@
     <ClInclude Include="Hierarchy.h">
       <Filter>GameEngine\UIScreen</Filter>
     </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>GameEngine\GraphicsEngine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>GameEngine\GraphicsEngine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>GameEngine\GraphicsEngine\TextureManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>GameEngine\GraphicsEngine\TextureManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CreditsScreen.h">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>GameEngine\GraphicsEngine\MeshManager</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshManager.h">
+      <Filter>GameEngine\GraphicsEngine\MeshManager</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexMesh.h">
+      <Filter>GameEngine\GraphicsEngine\MeshManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -343,6 +379,9 @@
       <Filter>App</Filter>
     </FxCompile>
     <FxCompile Include="PS_Outline.hlsl">
+      <Filter>App</Filter>
+    </FxCompile>
+    <FxCompile Include="VertexMeshLayoutShader.hlsl">
       <Filter>App</Filter>
     </FxCompile>
   </ItemGroup>

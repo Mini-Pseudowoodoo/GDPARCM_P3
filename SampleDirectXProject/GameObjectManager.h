@@ -20,6 +20,9 @@ public:
 	void CreateGameObject();
 	void CreateCube();
 	void CreatePlane();
+	void CreateTeapot();
+	void CreateBunny();
+	void CreateArmadillo();
 
 public:
 	void SelectGameObject(GameObject* inObj);
@@ -37,5 +40,8 @@ private:
 private:
 	const std::string NAME_CUBE = "Cube";
 	const std::string NAME_PLANE = "Plane";
+	const std::string NAME_TEAPOT = "Teapot";
+	const std::string NAME_BUNNY = "Bunny";
+	const std::string NAME_ARMADILLO = "Armadillo";
 };
 

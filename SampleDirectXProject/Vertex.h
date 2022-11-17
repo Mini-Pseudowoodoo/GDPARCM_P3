@@ -6,5 +6,5 @@ using namespace DirectX::SimpleMath;
 struct vertex
 {
 	Vector3 position;
-	Vector3 color;
+	Vector2 texcoord;
 };

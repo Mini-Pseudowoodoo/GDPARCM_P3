@@ -13,6 +13,7 @@ class Mesh;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
+class Texture;
 class MeshComponent: public Component
 {
 public:
@@ -29,6 +30,8 @@ public:
 
 	bool GetOutlined() const;
 	void SetOutlined(bool flag);
+
+	void SetTexture(Texture* inTexture);
 protected:
 	Mesh* mesh = nullptr;
 
@@ -44,6 +47,7 @@ protected:
 	BoundingBox bounds;
 private:
 	bool isOutlined = false;
+	Texture* texture;
 protected:
 	friend class Mesh;
 };
