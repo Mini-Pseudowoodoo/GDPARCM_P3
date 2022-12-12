@@ -245,6 +245,9 @@
     <ClCompile Include="Libs\jsoncpp-1.9.5\src\test_lib_json\jsontest.cpp">
       <Filter>GameEngine\JSON</Filter>
     </ClCompile>
+    <ClCompile Include="TextureComponent.cpp">
+      <Filter>GameEngine\EntityComponentSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -468,6 +471,9 @@
     </ClInclude>
     <ClInclude Include="Libs\jsoncpp-1.9.5\src\test_lib_json\jsontest.h">
       <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureComponent.h">
+      <Filter>GameEngine\EntityComponentSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
