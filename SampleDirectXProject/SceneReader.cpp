@@ -88,12 +88,12 @@ void SceneReader::ReadFromFile()
 
 	for (auto const& id : root.getMemberNames())
 	{
-		objectName = id;
-		objectType = (PrimitiveType)root[id]["type"].asInt();
-		position =	{ root[id]["position"]["x"].asFloat(), root[id]["position"]["y"].asFloat(), root[id]["position"]["z"].asFloat() };
-		rotation =	{ root[id]["rotation"]["x"].asFloat(), root[id]["rotation"]["y"].asFloat(), root[id]["rotation"]["z"].asFloat() };
-		scale =		{ root[id]["scale"]["x"].asFloat(), root[id]["scale"]["y"].asFloat(), root[id]["scale"]["z"].asFloat() };
 		hasPhysics = (bool)root[id]["hasPhysics"].asInt();
+		objectName = root[id]["name"].asString();
+		position =	{ root[id]["position"][0]["x"].asFloat(), root[id]["position"][0]["y"].asFloat(), root[id]["position"][0]["z"].asFloat() };
+		rotation =	{ root[id]["rotation"][0]["x"].asFloat(), root[id]["rotation"][0]["y"].asFloat(), root[id]["rotation"][0]["z"].asFloat() };
+		scale =	{ root[id]["scale"][0]["x"].asFloat(), root[id]["scale"][0]["y"].asFloat(), root[id]["scale"][0]["z"].asFloat() };
+		objectType = (PrimitiveType)root[id]["type"].asInt();
 
 		GameObjectManager::Get()->CreateObjectFromFile(objectName, objectType, position, rotation, scale, hasPhysics);
 	}
