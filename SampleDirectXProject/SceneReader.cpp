@@ -37,6 +37,8 @@ void SceneReader::ReadFromFile()
 	SimpleMath::Vector3 rotation;
 	SimpleMath::Vector3 scale;
 
+	std::cout << "ok\n";
+
 	while (std::getline(sceneFile, readLine)) {
 		if (index == 0) {
 			objectName = readLine;
@@ -64,5 +66,7 @@ void SceneReader::ReadFromFile()
 
 			GameObjectManager::Get()->CreateObjectFromFile(objectName, objectType, position, rotation, scale);
 		}
+
+		std::cout << "die\n";
 	}
 }
