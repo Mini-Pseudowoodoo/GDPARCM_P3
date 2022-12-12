@@ -73,6 +73,9 @@
     <Filter Include="GameEngine\GraphicsEngine\MeshManager">
       <UniqueIdentifier>{35edbb52-52bc-400d-974a-945e3373c82a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\NewFilter1">
+      <UniqueIdentifier>{1514a874-cdf9-41e0-bdf1-a67f8d0eaab1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -221,6 +224,9 @@
     <ClCompile Include="PlaybackScreen.cpp">
       <Filter>GameEngine\UIScreen</Filter>
     </ClCompile>
+    <ClCompile Include="SceneWriter.cpp" />
+    <ClCompile Include="SceneReader.cpp" />
+    <ClCompile Include="StringUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -399,6 +405,12 @@
     </ClInclude>
     <ClInclude Include="PlaybackScreen.h">
       <Filter>GameEngine\UIScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneWriter.h" />
+    <ClInclude Include="SceneReader.h" />
+    <ClInclude Include="StringUtils.h" />
+    <ClInclude Include="imfilebrowser.h">
+      <Filter>GameEngine\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

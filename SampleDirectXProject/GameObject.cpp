@@ -172,6 +172,11 @@ void GameObject::RestoreEditState()
 	}
 }
 
+PrimitiveType GameObject::GetObjectType() const
+{
+	return objectType;
+}
+
 GameObject* GameObject::Instantiate()
 {
 	GameObject* obj = new GameObject();

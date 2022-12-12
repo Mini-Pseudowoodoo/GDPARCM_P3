@@ -3,6 +3,7 @@
 #include "GameObjectManager.h"
 
 #include "TransformComponent.h"
+#include "EngineBackend.h"
 
 #include <iostream>
 
@@ -46,6 +47,9 @@ void PhysicsComponent::Start()
 
 void PhysicsComponent::Update(float deltaTime)
 {
+	if (EngineBackend::Get()->GetMode() != EditorMode::PLAY)
+		return;
+
 	const Transform transform = this->rigidBody->getTransform();
 	float* matrix = new float[16];
 	transform.getOpenGLMatrix(matrix);

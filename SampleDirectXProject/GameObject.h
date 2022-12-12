@@ -2,6 +2,13 @@
 #include <vector>
 #include <string>
 
+enum PrimitiveType {
+	CUBE,
+	SPHERE,
+	PLANE,
+	CAPSULE,
+};
+
 class EditorAction;
 class Component;
 class TransformComponent;
@@ -42,10 +49,13 @@ protected:
 	std::string name = "GameObject";
 	TransformComponent* transform = nullptr;
 	EditorAction* lastEditState = nullptr;
+	PrimitiveType objectType;
+
 public:
 	TransformComponent* GetTransform() const;
 	void SaveEditState();
 	void RestoreEditState();
+	PrimitiveType GetObjectType() const;
 protected:
 	std::vector<GameObject*> m_children;
 	std::vector<Component*> m_components;

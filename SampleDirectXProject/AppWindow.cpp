@@ -95,8 +95,6 @@ void AppWindow::onUpdate()
 	// Update scene camera
 	sceneCamera->Update(deltaTime);
 
-	GameObjectManager::Get()->Update();
-
 	EngineBackend* backend = EngineBackend::Get();
 	if (backend->GetMode() == EditorMode::PLAY) {
 		GameObjectManager::Get()->Update();

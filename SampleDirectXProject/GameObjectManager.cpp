@@ -9,6 +9,7 @@
 #include "MeshManager.h"
 #include "TransformComponent.h"
 #include "PhysicsComponent.h"
+#include "EngineBackend.h"
 
 GameObjectManager* GameObjectManager::instance = nullptr;
 
@@ -37,7 +38,8 @@ void GameObjectManager::Update()
 
     if (delta > 0.0f)
     {
-        physicsWorld->update(delta);
+        if (EngineBackend::Get()->GetMode() == EditorMode::PLAY)
+            physicsWorld->update(delta);
         for (const auto& gameObject : gameObjectList)
         {
             gameObject->Update(delta);
@@ -233,6 +235,21 @@ void GameObjectManager::CreateArmadillo()
     gameObjectList.push_back(obj);
     gameObjectMap.emplace(obj->GetName(), obj);
     SelectGameObject(obj);
+}
+
+void GameObjectManager::CreateObjectFromFile(std::string name, PrimitiveType type, SimpleMath::Vector3 position, SimpleMath::Vector3 rotation, SimpleMath::Vector3 scale)
+{
+    switch (type)
+    {
+    case PrimitiveType::CUBE:
+        break;
+    case PrimitiveType::SPHERE:
+        break;
+    case PrimitiveType::PLANE:
+        break;
+    case PrimitiveType::CAPSULE:
+        break;
+    }
 }
 
 void GameObjectManager::SaveEditStates()

@@ -2,10 +2,12 @@
 #include <vector>
 #include <unordered_map>
 #include <string>
-
+#include "GameObject.h"
+#include "SimpleMath.h"
 #include <reactphysics3d/reactphysics3d.h>
 
 using namespace reactphysics3d;
+using namespace DirectX;
 
 class GameObject;
 class GameObjectManager
@@ -31,6 +33,9 @@ public:
 	void CreateTeapot();
 	void CreateBunny();
 	void CreateArmadillo();
+
+public:
+	void CreateObjectFromFile(std::string name, PrimitiveType type, SimpleMath::Vector3 position, SimpleMath::Vector3 rotation, SimpleMath::Vector3 scale);
 
 public:
 	void SaveEditStates();
