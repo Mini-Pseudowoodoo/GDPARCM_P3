@@ -7,6 +7,7 @@ enum PrimitiveType {
 	SPHERE,
 	PLANE,
 	CAPSULE,
+	CYLINDER,
 };
 
 class EditorAction;
@@ -56,6 +57,7 @@ public:
 	void SaveEditState();
 	void RestoreEditState();
 	PrimitiveType GetObjectType() const;
+	void SetObjectType(PrimitiveType type);
 protected:
 	std::vector<GameObject*> m_children;
 	std::vector<Component*> m_components;

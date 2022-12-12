@@ -27,15 +27,15 @@ public:
 
 public:
 	void CreateGameObject();
-	void CreateCube();
+	GameObject* CreateCube();
 	void CreateCubes(int amount);
-	void CreatePlane();
+	GameObject* CreatePlane();
 	void CreateTeapot();
 	void CreateBunny();
 	void CreateArmadillo();
-	void CreateSphere();
-	void CreateCapsule();
-	void CreateCylinder();
+	GameObject* CreateSphere();
+	GameObject* CreateCapsule();
+	GameObject* CreateCylinder();
 
 public:
 	void CreateObjectFromFile(std::string name, PrimitiveType type, SimpleMath::Vector3 position, SimpleMath::Vector3 rotation, SimpleMath::Vector3 scale);

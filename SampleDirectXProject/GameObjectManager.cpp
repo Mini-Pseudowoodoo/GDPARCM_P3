@@ -55,9 +55,10 @@ void GameObjectManager::CreateGameObject()
     SelectGameObject(newObj);
 }
 
-void GameObjectManager::CreateCube()
+GameObject* GameObjectManager::CreateCube()
 {
     GameObject* cube = GameObject::Instantiate(NAME_CUBE);
+    cube->SetObjectType(PrimitiveType::CUBE);
 
     if (TransformComponent* transform = cube->GetTransform())
     {
@@ -95,6 +96,8 @@ void GameObjectManager::CreateCube()
     gameObjectList.push_back(cube);
     gameObjectMap.emplace(cube->GetName(), cube);
     SelectGameObject(cube);
+
+    return cube;
 }
 
 void GameObjectManager::CreateCubes(int amount)
@@ -105,11 +108,11 @@ void GameObjectManager::CreateCubes(int amount)
     }
 }
 
-void GameObjectManager::CreatePlane()
+GameObject* GameObjectManager::CreatePlane()
 {
-    GameObject* cube = GameObject::Instantiate(NAME_PLANE);
-
-    if (TransformComponent* transform = cube->GetTransform())
+    GameObject* plane = GameObject::Instantiate(NAME_PLANE);
+    plane->SetObjectType(PrimitiveType::PLANE);
+    if (TransformComponent* transform = plane->GetTransform())
     {
         transform->SetScale({ 5, 0.1f, 5 });
     }
@@ -120,37 +123,39 @@ void GameObjectManager::CreatePlane()
     if (mesh)
     {
         MeshComponent* meshComponent = new MeshComponent();
-        cube->AttachComponent(meshComponent);
+        plane->AttachComponent(meshComponent);
         meshComponent->SetMesh(mesh);
         meshComponent->SetTexture(texture);
     }
 
     PhysicsComponent* phys = new PhysicsComponent();
-    cube->AttachComponent(phys);
+    plane->AttachComponent(phys);
     phys->GetRigidbody()->setType(BodyType::KINEMATIC);
 
     int i = 0;
 
     for (const auto& pair : gameObjectMap)
     {
-        if (pair.first.find(NAME_CUBE) != std::string::npos)
+        if (pair.first.find(NAME_PLANE) != std::string::npos)
         {
             i++;
         }
     }
 
     if (i > 0)
-        cube->SetName(NAME_CUBE + " (" + std::to_string(i) + ')');
+        plane->SetName(NAME_PLANE + " (" + std::to_string(i) + ')');
 
-    gameObjectList.push_back(cube);
-    gameObjectMap.emplace(cube->GetName(), cube);
-    SelectGameObject(cube);
+    gameObjectList.push_back(plane);
+    gameObjectMap.emplace(plane->GetName(), plane);
+    SelectGameObject(plane);
+
+    return plane;
 }
 
-void GameObjectManager::CreateSphere()
+GameObject* GameObjectManager::CreateSphere()
 {
     GameObject* obj = GameObject::Instantiate(NAME_SPHERE);
-
+    obj->SetObjectType(PrimitiveType::SPHERE);
     Mesh* mesh = GraphicsEngine::get()->getMeshManager()->CreateMeshFromFile(L"Assets\\Meshes\\sphere.obj");
     //Texture* texture = GraphicsEngine::get()->getTextureManager()->CreateTextureFromFile(L"Assets\\Textures\\grass.png");
 
@@ -175,12 +180,14 @@ void GameObjectManager::CreateSphere()
     gameObjectList.push_back(obj);
     gameObjectMap.emplace(obj->GetName(), obj);
     SelectGameObject(obj);
+
+    return obj;
 }
 
-void GameObjectManager::CreateCapsule()
+GameObject* GameObjectManager::CreateCapsule()
 {
     GameObject* obj = GameObject::Instantiate(NAME_CAPSULE);
-
+    obj->SetObjectType(PrimitiveType::CAPSULE);
     Mesh* mesh = GraphicsEngine::get()->getMeshManager()->CreateMeshFromFile(L"Assets\\Meshes\\capsule.obj");
     //Texture* texture = GraphicsEngine::get()->getTextureManager()->CreateTextureFromFile(L"Assets\\Textures\\grass.png");
 
@@ -205,9 +212,11 @@ void GameObjectManager::CreateCapsule()
     gameObjectList.push_back(obj);
     gameObjectMap.emplace(obj->GetName(), obj);
     SelectGameObject(obj);
+
+    return obj;
 }
 
-void GameObjectManager::CreateCylinder()
+GameObject* GameObjectManager::CreateCylinder()
 {
     GameObject* obj = GameObject::Instantiate(NAME_CYLINDER);
 
@@ -235,6 +244,8 @@ void GameObjectManager::CreateCylinder()
     gameObjectList.push_back(obj);
     gameObjectMap.emplace(obj->GetName(), obj);
     SelectGameObject(obj);
+
+    return obj;
 }
 
 void GameObjectManager::CreateTeapot()
@@ -329,17 +340,27 @@ void GameObjectManager::CreateArmadillo()
 
 void GameObjectManager::CreateObjectFromFile(std::string name, PrimitiveType type, SimpleMath::Vector3 position, SimpleMath::Vector3 rotation, SimpleMath::Vector3 scale)
 {
+    GameObject* obj = nullptr;
+
     switch (type)
     {
     case PrimitiveType::CUBE:
+        obj = CreateCube();
         break;
     case PrimitiveType::SPHERE:
+        obj = CreateSphere();
         break;
     case PrimitiveType::PLANE:
+        obj = CreatePlane();
         break;
     case PrimitiveType::CAPSULE:
+        obj = CreateCapsule();
         break;
     }
+
+    obj->GetTransform()->SetPosition(position);
+    obj->GetTransform()->SetEulerAngles(rotation);
+    obj->GetTransform()->SetScale(scale);
 }
 
 void GameObjectManager::SaveEditStates()

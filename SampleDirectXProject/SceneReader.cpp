@@ -11,7 +11,7 @@ using namespace DirectX;
 typedef std::fstream FileReader;
 SceneReader::SceneReader(std::string _directory)
 {
-	this->directory = directory;
+	this->directory = _directory;
 }
 
 SceneReader::~SceneReader()
@@ -20,12 +20,13 @@ SceneReader::~SceneReader()
 
 void SceneReader::ReadFromFile()
 {
-	std::string fileDir = this->directory + ".level";
+	std::string fileDir = this->directory;
+	std::cout << fileDir << std::endl;
 	if (this->directory.find(".level") != std::string::npos) {
 		fileDir = this->directory;
 	}
 
-	FileReader  sceneFile;
+	FileReader sceneFile;
 	sceneFile.open(fileDir, std::ios::in);
 
 	int index = 0;
@@ -36,8 +37,6 @@ void SceneReader::ReadFromFile()
 	SimpleMath::Vector3 position;
 	SimpleMath::Vector3 rotation;
 	SimpleMath::Vector3 scale;
-
-	std::cout << "ok\n";
 
 	while (std::getline(sceneFile, readLine)) {
 		if (index == 0) {
@@ -66,7 +65,5 @@ void SceneReader::ReadFromFile()
 
 			GameObjectManager::Get()->CreateObjectFromFile(objectName, objectType, position, rotation, scale);
 		}
-
-		std::cout << "die\n";
 	}
 }

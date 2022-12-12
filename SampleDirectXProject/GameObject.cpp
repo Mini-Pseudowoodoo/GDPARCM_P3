@@ -11,10 +11,12 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-	for(auto* component : m_components)
+	for(int i = 0; i < m_components.size(); i++)
 	{
-		DetachComponent(component);
+		delete m_components[i];
 	}
+
+	m_components.clear();
 }
 
 void GameObject::AttachChild(GameObject* _child)
@@ -175,6 +177,11 @@ void GameObject::RestoreEditState()
 PrimitiveType GameObject::GetObjectType() const
 {
 	return objectType;
+}
+
+void GameObject::SetObjectType(PrimitiveType type)
+{
+	objectType = type;
 }
 
 GameObject* GameObject::Instantiate()
