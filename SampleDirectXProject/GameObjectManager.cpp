@@ -74,7 +74,7 @@ GameObject* GameObjectManager::CreateCube()
         MeshComponent* meshComponent = new MeshComponent();
         cube->AttachComponent(meshComponent);
         meshComponent->SetMesh(mesh);
-        meshComponent->SetTexture(texture);
+        //meshComponent->SetTexture(texture);
     }
 
     int i = 0;

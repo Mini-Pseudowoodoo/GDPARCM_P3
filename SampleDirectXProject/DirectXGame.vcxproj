@@ -75,7 +75,7 @@
     <LibraryPath>Libs\DirectXTex\bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>Libs\DirectXTex\include;Libs\tinyobjloader\include;Libs\ReactPhysics3D\include;$(IncludePath)</IncludePath>
+    <IncludePath>Libs\DirectXTex\include;Libs\tinyobjloader\include;Libs\ReactPhysics3D\include;Libs\jsoncpp-1.9.5\include;$(IncludePath)</IncludePath>
     <LibraryPath>Libs\DirectXTex\bin;Libs\ReactPhysics3D\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -156,6 +156,11 @@
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="InputSystem.cpp" />
+    <ClCompile Include="Libs\jsoncpp-1.9.5\src\lib_json\json_reader.cpp" />
+    <ClCompile Include="Libs\jsoncpp-1.9.5\src\lib_json\json_value.cpp" />
+    <ClCompile Include="Libs\jsoncpp-1.9.5\src\lib_json\json_writer.cpp" />
+    <ClCompile Include="Libs\jsoncpp-1.9.5\src\test_lib_json\fuzz.cpp" />
+    <ClCompile Include="Libs\jsoncpp-1.9.5\src\test_lib_json\jsontest.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuBar.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -220,6 +225,19 @@
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="InputListener.h" />
     <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\allocator.h" />
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\assertions.h" />
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\config.h" />
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\forwards.h" />
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\json.h" />
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\json_features.h" />
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\reader.h" />
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\value.h" />
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\version.h" />
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\writer.h" />
+    <ClInclude Include="Libs\jsoncpp-1.9.5\src\lib_json\json_tool.h" />
+    <ClInclude Include="Libs\jsoncpp-1.9.5\src\test_lib_json\fuzz.h" />
+    <ClInclude Include="Libs\jsoncpp-1.9.5\src\test_lib_json\jsontest.h" />
     <ClInclude Include="MenuBar.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshComponent.h" />
@@ -283,6 +301,7 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Libs\jsoncpp-1.9.5\src\lib_json\json_valueiterator.inl" />
     <None Include="SimpleMath.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

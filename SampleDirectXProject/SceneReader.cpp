@@ -8,6 +8,9 @@
 
 using namespace DirectX;
 
+#include <json/json.h>
+#include <json/value.h>
+
 typedef std::fstream FileReader;
 SceneReader::SceneReader(std::string _directory)
 {
@@ -29,7 +32,7 @@ void SceneReader::ReadFromFile()
 	FileReader sceneFile;
 	sceneFile.open(fileDir, std::ios::in);
 
-	int index = 0;
+	/*int index = 0;
 	std::string readLine;
 
 	std::string objectName;
@@ -70,5 +73,30 @@ void SceneReader::ReadFromFile()
 			GameObjectManager::Get()->CreateObjectFromFile(objectName, objectType, position, rotation, scale, hasPhysics);
 			index = 0;
 		}
+	}*/
+
+	Json::Value root;
+
+	sceneFile >> root;
+
+	std::string objectName;
+	PrimitiveType objectType;
+	SimpleMath::Vector3 position;
+	SimpleMath::Vector3 rotation;
+	SimpleMath::Vector3 scale;
+	bool hasPhysics;
+
+	for (auto const& id : root.getMemberNames())
+	{
+		objectName = id;
+		objectType = (PrimitiveType)root[id]["type"].asInt();
+		position =	{ root[id]["position"]["x"].asFloat(), root[id]["position"]["y"].asFloat(), root[id]["position"]["z"].asFloat() };
+		rotation =	{ root[id]["rotation"]["x"].asFloat(), root[id]["rotation"]["y"].asFloat(), root[id]["rotation"]["z"].asFloat() };
+		scale =		{ root[id]["scale"]["x"].asFloat(), root[id]["scale"]["y"].asFloat(), root[id]["scale"]["z"].asFloat() };
+		hasPhysics = (bool)root[id]["hasPhysics"].asInt();
+
+		GameObjectManager::Get()->CreateObjectFromFile(objectName, objectType, position, rotation, scale, hasPhysics);
 	}
+
+	sceneFile.close();
 }

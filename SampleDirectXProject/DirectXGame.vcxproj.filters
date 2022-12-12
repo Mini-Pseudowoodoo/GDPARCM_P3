@@ -76,6 +76,9 @@
     <Filter Include="GameEngine\NewFilter1">
       <UniqueIdentifier>{1514a874-cdf9-41e0-bdf1-a67f8d0eaab1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\JSON">
+      <UniqueIdentifier>{6a2ec5b0-eb43-48aa-a4d3-d8fe6e5b6a38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -227,6 +230,21 @@
     <ClCompile Include="SceneWriter.cpp" />
     <ClCompile Include="SceneReader.cpp" />
     <ClCompile Include="StringUtils.cpp" />
+    <ClCompile Include="Libs\jsoncpp-1.9.5\src\lib_json\json_reader.cpp">
+      <Filter>GameEngine\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="Libs\jsoncpp-1.9.5\src\lib_json\json_value.cpp">
+      <Filter>GameEngine\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="Libs\jsoncpp-1.9.5\src\lib_json\json_writer.cpp">
+      <Filter>GameEngine\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="Libs\jsoncpp-1.9.5\src\test_lib_json\fuzz.cpp">
+      <Filter>GameEngine\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="Libs\jsoncpp-1.9.5\src\test_lib_json\jsontest.cpp">
+      <Filter>GameEngine\JSON</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -412,6 +430,45 @@
     <ClInclude Include="imfilebrowser.h">
       <Filter>GameEngine\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\allocator.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\assertions.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\config.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\forwards.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\json.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\json_features.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\reader.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\value.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\version.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\writer.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\src\lib_json\json_tool.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\src\test_lib_json\fuzz.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\src\test_lib_json\jsontest.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -429,5 +486,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl" />
+    <None Include="Libs\jsoncpp-1.9.5\src\lib_json\json_valueiterator.inl">
+      <Filter>GameEngine\JSON</Filter>
+    </None>
   </ItemGroup>
 </Project>
