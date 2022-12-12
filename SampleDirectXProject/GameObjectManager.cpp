@@ -147,6 +147,96 @@ void GameObjectManager::CreatePlane()
     SelectGameObject(cube);
 }
 
+void GameObjectManager::CreateSphere()
+{
+    GameObject* obj = GameObject::Instantiate(NAME_SPHERE);
+
+    Mesh* mesh = GraphicsEngine::get()->getMeshManager()->CreateMeshFromFile(L"Assets\\Meshes\\sphere.obj");
+    //Texture* texture = GraphicsEngine::get()->getTextureManager()->CreateTextureFromFile(L"Assets\\Textures\\grass.png");
+
+    MeshComponent* meshComponent = new MeshComponent();
+    obj->AttachComponent(meshComponent);
+    meshComponent->SetMesh(mesh);
+    //meshComponent->SetTexture(texture);
+
+    int i = 0;
+
+    for (const auto& pair : gameObjectMap)
+    {
+        if (pair.first.find(NAME_SPHERE) != std::string::npos)
+        {
+            i++;
+        }
+    }
+
+    if (i > 0)
+        obj->SetName(NAME_SPHERE + " (" + std::to_string(i) + ')');
+
+    gameObjectList.push_back(obj);
+    gameObjectMap.emplace(obj->GetName(), obj);
+    SelectGameObject(obj);
+}
+
+void GameObjectManager::CreateCapsule()
+{
+    GameObject* obj = GameObject::Instantiate(NAME_CAPSULE);
+
+    Mesh* mesh = GraphicsEngine::get()->getMeshManager()->CreateMeshFromFile(L"Assets\\Meshes\\capsule.obj");
+    //Texture* texture = GraphicsEngine::get()->getTextureManager()->CreateTextureFromFile(L"Assets\\Textures\\grass.png");
+
+    MeshComponent* meshComponent = new MeshComponent();
+    obj->AttachComponent(meshComponent);
+    meshComponent->SetMesh(mesh);
+    //meshComponent->SetTexture(texture);
+
+    int i = 0;
+
+    for (const auto& pair : gameObjectMap)
+    {
+        if (pair.first.find(NAME_CAPSULE) != std::string::npos)
+        {
+            i++;
+        }
+    }
+
+    if (i > 0)
+        obj->SetName(NAME_CAPSULE + " (" + std::to_string(i) + ')');
+
+    gameObjectList.push_back(obj);
+    gameObjectMap.emplace(obj->GetName(), obj);
+    SelectGameObject(obj);
+}
+
+void GameObjectManager::CreateCylinder()
+{
+    GameObject* obj = GameObject::Instantiate(NAME_CYLINDER);
+
+    Mesh* mesh = GraphicsEngine::get()->getMeshManager()->CreateMeshFromFile(L"Assets\\Meshes\\cylinder.obj");
+    //Texture* texture = GraphicsEngine::get()->getTextureManager()->CreateTextureFromFile(L"Assets\\Textures\\grass.png");
+
+    MeshComponent* meshComponent = new MeshComponent();
+    obj->AttachComponent(meshComponent);
+    meshComponent->SetMesh(mesh);
+    //meshComponent->SetTexture(texture);
+
+    int i = 0;
+
+    for (const auto& pair : gameObjectMap)
+    {
+        if (pair.first.find(NAME_CYLINDER) != std::string::npos)
+        {
+            i++;
+        }
+    }
+
+    if (i > 0)
+        obj->SetName(NAME_CYLINDER + " (" + std::to_string(i) + ')');
+
+    gameObjectList.push_back(obj);
+    gameObjectMap.emplace(obj->GetName(), obj);
+    SelectGameObject(obj);
+}
+
 void GameObjectManager::CreateTeapot()
 {
     GameObject* obj = GameObject::Instantiate(NAME_TEAPOT);
