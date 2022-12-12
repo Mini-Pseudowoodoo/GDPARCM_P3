@@ -11,6 +11,7 @@
 #include "Vertex.h"
 #include "GameObject.h"
 #include "TransformComponent.h"
+#include "TextureComponent.h"
 #include "Mesh.h"
 
 #include "CameraManager.h"
@@ -77,8 +78,8 @@ void MeshComponent::Update(float deltaTime)
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexShader(m_vs);
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setPixelShader(m_ps);
 
-	if (texture)
-		GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setTexture(m_ps, texture);
+	if (GetOwner()->GetComponent<TextureComponent>() != nullptr)
+		GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setTexture(m_ps, GetOwner()->GetComponent<TextureComponent>()->GetTexture());
 
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setIndexBuffer(m_ib);
 	
@@ -91,6 +92,8 @@ void MeshComponent::Update(float deltaTime)
 		GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setPixelShader(m_ps_outline);
 		GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList_Line(m_ib->getSizeIndexList(), 0, 0);
 	}
+
+	//GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->clearTexture(m_ps);
 }
 
 void MeshComponent::SetMesh(Mesh* inMesh)
@@ -160,9 +163,4 @@ bool MeshComponent::GetOutlined() const
 void MeshComponent::SetOutlined(bool flag)
 {
 	isOutlined = flag;
-}
-
-void MeshComponent::SetTexture(Texture* inTexture)
-{
-	texture = inTexture;
 }

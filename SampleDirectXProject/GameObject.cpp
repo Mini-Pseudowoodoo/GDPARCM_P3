@@ -66,8 +66,23 @@ void GameObject::AttachComponent(Component* _component)
 void GameObject::DetachComponent(Component* _component)
 {
 	_component->SetOwner(nullptr);
-	auto i = remove(m_components.begin(), m_components.end(), _component);
+	//auto j = remove(m_components.begin(), m_components.end(), _component);
+	int toRemoveIndex = 0;
+	bool componentFound = false;
+	for (int i = 0; i < m_components.size(); i++)
+	{
+		if (m_components[i] == _component)
+		{
+			toRemoveIndex = i;
+			componentFound = true;
+			break;
+		}
+	}
+
+	if (componentFound)
+		m_components.erase(m_components.begin() + toRemoveIndex);
 }
+
 
 bool GameObject::IsRoot() const
 {

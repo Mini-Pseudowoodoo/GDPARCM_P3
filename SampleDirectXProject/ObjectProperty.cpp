@@ -1,5 +1,7 @@
 #include "ObjectProperty.h"
 #include "GameObjectManager.h"
+#include "TextureComponent.h"
+#include "PhysicsComponent.h"
 
 ObjectProperty::ObjectProperty() : UIScreen("ObjectProperty", true)
 {
@@ -12,12 +14,21 @@ ObjectProperty::~ObjectProperty()
 {
 }
 
+const wchar_t* GetWC(const char* c)
+{
+	const size_t cSize = strlen(c) + 1;
+	wchar_t* wc = new wchar_t[cSize];
+	mbstowcs(wc, c, cSize);
+
+	return wc;
+}
+
 void ObjectProperty::DrawUI()
 {
 	// Create ImGui Window
 	ImGui::Begin("Object Property", &isActive);
 	
-	const GameObject* const& selectedObj = GameObjectManager::Get()->GetSelectedGameObject();
+	GameObject* const& selectedObj = GameObjectManager::Get()->GetSelectedGameObject();
 	String selectedObjTxt = "Selected Object: " + ((selectedObj == nullptr) ? "N/A" : selectedObj->GetName());
 	ImGui::Text(selectedObjTxt.c_str());
 
@@ -56,6 +67,48 @@ void ObjectProperty::DrawUI()
 		if (ImGui::IsItemClicked(0) || (ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()))
 		{
 			InputSystem::get()->ConsumeLeftMouseButton();
+		}
+
+		// Existing texture component
+		if (selectedObj->GetComponent<TextureComponent>() != nullptr)
+		{
+			if (ImGui::Button("Detach Texture Component"))
+			{
+				selectedObj->DetachComponent(selectedObj->GetComponent<TextureComponent>());
+			}
+		}
+		else
+		{
+			static char textureName[128] = "brick.png";
+			ImGui::InputText("Texture File Name", textureName, IM_ARRAYSIZE(textureName));
+			if (ImGui::Button("Attach Texture Component"))
+			{
+				const wchar_t* newName = GetWC(textureName);
+				TextureComponent* component = new TextureComponent();
+				Texture* texture = GraphicsEngine::get()->getTextureManager()->CreateTextureFromFileAssets(newName);
+				if (texture != nullptr)
+				{
+					component->SetTexture(texture);
+					selectedObj->AttachComponent(component);
+				}
+			}
+		}
+
+		// Existing physics component
+		if (selectedObj->GetComponent<PhysicsComponent>() != NULL)
+		{
+			if (ImGui::Button("Detach Physics Component"))
+			{
+				selectedObj->DetachComponent(selectedObj->GetComponent<PhysicsComponent>());
+			}
+		}
+		else
+		{
+			if (ImGui::Button("Attach Physics Component"))
+			{
+				PhysicsComponent* component = new PhysicsComponent();
+				selectedObj->AttachComponent(component);
+			}
 		}
 	}
 
