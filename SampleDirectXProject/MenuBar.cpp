@@ -11,11 +11,11 @@ MenuBar::MenuBar() : UIScreen("MenuBar", true)
 {
     openSceneDialog = new ImGui::FileBrowser();
     openSceneDialog->SetTitle("Open Scene");
-    openSceneDialog->SetTypeFilters({ ".iet" });
+    openSceneDialog->SetTypeFilters({ ".level" });
 
     saveSceneDialog = new ImGui::FileBrowser(ImGuiFileBrowserFlags_EnterNewFilename);
     saveSceneDialog->SetTitle("Save Scene");
-    saveSceneDialog->SetTypeFilters({ ".iet" });
+    saveSceneDialog->SetTypeFilters({ ".level" });
 }
 
 MenuBar::~MenuBar()
@@ -85,6 +85,19 @@ void MenuBar::DrawUI()
                 {
                     GameObjectManager::Get()->CreateArmadillo();
                 }*/
+
+                if (ImGui::MenuItem("Sphere"))
+                {
+                    GameObjectManager::Get()->CreateSphere();
+                }
+                if (ImGui::MenuItem("Capsule"))
+                {
+                    GameObjectManager::Get()->CreateCapsule();
+                }
+                if (ImGui::MenuItem("Cylinder"))
+                {
+                    GameObjectManager::Get()->CreateCylinder();
+                }
 
                 ImGui::EndMenu();
             }

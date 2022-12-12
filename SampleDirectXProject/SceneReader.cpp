@@ -20,8 +20,8 @@ SceneReader::~SceneReader()
 
 void SceneReader::ReadFromFile()
 {
-	std::string fileDir = this->directory + ".iet";
-	if (this->directory.find(".iet") != std::string::npos) {
+	std::string fileDir = this->directory + ".level";
+	if (this->directory.find(".level") != std::string::npos) {
 		fileDir = this->directory;
 	}
 
