@@ -77,9 +77,6 @@ GameObject* GameObjectManager::CreateCube()
         meshComponent->SetTexture(texture);
     }
 
-    PhysicsComponent* phys = new PhysicsComponent();
-    cube->AttachComponent(phys);
-
     int i = 0;
 
     for (const auto& pair : gameObjectMap)
@@ -127,10 +124,6 @@ GameObject* GameObjectManager::CreatePlane()
         meshComponent->SetMesh(mesh);
         meshComponent->SetTexture(texture);
     }
-
-    PhysicsComponent* phys = new PhysicsComponent();
-    plane->AttachComponent(phys);
-    phys->GetRigidbody()->setType(BodyType::KINEMATIC);
 
     int i = 0;
 
@@ -338,7 +331,7 @@ void GameObjectManager::CreateArmadillo()
     SelectGameObject(obj);
 }
 
-void GameObjectManager::CreateObjectFromFile(std::string name, PrimitiveType type, SimpleMath::Vector3 position, SimpleMath::Vector3 rotation, SimpleMath::Vector3 scale)
+void GameObjectManager::CreateObjectFromFile(std::string name, PrimitiveType type, SimpleMath::Vector3 position, SimpleMath::Vector3 rotation, SimpleMath::Vector3 scale, bool hasPhysics)
 {
     GameObject* obj = nullptr;
 
@@ -361,6 +354,12 @@ void GameObjectManager::CreateObjectFromFile(std::string name, PrimitiveType typ
     obj->GetTransform()->SetPosition(position);
     obj->GetTransform()->SetEulerAngles(rotation);
     obj->GetTransform()->SetScale(scale);
+
+    if (hasPhysics)
+    {
+        PhysicsComponent* physics = new PhysicsComponent();
+        obj->AttachComponent(physics);
+    }
 }
 
 void GameObjectManager::SaveEditStates()

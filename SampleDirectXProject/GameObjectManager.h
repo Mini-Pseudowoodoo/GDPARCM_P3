@@ -38,7 +38,7 @@ public:
 	GameObject* CreateCylinder();
 
 public:
-	void CreateObjectFromFile(std::string name, PrimitiveType type, SimpleMath::Vector3 position, SimpleMath::Vector3 rotation, SimpleMath::Vector3 scale);
+	void CreateObjectFromFile(std::string name, PrimitiveType type, SimpleMath::Vector3 position, SimpleMath::Vector3 rotation, SimpleMath::Vector3 scale, bool hasPhysics);
 
 public:
 	void SaveEditStates();

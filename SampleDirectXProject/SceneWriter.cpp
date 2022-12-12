@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "TransformComponent.h"
 #include "GameObjectManager.h"
+#include "PhysicsComponent.h"
 #include "SimpleMath.h"
 
 using namespace DirectX;
@@ -42,6 +43,7 @@ void SceneWriter::WriteToFile()
 		sceneFile << "Position: " << position.x << " " << position.y << " " << position.z << std::endl;
 		sceneFile << "Rotation: " << rotation.x << " " << rotation.y << " " << rotation.z << std::endl;
 		sceneFile << "Scale: " << scale.x << " " << scale.y << " " << scale.z << std::endl;
+		sceneFile << "HasPhysics: " << (bool)allObjects[i]->GetComponent<PhysicsComponent>() << std::endl;
 	}
 
 	sceneFile.close();

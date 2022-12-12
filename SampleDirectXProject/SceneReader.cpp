@@ -61,9 +61,14 @@ void SceneReader::ReadFromFile()
 		else if (index == 4) {
 			std::vector stringSplit = StringUtils::split(readLine, ' ');
 			scale = SimpleMath::Vector3(std::stof(stringSplit[1]), std::stof(stringSplit[2]), std::stof(stringSplit[3]));
-			index = 0;
+			index++;
+		}
+		else if (index == 5) {
+			std::vector stringSplit = StringUtils::split(readLine, ' ');
+			bool hasPhysics = (bool)std::stoi(stringSplit[1]);
 
-			GameObjectManager::Get()->CreateObjectFromFile(objectName, objectType, position, rotation, scale);
+			GameObjectManager::Get()->CreateObjectFromFile(objectName, objectType, position, rotation, scale, hasPhysics);
+			index = 0;
 		}
 	}
 }
