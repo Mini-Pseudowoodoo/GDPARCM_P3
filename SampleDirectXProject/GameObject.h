@@ -3,11 +3,11 @@
 #include <string>
 
 enum PrimitiveType {
-	CUBE,
 	SPHERE,
-	PLANE,
 	CAPSULE,
 	CYLINDER,
+	CUBE,
+	PLANE,
 };
 
 class EditorAction;

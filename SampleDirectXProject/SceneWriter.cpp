@@ -62,21 +62,33 @@ void SceneWriter::WriteToFile()
 
 		const auto name = allObjects[i]->GetName();
 
-		root[name]["type"] = allObjects[i]->GetObjectType();
 
-		root[name]["position"]["x"] = position.x;
-		root[name]["position"]["y"] = position.y;
-		root[name]["position"]["z"] = position.z;
+		Json::Value posVal;
 
-		root[name]["rotation"]["x"] = rotation.x;
-		root[name]["rotation"]["y"] = rotation.y;
-		root[name]["rotation"]["z"] = rotation.z;
+		posVal["x"] = position.x;
+		posVal["y"] = position.y;
+		posVal["z"] = position.z;
 
-		root[name]["scale"]["x"] = scale.x;
-		root[name]["scale"]["y"] = scale.y;
-		root[name]["scale"]["z"] = scale.z;
+		Json::Value rotVal;
 
-		root[name]["hasPhysics"] = (bool)allObjects[i]->GetComponent<PhysicsComponent>();
+		rotVal["x"] = rotation.x;
+		rotVal["y"] = rotation.y;
+		rotVal["z"] = rotation.z;
+
+		Json::Value sclVal;
+
+		sclVal["x"] = scale.x;
+		sclVal["y"] = scale.y;
+		sclVal["z"] = scale.z;
+
+		auto I = std::to_string(i);
+
+		root[I]["name"] = name;
+		root[I]["type"] = allObjects[i]->GetObjectType();
+		root[I]["position"].append(posVal);
+		root[I]["rotation"].append(rotVal);
+		root[I]["scale"].append(sclVal);
+		root[I]["hasPhysics"] = (bool)allObjects[i]->GetComponent<PhysicsComponent>();
 	}
 	writer->write(root, &std::cout);
 	sceneFile << root;
