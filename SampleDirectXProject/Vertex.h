@@ -1,10 +1,10 @@
 ﻿#pragma once
 #include "SimpleMath.h"
 
-using namespace DirectX::SimpleMath;
+using namespace DirectX;
 
 struct vertex
 {
-	Vector3 position;
-	Vector2 texcoord;
+	SimpleMath::Vector3 position;
+	SimpleMath::Vector2 texcoord;
 };

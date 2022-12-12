@@ -1,6 +1,7 @@
 ﻿#include "GameObject.h"
 #include "Component.h"
 #include "TransformComponent.h"
+#include "EditorAction.h"
 
 GameObject::GameObject()
 {
@@ -21,16 +22,16 @@ void GameObject::AttachChild(GameObject* _child)
 	_child->m_parent = this;
 	m_children.push_back(_child);
 
-	Vector3 pos = _child->transform->GetPosition();
+	//SimpleMath::Vector3 pos = _child->transform->GetPosition();
 	
-	const Matrix m = _child->transform->GetTransformationMatrix() * this->transform->GetWorldToLocalMatrix();
-	_child->transform->SetTransformationMatrix(m);
+	//const SimpleMath::Matrix m = _child->transform->GetTransformationMatrix() * this->transform->GetWorldToLocalMatrix();
+	//_child->transform->SetTransformationMatrix(m);
 }
 
 void GameObject::DetachChild(GameObject* _child)
 {
-	const Matrix m = _child->transform->GetTransformationMatrix() * this->transform->GetLocalToWorldMatrix();
-	_child->transform->SetTransformationMatrix(m);
+	//const SimpleMath::Matrix m = _child->transform->GetTransformationMatrix() * this->transform->GetLocalToWorldMatrix();
+	//_child->transform->SetTransformationMatrix(m);
 
 	auto i = std::remove(m_children.begin(), m_children.end(), _child);
 	if (i != m_children.end())
@@ -145,6 +146,30 @@ void GameObject::Update(float deltaTime)
 TransformComponent* GameObject::GetTransform() const
 {
 	return transform;
+}
+
+void GameObject::SaveEditState()
+{
+	if (lastEditState == nullptr)
+	{
+		lastEditState = new EditorAction(this);
+	}
+}
+
+void GameObject::RestoreEditState()
+{
+	if (lastEditState != nullptr)
+	{
+		if (transform)
+		{
+			transform->SetPosition(lastEditState->GetStorePos());
+			transform->SetRotation(lastEditState->GetStoredOrientation());
+			transform->SetScale(lastEditState->GetStoredScale());
+			transform->SetTransformationMatrix(lastEditState->GetStoredMatrix());
+
+			lastEditState = nullptr;
+		}
+	}
 }
 
 GameObject* GameObject::Instantiate()

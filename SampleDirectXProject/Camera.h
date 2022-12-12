@@ -2,7 +2,7 @@
 #include "CameraProjection.h"
 #include "SimpleMath.h"
 
-using namespace DirectX::SimpleMath;
+using namespace DirectX;
 
 class Camera
 {
@@ -10,14 +10,14 @@ public:
 	Camera();
 
 public:
-	Matrix GetViewMatrix() const;
-	Matrix GetProjectionMatrix() const;
+	SimpleMath::Matrix GetViewMatrix() const;
+	SimpleMath::Matrix GetProjectionMatrix() const;
 
 public:
-	Ray ScreenPointToRay(Vector3 point);
+	SimpleMath::Ray ScreenPointToRay(SimpleMath::Vector3 point);
 
 public:
-	void SetViewMatrix(const Matrix& matrix);
+	void SetViewMatrix(const SimpleMath::Matrix& matrix);
 
 public:
 	void SetCameraProjection(const CameraProjectionType& projection);
@@ -35,7 +35,7 @@ protected:
 	float zFarPlane = 100.0f;
 
 protected:
-	Matrix viewMatrix;
-	Matrix projectionMatrix;
+	SimpleMath::Matrix viewMatrix;
+	SimpleMath::Matrix projectionMatrix;
 };
 

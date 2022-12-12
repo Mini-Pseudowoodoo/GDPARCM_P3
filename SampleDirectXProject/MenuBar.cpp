@@ -37,15 +37,19 @@ void MenuBar::DrawUI()
         {
             if (ImGui::BeginMenu("Create GameObject"))
             {
-                /*if (ImGui::MenuItem("Cube"))
+                if (ImGui::MenuItem("Cube"))
                 {
                     GameObjectManager::Get()->CreateCube();
+                }
+                if (ImGui::MenuItem("Cubes"))
+                {
+                    GameObjectManager::Get()->CreateCubes(10);
                 }
                 if (ImGui::MenuItem("Plane"))
                 {
                     GameObjectManager::Get()->CreatePlane();
-                }*/
-                if (ImGui::MenuItem("Teapot"))
+                }
+                /*if (ImGui::MenuItem("Teapot"))
                 {
                     GameObjectManager::Get()->CreateTeapot();
                 }
@@ -56,7 +60,7 @@ void MenuBar::DrawUI()
                 if (ImGui::MenuItem("Armadillo"))
                 {
                     GameObjectManager::Get()->CreateArmadillo();
-                }
+                }*/
 
                 ImGui::EndMenu();
             }

@@ -7,8 +7,19 @@
 #include "GraphicsEngine.h"
 #include "TextureManager.h"
 #include "MeshManager.h"
+#include "TransformComponent.h"
+#include "PhysicsComponent.h"
 
 GameObjectManager* GameObjectManager::instance = nullptr;
+
+GameObjectManager::GameObjectManager()
+{
+    this->physicsCommon = new PhysicsCommon();
+    PhysicsWorld::WorldSettings settings;
+    settings.defaultVelocitySolverNbIterations = 50;
+    settings.gravity = reactphysics3d::Vector3(0, -9.81, 0);
+    this->physicsWorld = this->physicsCommon->createPhysicsWorld(settings);
+}
 
 void GameObjectManager::Initialize()
 {
@@ -22,9 +33,15 @@ GameObjectManager* GameObjectManager::Get()
 
 void GameObjectManager::Update()
 {
-    for (const auto& gameObject : gameObjectList)
+    const float delta = EngineTime::getDeltaTime();
+
+    if (delta > 0.0f)
     {
-        gameObject->Update(EngineTime::getDeltaTime());
+        physicsWorld->update(delta);
+        for (const auto& gameObject : gameObjectList)
+        {
+            gameObject->Update(delta);
+        }
     }
 }
 
@@ -40,14 +57,25 @@ void GameObjectManager::CreateCube()
 {
     GameObject* cube = GameObject::Instantiate(NAME_CUBE);
 
-    Mesh* mesh = GraphicsEngine::get()->getMeshManager()->CreateMeshFromFile(L"Assets\\Meshes\\box.obj");
+    if (TransformComponent* transform = cube->GetTransform())
+    {
+        float rand = std::rand() % 5;
+        //transform->SetPosition({ rand, 5, rand });
+    }
 
+    Mesh* mesh = GraphicsEngine::get()->getMeshManager()->CreateMeshFromFile(L"Assets\\Meshes\\box.obj");
+    Texture* texture = GraphicsEngine::get()->getTextureManager()->CreateTextureFromFile(L"Assets\\Textures\\brick.png");
+    
     if (mesh)
     {
         MeshComponent* meshComponent = new MeshComponent();
         cube->AttachComponent(meshComponent);
         meshComponent->SetMesh(mesh);
+        meshComponent->SetTexture(texture);
     }
+
+    PhysicsComponent* phys = new PhysicsComponent();
+    cube->AttachComponent(phys);
 
     int i = 0;
 
@@ -67,32 +95,54 @@ void GameObjectManager::CreateCube()
     SelectGameObject(cube);
 }
 
+void GameObjectManager::CreateCubes(int amount)
+{
+    for (int i = 0; i < amount; i++)
+    {
+        CreateCube();
+    }
+}
+
 void GameObjectManager::CreatePlane()
 {
-   /* GameObject* plane = GameObject::Instantiate(NAME_PLANE);
+    GameObject* cube = GameObject::Instantiate(NAME_PLANE);
 
-    PlaneMesh* planeMesh = new PlaneMesh();
-    MeshComponent* planeComponent = new MeshComponent();
-    plane->AttachComponent(planeComponent);
-    planeComponent->SetMesh(planeMesh);
+    if (TransformComponent* transform = cube->GetTransform())
+    {
+        transform->SetScale({ 5, 0.1f, 5 });
+    }
+
+    Mesh* mesh = GraphicsEngine::get()->getMeshManager()->CreateMeshFromFile(L"Assets\\Meshes\\box.obj");
+    Texture* texture = GraphicsEngine::get()->getTextureManager()->CreateTextureFromFile(L"Assets\\Textures\\brick.png");
+
+    if (mesh)
+    {
+        MeshComponent* meshComponent = new MeshComponent();
+        cube->AttachComponent(meshComponent);
+        meshComponent->SetMesh(mesh);
+        meshComponent->SetTexture(texture);
+    }
+
+    PhysicsComponent* phys = new PhysicsComponent();
+    cube->AttachComponent(phys);
+    phys->GetRigidbody()->setType(BodyType::KINEMATIC);
 
     int i = 0;
 
     for (const auto& pair : gameObjectMap)
     {
-        if (pair.first.find(NAME_PLANE) != std::string::npos)
+        if (pair.first.find(NAME_CUBE) != std::string::npos)
         {
             i++;
         }
     }
 
     if (i > 0)
-        plane->SetName(NAME_PLANE + " (" + std::to_string(i) + ')');
+        cube->SetName(NAME_CUBE + " (" + std::to_string(i) + ')');
 
-    gameObjectList.push_back(plane);
-    gameObjectMap.emplace(plane->GetName(), plane);
-
-    SelectGameObject(plane);*/
+    gameObjectList.push_back(cube);
+    gameObjectMap.emplace(cube->GetName(), cube);
+    SelectGameObject(cube);
 }
 
 void GameObjectManager::CreateTeapot()
@@ -185,6 +235,22 @@ void GameObjectManager::CreateArmadillo()
     SelectGameObject(obj);
 }
 
+void GameObjectManager::SaveEditStates()
+{
+    for (auto* obj : gameObjectList)
+    {
+        obj->SaveEditState();
+    }
+}
+
+void GameObjectManager::RestoreEditStates()
+{
+    for (auto* obj : gameObjectList)
+    {
+        obj->RestoreEditState();
+    }
+}
+
 void GameObjectManager::SelectGameObject(GameObject* inObj)
 {
     selectedObj = inObj;
@@ -214,4 +280,14 @@ const std::vector<GameObject*> GameObjectManager::GetRoots() const
     }
 
     return roots;
+}
+
+PhysicsWorld* GameObjectManager::GetPhysicsWorld()
+{
+    return physicsWorld;
+}
+
+PhysicsCommon* GameObjectManager::GetPhysicsCommon()
+{
+    return physicsCommon;
 }

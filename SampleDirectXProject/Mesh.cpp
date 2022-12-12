@@ -65,7 +65,7 @@ Mesh::Mesh(const wchar_t* full_path) : Resource(full_path)
 					ty = attribs.texcoords[index.texcoord_index * 2 + 1];
 				}
 
-				VertexMesh vertex(Vector3(vx, vy, -vz), Vector2(tx / 2, ty / 2));
+				VertexMesh vertex(SimpleMath::Vector3(vx, vy, -vz), SimpleMath::Vector2(tx / 2, ty / 2));
 				list_vertices.push_back(vertex);
 
 				list_indices.push_back((unsigned int)index_offset + v);

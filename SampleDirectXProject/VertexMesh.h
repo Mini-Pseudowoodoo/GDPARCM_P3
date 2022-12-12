@@ -1,7 +1,7 @@
 #pragma once
 #include "SimpleMath.h"
 
-using namespace DirectX::SimpleMath;
+using namespace DirectX;
 
 class VertexMesh
 {
@@ -9,7 +9,7 @@ public:
 	VertexMesh() :position(), texcoord()
 	{
 	}
-	VertexMesh(Vector3 _position, Vector2 _texcoord) :position(_position), texcoord(_texcoord)
+	VertexMesh(SimpleMath::Vector3 _position, SimpleMath::Vector2 _texcoord) :position(_position), texcoord(_texcoord)
 	{
 	}
 	VertexMesh(const VertexMesh& vertex) :position(vertex.position), texcoord(vertex.texcoord)
@@ -19,6 +19,6 @@ public:
 	{
 	}
 public:
-	Vector3 position;
-	Vector2 texcoord;
+	SimpleMath::Vector3 position;
+	SimpleMath::Vector2 texcoord;
 };

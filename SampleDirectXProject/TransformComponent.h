@@ -4,7 +4,7 @@
 
 #include "SimpleMath.h"
 
-using namespace DirectX::SimpleMath;
+using namespace DirectX;
 
 class TransformComponent : public Component
 {
@@ -13,26 +13,28 @@ public:
 	~TransformComponent() override;
 
 private:
-	Vector3 m_position;
-	Vector3 m_euler_angles;
-	Quaternion m_rotation;
-	Vector3 m_scale;
-	Matrix transformMatrix;
+	SimpleMath::Vector3 m_position;
+	SimpleMath::Vector3 m_euler_angles;
+	SimpleMath::Quaternion m_rotation;
+	SimpleMath::Vector3 m_scale;
+	SimpleMath::Matrix transformMatrix;
 
 public:
-	Vector3 GetPosition() const;
-	Vector3 GetEulerAngles() const;
-	Quaternion GetRotation() const;
-	Vector3 GetScale() const;
+	SimpleMath::Vector3 GetPosition() const;
+	SimpleMath::Vector3 GetEulerAngles() const;
+	SimpleMath::Quaternion GetRotation() const;
+	SimpleMath::Vector3 GetScale() const;
 
-	void SetPosition(const Vector3& _position);
-	void SetEulerAngles(const Vector3& _angles);
-	void SetRotation(const Quaternion& _rotation);
-	void SetScale(const Vector3& _scale);
+	void SetPosition(const SimpleMath::Vector3& _position);
+	void SetEulerAngles(const SimpleMath::Vector3& _angles);
+	void SetRotation(const SimpleMath::Quaternion& _rotation);
+	void SetScale(const SimpleMath::Vector3& _scale);
 public:
 	void UpdateTransformMatrix();
-	Matrix GetTransformationMatrix();
-	void SetTransformationMatrix(Matrix m);
-	Matrix GetLocalToWorldMatrix() const;
-	Matrix GetWorldToLocalMatrix() const;
+	SimpleMath::Matrix GetTransformationMatrix();
+	void SetTransformationMatrix(SimpleMath::Matrix m);
+	SimpleMath::Matrix GetLocalToWorldMatrix() const;
+	SimpleMath::Matrix GetWorldToLocalMatrix() const;
+	float* GetPhysicsMatrix();
+	void SetPhysicsMatrix(float* mat);
 };

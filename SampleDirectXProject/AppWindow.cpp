@@ -15,6 +15,7 @@
 #include "CameraComponent.h"
 
 #include "SceneCamera.h"
+#include "EngineBackend.h"
 
 // IMGUI
 #include <ctype.h> 
@@ -60,10 +61,12 @@ void AppWindow::onCreate()
 {
 	Window::onCreate();
 	srand(time(NULL));
+
+	EngineBackend::Initialize();
 	
 	sceneCamera = new SceneCamera();
 	InputSystem::get()->addListener(sceneCamera);
-	sceneCamera->GetTransform()->SetPosition(Vector3(0.0f, 0.0f, 2.5f));
+	sceneCamera->GetTransform()->SetPosition(SimpleMath::Vector3(0.0f, 0.0f, 2.5f));
 
 	GraphicsEngine::create();
 	RECT rc = this->getClientWindowRect();
@@ -94,6 +97,21 @@ void AppWindow::onUpdate()
 
 	GameObjectManager::Get()->Update();
 
+	EngineBackend* backend = EngineBackend::Get();
+	if (backend->GetMode() == EditorMode::PLAY) {
+		GameObjectManager::Get()->Update();
+	}
+	else if (backend->GetMode() == EditorMode::EDITOR) {
+		GameObjectManager::Get()->Update();
+
+	}
+	else if (backend->GetMode() == EditorMode::PAUSED) {
+		if (backend->InsideFrameStep()) {
+			GameObjectManager::Get()->Update();
+			backend->EndFrameStep();
+		}
+	}
+
 	// Render ImGui
 	//imObjProp->Render(sceneCamera->GetSelectedObj());
 
@@ -107,6 +125,8 @@ void AppWindow::onUpdate()
 void AppWindow::onDestroy()
 {
 	Window::onDestroy();
+
+	EngineBackend::Destroy();
 
 	GraphicsEngine::get()->release();
 	InputSystem::get()->removeListener(sceneCamera);

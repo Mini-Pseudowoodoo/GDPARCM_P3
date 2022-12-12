@@ -131,14 +131,14 @@ void MeshComponent::CalculateBounds()
 
 	size_t size = mesh->GetVertices().size();
 
-	Vector3* points = new Vector3[size];
+	SimpleMath::Vector3* points = new SimpleMath::Vector3[size];
 
 	for (size_t i = 0; i < size; i++)
 	{
 		points[i] = mesh->GetVertices()[i].position;
 	}
 
-	BoundingBox::CreateFromPoints(bounds, size, points, sizeof(Vector3));
+	BoundingBox::CreateFromPoints(bounds, size, points, sizeof(SimpleMath::Vector3));
 	bounds.Transform(bounds, GetOwner()->GetTransform()->GetLocalToWorldMatrix());
 	//sphereBounds.Transform(sphereBounds, GetOwner()->GetTransform()->GetWorldMatrix());
 

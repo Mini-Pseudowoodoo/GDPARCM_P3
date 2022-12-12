@@ -5,7 +5,10 @@
 
 TransformComponent::TransformComponent() : Component()
 {
+	m_position = Vector3::Zero;
 	m_scale = Vector3::One;
+
+	transformMatrix = Matrix::Identity;
 }
 
 TransformComponent::~TransformComponent() = default;
@@ -66,18 +69,6 @@ void TransformComponent::UpdateTransformMatrix()
 	temp = Matrix::CreateScale(m_scale);
 	transformMatrix *= temp;
 
-	/*temp = Matrix::Identity;
-	temp = Matrix::CreateRotationX(m_euler_angles.x);
-	transformMatrix *= temp;
-
-	temp = Matrix::Identity;
-	temp = Matrix::CreateRotationY(m_euler_angles.y);
-	transformMatrix *= temp;
-
-	temp = Matrix::Identity;
-	temp = Matrix::CreateRotationZ(m_euler_angles.z);
-	transformMatrix *= temp;*/
-
 	temp = Matrix::Identity;
 	temp = Matrix::CreateFromQuaternion(m_rotation);
 	transformMatrix *= temp;
@@ -111,6 +102,47 @@ Matrix TransformComponent::GetWorldToLocalMatrix() const
 {
 	Matrix invWorld = GetLocalToWorldMatrix().Invert();
 	return invWorld;
+}
+
+float* TransformComponent::GetPhysicsMatrix()
+{
+	Matrix temp;
+
+	Matrix phys = Matrix::Identity;
+
+	temp = Matrix::Identity;
+	temp = Matrix::CreateScale(Vector3::One);
+	phys *= temp;
+
+	temp = Matrix::Identity;
+	temp = Matrix::CreateFromQuaternion(m_rotation);
+	phys *= temp;
+
+	temp = Matrix::Identity;
+	temp = Matrix::CreateTranslation(m_position);
+	phys *= temp;
+	
+	float* m = new float[16]
+	{
+		phys._11, phys._12, phys._13, phys._14,
+		phys._21, phys._22, phys._23, phys._24,
+		phys._31, phys._32, phys._33, -	phys._34,
+		phys._41, phys._42, phys._43, phys._44
+	};
+
+	return m;
+}
+
+void TransformComponent::SetPhysicsMatrix(float* mat)
+{
+	Matrix m = Matrix(mat);
+	Vector3 s;
+
+	m.Decompose(s, m_rotation, m_position);
+	m_rotation = -m_rotation;
+	m_euler_angles = m_rotation.ToEuler();
+
+	//std::cout << "X: " << m_position.x << " Y: " << m_position.y << " Z: " << m_position.z << std::endl;
 }
 
 void TransformComponent::SetTransformationMatrix(Matrix m)

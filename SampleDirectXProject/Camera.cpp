@@ -5,17 +5,17 @@
 
 Camera::Camera() = default;
 
-Matrix Camera::GetViewMatrix() const
+SimpleMath::Matrix Camera::GetViewMatrix() const
 {
 	return viewMatrix;
 }
 
-Matrix Camera::GetProjectionMatrix() const
+SimpleMath::Matrix Camera::GetProjectionMatrix() const
 {
 	return projectionMatrix;
 }
 
-Ray Camera::ScreenPointToRay(Vector3 point)
+SimpleMath::Ray Camera::ScreenPointToRay(SimpleMath::Vector3 point)
 {
 	float width, height;
 	AppWindow::Get()->GetWindowSize(width, height);
@@ -23,21 +23,21 @@ Ray Camera::ScreenPointToRay(Vector3 point)
 	float x = (((2.0f * point.x) / width) - 1.0f) / projectionMatrix._11;
 	float y = ((((2.0f * point.y) / height) - 1.0f) * -1.0f) / projectionMatrix._22;
 
-	Matrix view = viewMatrix;
-	Matrix invView = view.Invert();
+	SimpleMath::Matrix view = viewMatrix;
+	SimpleMath::Matrix invView = view.Invert();
 
-	Ray r;
-	r.position = Vector3::Zero;
-	r.direction = Vector3(x, y, -1);
+	SimpleMath::Ray r;
+	r.position = SimpleMath::Vector3::Zero;
+	r.direction = SimpleMath::Vector3(x, y, -1);
 
-	r.position = Vector3::Transform(r.position, invView);
-	r.direction = Vector3::TransformNormal(r.direction, invView);
+	r.position = SimpleMath::Vector3::Transform(r.position, invView);
+	r.direction = SimpleMath::Vector3::TransformNormal(r.direction, invView);
 	r.direction.Normalize();
 
 	return r;
 }
 
-void Camera::SetViewMatrix(const Matrix& matrix)
+void Camera::SetViewMatrix(const SimpleMath::Matrix& matrix)
 {
 	viewMatrix = matrix;
 }
@@ -50,10 +50,10 @@ void Camera::SetCameraProjection(const CameraProjectionType& projection)
 	switch (projection)
 	{
 	case CameraProjectionType::Orthographic:
-		projectionMatrix = Matrix::CreateOrthographic(width / orthoSize, height / orthoSize, orthoNearPlane, orthoFarPlane);
+		projectionMatrix = SimpleMath::Matrix::CreateOrthographic(width / orthoSize, height / orthoSize, orthoNearPlane, orthoFarPlane);
 		break;
 	case CameraProjectionType::Perspective:
-		projectionMatrix = Matrix::CreatePerspectiveFieldOfView(fov, width / height, zNearPlane, zFarPlane);
+		projectionMatrix = SimpleMath::Matrix::CreatePerspectiveFieldOfView(fov, width / height, zNearPlane, zFarPlane);
 		break;
 	}
 }

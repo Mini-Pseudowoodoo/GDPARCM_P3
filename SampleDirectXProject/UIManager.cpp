@@ -76,6 +76,10 @@ UIManager::UIManager(HWND hwnd)
 	CreditsScreen* credits = new CreditsScreen();
 	this->uiTable[uiNames.CREDITS_SCREEN] = credits;
 	this->uiList.push_back(credits);
+
+	PlaybackScreen* playback = new PlaybackScreen();
+	this->uiTable[uiNames.PLAYBACK] = playback;
+	this->uiList.push_back(playback);
 }
 
 UIManager::~UIManager()

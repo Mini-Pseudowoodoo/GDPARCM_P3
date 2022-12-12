@@ -3,7 +3,7 @@
 #include "InputListener.h"
 
 #include "SimpleMath.h"
-using namespace DirectX::SimpleMath;
+using namespace DirectX;
 
 class CameraComponent;
 class SceneCamera : public GameObject, public InputListener
@@ -30,7 +30,7 @@ private:
 	virtual void onRightMouseButtonUp(const Point& mouse_pos) override;
 
 private:
-	Vector3 input;
+	SimpleMath::Vector3 input;
 	float rotationX = 0.0f, rotationY = 0.0f; 
 	bool rmbDown = false;
 	bool lmbDown = false;

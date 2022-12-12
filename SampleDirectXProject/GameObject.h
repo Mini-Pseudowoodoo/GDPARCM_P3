@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 
+class EditorAction;
 class Component;
 class TransformComponent;
 class GameObject
@@ -40,9 +41,11 @@ public:
 protected:
 	std::string name = "GameObject";
 	TransformComponent* transform = nullptr;
+	EditorAction* lastEditState = nullptr;
 public:
 	TransformComponent* GetTransform() const;
-
+	void SaveEditState();
+	void RestoreEditState();
 protected:
 	std::vector<GameObject*> m_children;
 	std::vector<Component*> m_components;
