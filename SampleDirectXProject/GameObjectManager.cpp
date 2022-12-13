@@ -66,7 +66,7 @@ GameObject* GameObjectManager::CreateCube()
         //transform->SetPosition({ rand, 5, rand });
     }
 
-    Mesh* mesh = GraphicsEngine::get()->getMeshManager()->CreateMeshFromFile(L"Assets\\Meshes\\box.obj");
+    Mesh* mesh = GraphicsEngine::get()->getMeshManager()->CreateMeshFromFile(L"Assets\\Meshes\\cube.obj");
     //Texture* texture = GraphicsEngine::get()->getTextureManager()->CreateTextureFromFile(L"Assets\\Textures\\brick.png");
     
     if (mesh)
