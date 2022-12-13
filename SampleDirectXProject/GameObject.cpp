@@ -199,6 +199,16 @@ void GameObject::SetObjectType(PrimitiveType type)
 	objectType = type;
 }
 
+void GameObject::SetEnable(bool value)
+{
+	isEnable = value;
+}
+
+bool GameObject::IsEnable()
+{
+	return isEnable;
+}
+
 GameObject* GameObject::Instantiate()
 {
 	GameObject* obj = new GameObject();

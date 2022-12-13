@@ -43,7 +43,8 @@ void GameObjectManager::Update()
             physicsWorld->update(delta);
         for (const auto& gameObject : gameObjectList)
         {
-            gameObject->Update(delta);
+            if(gameObject->IsEnable())
+				gameObject->Update(delta);
         }
     }
 }

@@ -51,6 +51,7 @@ protected:
 	TransformComponent* transform = nullptr;
 	EditorAction* lastEditState = nullptr;
 	PrimitiveType objectType;
+	bool isEnable = true;
 
 public:
 	TransformComponent* GetTransform() const;
@@ -58,6 +59,9 @@ public:
 	void RestoreEditState();
 	PrimitiveType GetObjectType() const;
 	void SetObjectType(PrimitiveType type);
+	void SetEnable(bool value);
+	bool IsEnable();
+
 protected:
 	std::vector<GameObject*> m_children;
 	std::vector<Component*> m_components;
