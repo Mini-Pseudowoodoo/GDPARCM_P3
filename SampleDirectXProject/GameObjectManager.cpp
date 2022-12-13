@@ -10,6 +10,7 @@
 #include "TransformComponent.h"
 #include "PhysicsComponent.h"
 #include "EngineBackend.h"
+#include <random>
 
 GameObjectManager* GameObjectManager::instance = nullptr;
 
@@ -101,7 +102,20 @@ void GameObjectManager::CreateCubes(int amount)
 {
     for (int i = 0; i < amount; i++)
     {
-        CreateCube();
+        GameObject* obj = CreateCube();
+
+        std::random_device rd; // obtain a random number from hardware
+        std::mt19937 gen(rd()); // seed the generator
+        std::uniform_int_distribution<> distr(-2.5f, 2.5f); // define the range
+
+        obj->GetTransform()->SetPosition({ (float)distr(gen), 10.0f + (float)distr(gen), (float)distr(gen) });
+
+        std::uniform_int_distribution<> distr2(-1.f, 1.f); // define the range
+
+        obj->GetTransform()->SetEulerAngles({ (float)distr2(gen), (float)distr2(gen), (float)distr2(gen) });
+
+        PhysicsComponent* physics = new PhysicsComponent();
+        obj->AttachComponent(physics);
     }
 }
 
@@ -111,11 +125,12 @@ GameObject* GameObjectManager::CreatePlane()
     plane->SetObjectType(PrimitiveType::PLANE);
     if (TransformComponent* transform = plane->GetTransform())
     {
-        transform->SetScale({ 5, 0.1f, 5 });
+        //transform->SetScale({ 5, 0.1f, 5 });
     }
 
-    Mesh* mesh = GraphicsEngine::get()->getMeshManager()->CreateMeshFromFile(L"Assets\\Meshes\\box.obj");
+    Mesh* mesh = GraphicsEngine::get()->getMeshManager()->CreateMeshFromFile(L"Assets\\Meshes\\plane.obj");
     //Texture* texture = GraphicsEngine::get()->getTextureManager()->CreateTextureFromFile(L"Assets\\Textures\\brick.png");
+    
 
     if (mesh)
     {
@@ -123,6 +138,10 @@ GameObject* GameObjectManager::CreatePlane()
         plane->AttachComponent(meshComponent);
         meshComponent->SetMesh(mesh);
         //meshComponent->SetTexture(texture);
+
+        /*PhysicsComponent* physics = new PhysicsComponent();
+        plane->AttachComponent(physics);
+        physics->GetRigidbody()->setType(BodyType::KINEMATIC);*/
     }
 
     int i = 0;

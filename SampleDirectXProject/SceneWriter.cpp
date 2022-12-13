@@ -67,7 +67,7 @@ void SceneWriter::WriteToFile()
 
 		posVal["x"] = position.x;
 		posVal["y"] = position.y;
-		posVal["z"] = position.z;
+		posVal["z"] = -position.z;
 
 		Json::Value rotVal;
 

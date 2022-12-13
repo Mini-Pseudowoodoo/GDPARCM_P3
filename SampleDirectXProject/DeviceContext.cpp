@@ -117,6 +117,12 @@ void DeviceContext::setTexture(VertexShader* vertex_shader, Texture* texture)
 
 void DeviceContext::setTexture(PixelShader* pixel_shader, Texture* texture)
 {
+	if (texture == nullptr)
+	{
+		ID3D11ShaderResourceView* nullSRV[1] = { nullptr };
+		m_device_context->PSSetShaderResources(0, 1, nullSRV);
+		return;
+	}
 	m_device_context->PSSetShaderResources(0, 1, &texture->m_shader_res_view);
 }
 

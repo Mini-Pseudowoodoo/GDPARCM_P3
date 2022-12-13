@@ -67,7 +67,7 @@ void MenuBar::DrawUI()
                 }
                 if (ImGui::MenuItem("Cubes"))
                 {
-                    GameObjectManager::Get()->CreateCubes(10);
+                    GameObjectManager::Get()->CreateCubes(50);
                 }
                 if (ImGui::MenuItem("Plane"))
                 {

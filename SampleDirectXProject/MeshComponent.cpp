@@ -80,6 +80,8 @@ void MeshComponent::Update(float deltaTime)
 
 	if (GetOwner()->GetComponent<TextureComponent>() != nullptr)
 		GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setTexture(m_ps, GetOwner()->GetComponent<TextureComponent>()->GetTexture());
+	else
+		GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setTexture(m_ps, nullptr);
 
 	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setIndexBuffer(m_ib);
 	
