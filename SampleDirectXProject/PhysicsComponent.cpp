@@ -47,12 +47,20 @@ void PhysicsComponent::Start()
 
 void PhysicsComponent::Update(float deltaTime)
 {
-	if (EngineBackend::Get()->GetMode() != EditorMode::PLAY)
-		return;
-
 	const Transform transform = this->rigidBody->getTransform();
 	float* matrix = new float[16];
 	transform.getOpenGLMatrix(matrix);
+
+	if (EngineBackend::Get()->GetMode() != EditorMode::PLAY)
+	{
+		auto position = GetOwner()->GetTransform()->GetPosition();
+		auto rotation = GetOwner()->GetTransform()->GetRotation();
+
+		reactphysics3d::Transform trans = reactphysics3d::Transform({ position.x, position.y, position.z }, {rotation.x, rotation.y, rotation.z, rotation.w});
+		rigidBody->setTransform(trans);
+		rigidBody->setLinearVelocity({ 0, 0, 0 });
+		return;
+	}
 
 	const auto pos = transform.getPosition();
 
