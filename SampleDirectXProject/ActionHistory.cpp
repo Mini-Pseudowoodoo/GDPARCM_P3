@@ -62,6 +62,8 @@ EditorAction* ActionHistory::UndoAction()
 		EditorAction* action = this->actionsPerformed.top();
 		this->actionsPerformed.pop();
 		this->actionsCancelled.push(action);
+		auto pos = action->GetStorePos();
+		std::cout << "X: " << pos.x << " Y: " << pos.y << " Z: " << pos.z << "\n";
 		return action;
 	}
 	else {
@@ -82,6 +84,8 @@ EditorAction* ActionHistory::RedoAction()
 		EditorAction* action = this->actionsCancelled.top();
 		this->actionsCancelled.pop();
 		this->actionsPerformed.push(action);
+		auto pos = action->GetStorePos();
+		std::cout << "X: " << pos.x << " Y: " << pos.y << " Z: " << pos.z << "\n";
 		return action;
 	}
 	else {

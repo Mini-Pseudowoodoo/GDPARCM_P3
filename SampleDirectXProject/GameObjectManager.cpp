@@ -10,6 +10,7 @@
 #include "TransformComponent.h"
 #include "PhysicsComponent.h"
 #include "EngineBackend.h"
+#include "EditorAction.h"
 #include <random>
 
 GameObjectManager* GameObjectManager::instance = nullptr;
@@ -259,6 +260,35 @@ GameObject* GameObjectManager::CreateCylinder()
     SelectGameObject(obj);
 
     return obj;
+}
+
+GameObject* GameObjectManager::FindObjectByName(std::string name)
+{
+    if (this->gameObjectMap[name] != NULL) {
+        return this->gameObjectMap[name];
+    }
+    else {
+        std::cout << "Object " << name << " not found!";
+        return nullptr;
+    }
+}
+
+void GameObjectManager::ApplyEditorAction(EditorAction* action)
+{
+    GameObject* object = FindObjectByName(action->GetOwnerName());
+    if (object != nullptr) {
+        //re-apply state
+        /*object->recomputeMatrix(action->getStoredMatrix().getMatrix());
+        object->setPosition(action->getStorePos());
+        object->setRotation(action->getStoredOrientation().x, action->getStoredOrientation().y, action->getStoredOrientation().z);
+        object->setScale(action->getStoredScale());*/
+        if (TransformComponent* transform = object->GetTransform())
+        {
+            transform->SetPosition(action->GetStorePos());
+            transform->SetRotation(action->GetStoredOrientation());
+            transform->SetScale(action->GetStoredScale());
+        }
+    }
 }
 
 void GameObjectManager::CreateTeapot()

@@ -16,6 +16,7 @@
 
 #include "SceneCamera.h"
 #include "EngineBackend.h"
+#include "ActionHistory.h"
 
 // IMGUI
 #include <ctype.h> 
@@ -63,6 +64,7 @@ void AppWindow::onCreate()
 	srand(time(NULL));
 
 	EngineBackend::Initialize();
+	ActionHistory::Initialize();
 	
 	sceneCamera = new SceneCamera();
 	InputSystem::get()->addListener(sceneCamera);

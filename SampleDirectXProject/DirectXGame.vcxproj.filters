@@ -248,6 +248,9 @@
     <ClCompile Include="TextureComponent.cpp">
       <Filter>GameEngine\EntityComponentSystem</Filter>
     </ClCompile>
+    <ClCompile Include="ActionScreen.cpp">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -474,6 +477,9 @@
     </ClInclude>
     <ClInclude Include="TextureComponent.h">
       <Filter>GameEngine\EntityComponentSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionScreen.h">
+      <Filter>GameEngine\UIScreen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

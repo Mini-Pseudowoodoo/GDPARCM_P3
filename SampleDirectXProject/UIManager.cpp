@@ -80,6 +80,10 @@ UIManager::UIManager(HWND hwnd)
 	PlaybackScreen* playback = new PlaybackScreen();
 	this->uiTable[uiNames.PLAYBACK] = playback;
 	this->uiList.push_back(playback);
+
+	ActionScreen* action = new ActionScreen();
+	this->uiTable[uiNames.ACTION] = action;
+	this->uiList.push_back(action);
 }
 
 UIManager::~UIManager()

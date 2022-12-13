@@ -38,6 +38,10 @@ public:
 	GameObject* CreateCylinder();
 
 public:
+	GameObject* FindObjectByName(std::string name);
+	void ApplyEditorAction(class EditorAction* action);
+
+public:
 	void CreateObjectFromFile(std::string name, PrimitiveType type, SimpleMath::Vector3 position, SimpleMath::Vector3 rotation, SimpleMath::Vector3 scale, bool hasPhysics);
 
 public:
