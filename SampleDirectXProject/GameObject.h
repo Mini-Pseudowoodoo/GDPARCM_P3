@@ -72,6 +72,8 @@ protected:
 public:
 	static GameObject* Instantiate();
 	static GameObject* Instantiate(std::string _name);
+private:
+	friend class ObjectProperty;
 };
 
 template <class T>

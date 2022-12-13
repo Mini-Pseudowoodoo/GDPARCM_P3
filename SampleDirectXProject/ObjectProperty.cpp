@@ -34,6 +34,8 @@ void ObjectProperty::DrawUI()
 
 	if (selectedObj != nullptr)
 	{
+		ImGui::Checkbox("Enabled", &selectedObj->isEnable);
+
 		// Object Transform
 		TransformComponent* objTransform = selectedObj->GetTransform();
 
