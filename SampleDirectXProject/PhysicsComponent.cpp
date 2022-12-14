@@ -66,7 +66,7 @@ void PhysicsComponent::Update(float deltaTime)
 	float* matrix = new float[16];
 	transform.getOpenGLMatrix(matrix);
 
-	if (EngineBackend::Get()->GetMode() != EditorMode::PLAY)
+	if (EngineBackend::Get()->GetMode() == EditorMode::EDITOR)
 	{
 		auto position = GetOwner()->GetTransform()->GetPosition();
 		auto rotation = GetOwner()->GetTransform()->GetRotation();
@@ -77,6 +77,15 @@ void PhysicsComponent::Update(float deltaTime)
 		return;
 	}
 
+	else if (EngineBackend::Get()->GetMode() == EditorMode::PAUSED && EngineBackend::Get()->InsideFrameStep())
+	{
+		const auto pos = transform.getPosition();
+
+		this->GetOwner()->GetTransform()->SetRotation(SimpleMath::Quaternion(transform.getOrientation().x, transform.getOrientation().y, transform.getOrientation().z, 1));
+		this->GetOwner()->GetTransform()->SetPosition(SimpleMath::Vector3(transform.getPosition().x, transform.getPosition().y, transform.getPosition().z));
+		std::cout << "frame" << std::endl;
+		return;
+	}
 	const auto pos = transform.getPosition();
 
 	this->GetOwner()->GetTransform()->SetRotation(SimpleMath::Quaternion(transform.getOrientation().x, transform.getOrientation().y, transform.getOrientation().z, 1));
