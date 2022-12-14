@@ -18,6 +18,7 @@
 #include "CreditsScreen.h"
 #include "PlaybackScreen.h"
 #include "ActionScreen.h"
+#include "DebugScreen.h"
 
 typedef std::string String;
 class UINames {
@@ -29,6 +30,7 @@ public:
 	const String HIERARCHY = "HIERARCHY";
 	const String PLAYBACK = "PLAYBACK";
 	const String ACTION = "ACTION";
+	const String DEBUG = "DEBUG";
 };
 
 class UIManager

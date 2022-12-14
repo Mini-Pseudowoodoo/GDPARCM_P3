@@ -121,6 +121,22 @@ void GameObjectManager::CreateCubes(int amount)
     }
 }
 
+void GameObjectManager::CreatePhysicsCubes(int amount)
+{
+    for (int i = 0; i < amount; i++)
+    {
+        GameObject* cube = CreateCube();
+        PhysicsComponent* component = new PhysicsComponent();
+        cube->AttachComponent(component);
+
+        if (TransformComponent* transform = cube->GetTransform())
+        {
+            SimpleMath::Vector3 rand_position = SimpleMath::Vector3(((rand() % 200) - 100) / 150.0f, ((rand() % 200) - 100) / 150.0f, ((rand() % 200) - 100) / 150.0f);
+            transform->SetPosition(rand_position);
+        }
+    }
+}
+
 GameObject* GameObjectManager::CreatePlane()
 {
     GameObject* plane = GameObject::Instantiate(NAME_PLANE);

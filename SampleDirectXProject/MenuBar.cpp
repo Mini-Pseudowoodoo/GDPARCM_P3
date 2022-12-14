@@ -55,6 +55,10 @@ void MenuBar::DrawUI()
             {
                 UIManager::Get()->ToggleUI("HIERARCHY");
             }
+            if (ImGui::MenuItem("Debug"))
+            {
+                UIManager::Get()->ToggleUI("DEBUG");
+            }
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("GameObject"))
@@ -65,9 +69,13 @@ void MenuBar::DrawUI()
                 {
                     GameObjectManager::Get()->CreateCube();
                 }
-                if (ImGui::MenuItem("Cubes"))
+                if (ImGui::MenuItem("50 Cubes"))
                 {
                     GameObjectManager::Get()->CreateCubes(50);
+                }
+                if (ImGui::MenuItem("50 Physics Cubes"))
+                {
+                    GameObjectManager::Get()->CreatePhysicsCubes(50);
                 }
                 if (ImGui::MenuItem("Plane"))
                 {

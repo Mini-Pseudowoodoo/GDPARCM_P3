@@ -81,3 +81,20 @@ RigidBody* PhysicsComponent::GetRigidbody()
 {
 	return rigidBody;
 }
+
+void PhysicsComponent::ChangeBodyType(int type)
+{
+	if (type == 0)
+	{
+		this->rigidBody->setType(BodyType::DYNAMIC);
+	}
+	else if (type == 1)
+	{
+		this->rigidBody->setType(BodyType::KINEMATIC);
+	}
+}
+
+BodyType PhysicsComponent::GetBodyType()
+{
+	return this->rigidBody->getType();
+}

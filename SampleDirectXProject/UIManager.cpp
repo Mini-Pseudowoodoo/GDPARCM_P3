@@ -84,6 +84,10 @@ UIManager::UIManager(HWND hwnd)
 	ActionScreen* action = new ActionScreen();
 	this->uiTable[uiNames.ACTION] = action;
 	this->uiList.push_back(action);
+
+	DebugScreen* debug = new DebugScreen();
+	this->uiTable[uiNames.DEBUG] = debug;
+	this->uiList.push_back(debug);
 }
 
 UIManager::~UIManager()

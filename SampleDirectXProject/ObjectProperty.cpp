@@ -116,6 +116,21 @@ void ObjectProperty::DrawUI()
 		// Existing physics component
 		if (selectedObj->GetComponent<PhysicsComponent>() != NULL)
 		{
+			if (selectedObj->GetComponent<PhysicsComponent>()->GetBodyType() == reactphysics3d::BodyType::DYNAMIC)
+			{
+				if (ImGui::Button("Set to Kinematic"))
+				{
+					selectedObj->GetComponent<PhysicsComponent>()->ChangeBodyType(1);
+				}
+			}
+			else
+			{
+				if (ImGui::Button("Set to Dynamic"))
+				{
+					selectedObj->GetComponent<PhysicsComponent>()->ChangeBodyType(0);
+				}
+			}
+
 			if (ImGui::Button("Detach Physics Component"))
 			{
 				selectedObj->DetachComponent(selectedObj->GetComponent<PhysicsComponent>());
