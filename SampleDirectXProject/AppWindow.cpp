@@ -98,16 +98,17 @@ void AppWindow::onUpdate()
 	sceneCamera->Update(deltaTime);
 
 	EngineBackend* backend = EngineBackend::Get();
+	GameObjectManager::Get()->Update();
+
 	if (backend->GetMode() == EditorMode::PLAY) {
-		GameObjectManager::Get()->Update();
+		//GameObjectManager::Get()->Update();
 	}
 	else if (backend->GetMode() == EditorMode::EDITOR) {
-		GameObjectManager::Get()->Update();
+		//GameObjectManager::Get()->Update();
 
 	}
 	else if (backend->GetMode() == EditorMode::PAUSED) {
 		if (backend->InsideFrameStep()) {
-			GameObjectManager::Get()->Update();
 			backend->EndFrameStep();
 		}
 	}
