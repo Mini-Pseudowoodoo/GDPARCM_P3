@@ -40,7 +40,8 @@ void GameObjectManager::Update()
 
     if (delta > 0.0f)
     {
-        if (EngineBackend::Get()->GetMode() == EditorMode::PLAY)
+        if (EngineBackend::Get()->GetMode() == EditorMode::PLAY || 
+            (EngineBackend::Get()->GetMode() == EditorMode::PAUSED && EngineBackend::Get()->InsideFrameStep()))
             physicsWorld->update(delta);
         for (const auto& gameObject : gameObjectList)
         {
