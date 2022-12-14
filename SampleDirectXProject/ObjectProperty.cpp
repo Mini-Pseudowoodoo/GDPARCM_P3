@@ -46,7 +46,8 @@ void ObjectProperty::DrawUI()
 		pos = new float[3] { origPos.x, origPos.y, origPos.z != 0 ? -origPos.z : 0 };
 		if (ImGui::DragFloat3("Position", pos, 0.1f, 0.0f, 0.0f))
 		{
-			record = true;
+			//record = true;
+			ActionHistory::Get()->RecordAction(selectedObj);
 		}
 		objTransform->SetPosition(SimpleMath::Vector3(pos[0], pos[1], -pos[2]));
 
@@ -59,7 +60,8 @@ void ObjectProperty::DrawUI()
 		rot = new float[3] { origRot.x, origRot.y, origRot.z };
 		if (ImGui::DragFloat3("Rotation", rot, 0.1f, -360.0f, 360.0f))
 		{
-			record = true;
+			//record = true;
+			ActionHistory::Get()->RecordAction(selectedObj);
 		}
 		objTransform->SetEulerAngles(SimpleMath::Vector3(rot[0], rot[1], rot[2]) * DEG_TO_RAD);
 		//objTransform->SetRotation(Quaternion(rot[0], rot[1], rot[2], 1.0f));
@@ -73,15 +75,11 @@ void ObjectProperty::DrawUI()
 		scale = new float[3] { origScale.x, origScale.y, origScale.z };
 		if (ImGui::DragFloat3("Scale", scale, 0.1f, 0.0f, 0.0f))
 		{
-			record = true;
+			//record = true;
+			ActionHistory::Get()->RecordAction(selectedObj);
 		}
 
 		objTransform->SetScale(SimpleMath::Vector3(scale[0], scale[1], scale[2]));
-
-		if (record)
-		{
-			ActionHistory::Get()->RecordAction(selectedObj);
-		}
 
 		if (ImGui::IsItemClicked(0) || (ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()))
 		{
