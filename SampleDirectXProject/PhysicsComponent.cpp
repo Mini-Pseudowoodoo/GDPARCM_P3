@@ -34,7 +34,15 @@ void PhysicsComponent::Start()
 	Transform transform(Vector3(pos.x, pos.y, pos.z), Quaternion::fromEulerAngles(rot.x, rot.y, rot.z));
 	transform.setPosition(Vector3(pos.x, pos.y, pos.z));
 	transform.setOrientation(Quaternion::fromEulerAngles(Vector3(rot.x, rot.y, rot.z)));
-	BoxShape* boxShape = physicsCommon->createBoxShape(Vector3(scale.x / 2, scale.y /2, scale.z /2)); //half extent
+	
+
+	BoxShape* boxShape;
+	if (this->GetOwner()->GetObjectType() == PrimitiveType::PLANE)
+	{
+		boxShape = physicsCommon->createBoxShape(Vector3(scale.x * 5, 0.1f, scale.z * 5));
+	}
+	else
+		boxShape = physicsCommon->createBoxShape(Vector3(scale.x / 2, scale.y /2, scale.z /2)); //half extent
 	
 	this->rigidBody = physicsWorld->createRigidBody(transform);
 

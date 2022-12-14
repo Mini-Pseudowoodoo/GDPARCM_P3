@@ -34,6 +34,7 @@ public:
 	void CreateTeapot();
 	void CreateBunny();
 	void CreateArmadillo();
+	void CreateLucy();
 	GameObject* CreateSphere();
 	GameObject* CreateCapsule();
 	GameObject* CreateCylinder();
@@ -75,6 +76,7 @@ public:
 	const std::string NAME_TEAPOT = "Teapot";
 	const std::string NAME_BUNNY = "Bunny";
 	const std::string NAME_ARMADILLO = "Armadillo";
+	const std::string NAME_LUCY = "Lucy";
 private:
 	PhysicsCommon* physicsCommon;
 	PhysicsWorld* physicsWorld;

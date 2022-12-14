@@ -81,18 +81,6 @@ void MenuBar::DrawUI()
                 {
                     GameObjectManager::Get()->CreatePlane();
                 }
-                /*if (ImGui::MenuItem("Teapot"))
-                {
-                    GameObjectManager::Get()->CreateTeapot();
-                }
-                if (ImGui::MenuItem("Bunny"))
-                {
-                    GameObjectManager::Get()->CreateBunny();
-                }
-                if (ImGui::MenuItem("Armadillo"))
-                {
-                    GameObjectManager::Get()->CreateArmadillo();
-                }*/
 
                 if (ImGui::MenuItem("Sphere"))
                 {
@@ -105,6 +93,22 @@ void MenuBar::DrawUI()
                 if (ImGui::MenuItem("Cylinder"))
                 {
                     GameObjectManager::Get()->CreateCylinder();
+                }
+                if (ImGui::MenuItem("Teapot"))
+                {
+                    GameObjectManager::Get()->CreateTeapot();
+                }
+                if (ImGui::MenuItem("Bunny"))
+                {
+                    GameObjectManager::Get()->CreateBunny();
+                }
+                if (ImGui::MenuItem("Armadillo"))
+                {
+                    GameObjectManager::Get()->CreateArmadillo();
+                }
+                if (ImGui::MenuItem("Lucy"))
+                {
+                    GameObjectManager::Get()->CreateArmadillo();
                 }
 
                 ImGui::EndMenu();

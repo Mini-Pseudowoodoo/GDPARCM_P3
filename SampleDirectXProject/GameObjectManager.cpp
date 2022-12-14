@@ -397,6 +397,34 @@ void GameObjectManager::CreateArmadillo()
     SelectGameObject(obj);
 }
 
+void GameObjectManager::CreateLucy()
+{
+    GameObject* obj = GameObject::Instantiate(NAME_LUCY);
+
+    Mesh* mesh = GraphicsEngine::get()->getMeshManager()->CreateMeshFromFile(L"Assets\\Meshes\\statue.obj");
+
+    MeshComponent* meshComponent = new MeshComponent();
+    obj->AttachComponent(meshComponent);
+    meshComponent->SetMesh(mesh);
+
+    int i = 0;
+
+    for (const auto& pair : gameObjectMap)
+    {
+        if (pair.first.find(NAME_LUCY) != std::string::npos)
+        {
+            i++;
+        }
+    }
+
+    if (i > 0)
+        obj->SetName(NAME_LUCY + " (" + std::to_string(i) + ')');
+
+    gameObjectList.push_back(obj);
+    gameObjectMap.emplace(obj->GetName(), obj);
+    SelectGameObject(obj);
+}
+
 void GameObjectManager::CreateObjectFromFile(std::string name, PrimitiveType type, SimpleMath::Vector3 position, SimpleMath::Vector3 rotation, SimpleMath::Vector3 scale, bool hasPhysics)
 {
     GameObject* obj = nullptr;
