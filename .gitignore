@@ -15,7 +15,6 @@ SampleDirectXProject/.vs/SampleDirectXProject/v16/.suo
 *.txt
 *.filters
 *.vcxproj
-SampleDirectXProject/DirectXGame.vcxproj.filters
 *.log
 *.filters
 SampleDirectXProject/x64/Debug/
