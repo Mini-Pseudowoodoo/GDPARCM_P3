@@ -30,13 +30,13 @@ void RotationMovementComponent::Update(float deltaTime)
 	if (!transform)
 		return;
 
-	const Vector3 currentRotation = transform->GetEulerAngles();
-	const Vector3 newRotation = currentRotation + (axis * m_rotation_rate);
+	const SimpleMath::Vector3 currentRotation = transform->GetEulerAngles();
+	const SimpleMath::Vector3 newRotation = currentRotation + (axis * m_rotation_rate);
 
 	transform->SetEulerAngles(newRotation);
 }
 
-void RotationMovementComponent::SetAxis(const Vector3& inAxis)
+void RotationMovementComponent::SetAxis(const SimpleMath::Vector3& inAxis)
 {
 	axis = inAxis;
 }

@@ -2,7 +2,7 @@
 #include "Component.h"
 #include "SimpleMath.h"
 
-using namespace DirectX::SimpleMath;
+using namespace DirectX;
 
 class RotationMovementComponent : public Component
 {
@@ -14,10 +14,10 @@ public:
 	void Update(float deltaTime) override;
 
 public:
-	void SetAxis(const Vector3& inAxis);
+	void SetAxis(const SimpleMath::Vector3& inAxis);
 	void SetRotationRate(const float& inRate);
 
 protected:
-	Vector3 axis;
+	SimpleMath::Vector3 axis;
 	float m_rotation_rate = 360.0f;
 };

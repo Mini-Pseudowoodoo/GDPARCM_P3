@@ -1,6 +1,7 @@
 ﻿#include "GameObject.h"
 #include "Component.h"
 #include "TransformComponent.h"
+#include "EditorAction.h"
 
 GameObject::GameObject()
 {
@@ -10,10 +11,12 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-	for(auto* component : m_components)
+	for(int i = 0; i < m_components.size(); i++)
 	{
-		DetachComponent(component);
+		delete m_components[i];
 	}
+
+	m_components.clear();
 }
 
 void GameObject::AttachChild(GameObject* _child)
@@ -21,16 +24,16 @@ void GameObject::AttachChild(GameObject* _child)
 	_child->m_parent = this;
 	m_children.push_back(_child);
 
-	Vector3 pos = _child->transform->GetPosition();
+	//SimpleMath::Vector3 pos = _child->transform->GetPosition();
 	
-	const Matrix m = _child->transform->GetTransformationMatrix() * this->transform->GetWorldToLocalMatrix();
-	_child->transform->SetTransformationMatrix(m);
+	//const SimpleMath::Matrix m = _child->transform->GetTransformationMatrix() * this->transform->GetWorldToLocalMatrix();
+	//_child->transform->SetTransformationMatrix(m);
 }
 
 void GameObject::DetachChild(GameObject* _child)
 {
-	const Matrix m = _child->transform->GetTransformationMatrix() * this->transform->GetLocalToWorldMatrix();
-	_child->transform->SetTransformationMatrix(m);
+	//const SimpleMath::Matrix m = _child->transform->GetTransformationMatrix() * this->transform->GetLocalToWorldMatrix();
+	//_child->transform->SetTransformationMatrix(m);
 
 	auto i = std::remove(m_children.begin(), m_children.end(), _child);
 	if (i != m_children.end())
@@ -63,8 +66,23 @@ void GameObject::AttachComponent(Component* _component)
 void GameObject::DetachComponent(Component* _component)
 {
 	_component->SetOwner(nullptr);
-	auto i = remove(m_components.begin(), m_components.end(), _component);
+	//auto j = remove(m_components.begin(), m_components.end(), _component);
+	int toRemoveIndex = 0;
+	bool componentFound = false;
+	for (int i = 0; i < m_components.size(); i++)
+	{
+		if (m_components[i] == _component)
+		{
+			toRemoveIndex = i;
+			componentFound = true;
+			break;
+		}
+	}
+
+	if (componentFound)
+		m_components.erase(m_components.begin() + toRemoveIndex);
 }
+
 
 bool GameObject::IsRoot() const
 {
@@ -145,6 +163,50 @@ void GameObject::Update(float deltaTime)
 TransformComponent* GameObject::GetTransform() const
 {
 	return transform;
+}
+
+void GameObject::SaveEditState()
+{
+	if (lastEditState == nullptr)
+	{
+		lastEditState = new EditorAction(this);
+	}
+}
+
+void GameObject::RestoreEditState()
+{
+	if (lastEditState != nullptr)
+	{
+		if (transform)
+		{
+			transform->SetPosition(lastEditState->GetStorePos());
+			transform->SetRotation(lastEditState->GetStoredOrientation());
+			transform->SetScale(lastEditState->GetStoredScale());
+			transform->SetTransformationMatrix(lastEditState->GetStoredMatrix());
+
+			lastEditState = nullptr;
+		}
+	}
+}
+
+PrimitiveType GameObject::GetObjectType() const
+{
+	return objectType;
+}
+
+void GameObject::SetObjectType(PrimitiveType type)
+{
+	objectType = type;
+}
+
+void GameObject::SetEnable(bool value)
+{
+	isEnable = value;
+}
+
+bool GameObject::IsEnable()
+{
+	return isEnable;
 }
 
 GameObject* GameObject::Instantiate()

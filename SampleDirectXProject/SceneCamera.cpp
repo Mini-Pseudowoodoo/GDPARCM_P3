@@ -36,14 +36,14 @@ void SceneCamera::Update(float deltaTime)
 
 	if (transform)
 	{
-		Vector3 moveInput = input;
+		SimpleMath::Vector3 moveInput = input;
 		moveInput.Normalize();
 
-		Vector3 move = moveInput * cameraSpeed;
+		SimpleMath::Vector3 move = moveInput * cameraSpeed;
 
 		const Matrix& mat = transform->GetTransformationMatrix();
 
-		Vector3 new_pos = mat.Translation() + mat.Forward() * (move.z);
+		SimpleMath::Vector3 new_pos = mat.Translation() + mat.Forward() * (move.z);
 
 		new_pos = new_pos + mat.Right() * (move.x);
 
@@ -107,7 +107,7 @@ void SceneCamera::onKeyDown(int key)
 
 void SceneCamera::onKeyUp(int key)
 {
-	input = Vector3::Zero;
+	input = SimpleMath::Vector3::Zero;
 }
 
 void SceneCamera::onMouseMove(const Point& delta_mouse)
@@ -118,7 +118,7 @@ void SceneCamera::onMouseMove(const Point& delta_mouse)
 	float width, height;
 	AppWindow::Get()->GetWindowSize(width, height);
 
-	Vector3 euler = transform->GetEulerAngles();
+	SimpleMath::Vector3 euler = transform->GetEulerAngles();
 
 	const float deltaTime = EngineTime::getDeltaTime();
 
@@ -147,10 +147,10 @@ void SceneCamera::onLeftMouseButtonUp(const Point& mouse_pos)
 		Point p = InputSystem::get()->GetMousePositionInWindow();
 		//std::cout << "X: " << p.x << " Y: " << p.y << std::endl;
 
-		Ray r = camera->GetCamera()->ScreenPointToRay(Vector3(p.x, p.y, 0));
+		SimpleMath::Ray r = camera->GetCamera()->ScreenPointToRay(SimpleMath::Vector3(p.x, p.y, 0));
 		//std::cout << "X: " << r.direction.x << " Y: " << r.direction.y << " Z: " << r.direction.z << std::endl;
 
-		const Vector3& pos = r.position;
+		const SimpleMath::Vector3& pos = r.position;
 
 		// Toggle off all outline effect
 		for (GameObject* obj : GameObjectManager::Get()->GetGameObjectList())

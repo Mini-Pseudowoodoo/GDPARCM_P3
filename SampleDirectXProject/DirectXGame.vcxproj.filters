@@ -64,6 +64,21 @@
     <Filter Include="GameEngine\UIScreen">
       <UniqueIdentifier>{6b62c2c4-4929-44ae-ba5c-04087c3ba5b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\ResourceManager">
+      <UniqueIdentifier>{1ed315e5-4aa9-49cc-b527-96542047a98b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\TextureManager">
+      <UniqueIdentifier>{59dd243e-8031-47b8-8b66-65ab038f6e87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\GraphicsEngine\MeshManager">
+      <UniqueIdentifier>{35edbb52-52bc-400d-974a-945e3373c82a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\NewFilter1">
+      <UniqueIdentifier>{1514a874-cdf9-41e0-bdf1-a67f8d0eaab1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\JSON">
+      <UniqueIdentifier>{6a2ec5b0-eb43-48aa-a4d3-d8fe6e5b6a38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -123,15 +138,6 @@
     <ClCompile Include="RotationMovementComponent.cpp">
       <Filter>GameEngine\EntityComponentSystem</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>GameEngine\EntityComponentSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>GameEngine\EntityComponentSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Plane.cpp">
-      <Filter>GameEngine\EntityComponentSystem</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>GameEngine\Camera</Filter>
     </ClCompile>
@@ -183,6 +189,72 @@
       <Filter>GameEngine\UIScreen</Filter>
     </ClCompile>
     <ClCompile Include="Hierarchy.cpp">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>GameEngine\GraphicsEngine\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>GameEngine\GraphicsEngine\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>GameEngine\GraphicsEngine\TextureManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>GameEngine\GraphicsEngine\TextureManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CreditsScreen.cpp">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>GameEngine\GraphicsEngine\MeshManager</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshManager.cpp">
+      <Filter>GameEngine\GraphicsEngine\MeshManager</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsComponent.cpp">
+      <Filter>GameEngine\EntityComponentSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineBackend.cpp">
+      <Filter>GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionHistory.cpp">
+      <Filter>GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorAction.cpp">
+      <Filter>GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaybackScreen.cpp">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneWriter.cpp" />
+    <ClCompile Include="SceneReader.cpp" />
+    <ClCompile Include="StringUtils.cpp" />
+    <ClCompile Include="Libs\jsoncpp-1.9.5\src\lib_json\json_reader.cpp">
+      <Filter>GameEngine\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="Libs\jsoncpp-1.9.5\src\lib_json\json_value.cpp">
+      <Filter>GameEngine\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="Libs\jsoncpp-1.9.5\src\lib_json\json_writer.cpp">
+      <Filter>GameEngine\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="Libs\jsoncpp-1.9.5\src\test_lib_json\fuzz.cpp">
+      <Filter>GameEngine\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="Libs\jsoncpp-1.9.5\src\test_lib_json\jsontest.cpp">
+      <Filter>GameEngine\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureComponent.cpp">
+      <Filter>GameEngine\EntityComponentSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionScreen.cpp">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugManager.cpp">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugScreen.cpp">
       <Filter>GameEngine\UIScreen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -251,15 +323,6 @@
       <Filter>GameEngine\Math</Filter>
     </ClInclude>
     <ClInclude Include="RotationMovementComponent.h">
-      <Filter>GameEngine\EntityComponentSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>GameEngine\EntityComponentSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>GameEngine\EntityComponentSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Plane.h">
       <Filter>GameEngine\EntityComponentSystem</Filter>
     </ClInclude>
     <ClInclude Include="EngineMath.h">
@@ -334,6 +397,102 @@
     <ClInclude Include="Hierarchy.h">
       <Filter>GameEngine\UIScreen</Filter>
     </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>GameEngine\GraphicsEngine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>GameEngine\GraphicsEngine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>GameEngine\GraphicsEngine\TextureManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>GameEngine\GraphicsEngine\TextureManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CreditsScreen.h">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>GameEngine\GraphicsEngine\MeshManager</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshManager.h">
+      <Filter>GameEngine\GraphicsEngine\MeshManager</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexMesh.h">
+      <Filter>GameEngine\GraphicsEngine\MeshManager</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsComponent.h">
+      <Filter>GameEngine\EntityComponentSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineBackend.h">
+      <Filter>GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorAction.h">
+      <Filter>GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionHistory.h">
+      <Filter>GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaybackScreen.h">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneWriter.h" />
+    <ClInclude Include="SceneReader.h" />
+    <ClInclude Include="StringUtils.h" />
+    <ClInclude Include="imfilebrowser.h">
+      <Filter>GameEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\allocator.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\assertions.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\config.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\forwards.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\json.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\json_features.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\reader.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\value.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\version.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\writer.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\src\lib_json\json_tool.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\src\test_lib_json\fuzz.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\jsoncpp-1.9.5\src\test_lib_json\jsontest.h">
+      <Filter>GameEngine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureComponent.h">
+      <Filter>GameEngine\EntityComponentSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionScreen.h">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugManager.h">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugScreen.h">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -345,8 +504,14 @@
     <FxCompile Include="PS_Outline.hlsl">
       <Filter>App</Filter>
     </FxCompile>
+    <FxCompile Include="VertexMeshLayoutShader.hlsl">
+      <Filter>App</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl" />
+    <None Include="Libs\jsoncpp-1.9.5\src\lib_json\json_valueiterator.inl">
+      <Filter>GameEngine\JSON</Filter>
+    </None>
   </ItemGroup>
 </Project>

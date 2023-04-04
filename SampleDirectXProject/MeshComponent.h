@@ -13,6 +13,7 @@ class Mesh;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
+
 class MeshComponent: public Component
 {
 public:
@@ -29,6 +30,8 @@ public:
 
 	bool GetOutlined() const;
 	void SetOutlined(bool flag);
+
+
 protected:
 	Mesh* mesh = nullptr;
 
