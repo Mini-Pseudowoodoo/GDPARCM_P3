@@ -13,8 +13,6 @@ SampleDirectXProject/.vs/SampleDirectXProject/v16/.suo
 *.lastbuildstate
 *.tlog
 *.txt
-*.filters
-*.vcxproj
 *.log
 *.filters
 SampleDirectXProject/x64/Debug/
