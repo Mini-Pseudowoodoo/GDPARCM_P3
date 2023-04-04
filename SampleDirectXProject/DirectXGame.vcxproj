@@ -141,6 +141,8 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="CreditsScreen.cpp" />
+    <ClCompile Include="DebugManager.cpp" />
+    <ClCompile Include="DebugScreen.cpp" />
     <ClCompile Include="DeviceContext.cpp" />
     <ClCompile Include="EditorAction.cpp" />
     <ClCompile Include="EngineBackend.cpp" />
@@ -204,6 +206,8 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="CreditsScreen.h" />
+    <ClInclude Include="DebugManager.h" />
+    <ClInclude Include="DebugScreen.h" />
     <ClInclude Include="DeviceContext.h" />
     <ClInclude Include="EditorAction.h" />
     <ClInclude Include="EngineBackend.h" />

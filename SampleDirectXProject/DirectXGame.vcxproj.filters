@@ -251,6 +251,12 @@
     <ClCompile Include="ActionScreen.cpp">
       <Filter>GameEngine\UIScreen</Filter>
     </ClCompile>
+    <ClCompile Include="DebugManager.cpp">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugScreen.cpp">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -479,6 +485,12 @@
       <Filter>GameEngine\EntityComponentSystem</Filter>
     </ClInclude>
     <ClInclude Include="ActionScreen.h">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugManager.h">
+      <Filter>GameEngine\UIScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugScreen.h">
       <Filter>GameEngine\UIScreen</Filter>
     </ClInclude>
   </ItemGroup>
