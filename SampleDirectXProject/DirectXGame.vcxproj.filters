@@ -260,6 +260,21 @@
     <ClCompile Include="DebugScreen.cpp">
       <Filter>GameEngine\UIScreen</Filter>
     </ClCompile>
+    <ClCompile Include="IETThread.cpp">
+      <Filter>Multithreading</Filter>
+    </ClCompile>
+    <ClCompile Include="IExecutionEvent.cpp">
+      <Filter>Multithreading</Filter>
+    </ClCompile>
+    <ClCompile Include="IWorkerAction.cpp">
+      <Filter>Multithreading</Filter>
+    </ClCompile>
+    <ClCompile Include="PoolWorkerThread.cpp">
+      <Filter>Multithreading</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool.cpp">
+      <Filter>Multithreading</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -495,6 +510,21 @@
     </ClInclude>
     <ClInclude Include="DebugScreen.h">
       <Filter>GameEngine\UIScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="IETThread.h">
+      <Filter>Multithreading</Filter>
+    </ClInclude>
+    <ClInclude Include="IExecutionEvent.h">
+      <Filter>Multithreading</Filter>
+    </ClInclude>
+    <ClInclude Include="IWorkerAction.h">
+      <Filter>Multithreading</Filter>
+    </ClInclude>
+    <ClInclude Include="PoolWorkerThread.h">
+      <Filter>Multithreading</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool.h">
+      <Filter>Multithreading</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

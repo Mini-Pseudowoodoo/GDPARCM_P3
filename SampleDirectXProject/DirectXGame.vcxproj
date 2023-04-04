@@ -151,6 +151,8 @@
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GraphicsEngine.cpp" />
     <ClCompile Include="Hierarchy.cpp" />
+    <ClCompile Include="IETThread.cpp" />
+    <ClCompile Include="IExecutionEvent.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\imgui_draw.cpp" />
     <ClCompile Include="ImGui\imgui_impl_dx11.cpp" />
@@ -159,6 +161,7 @@
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="InputSystem.cpp" />
+    <ClCompile Include="IWorkerAction.cpp" />
     <ClCompile Include="Libs\jsoncpp-1.9.5\src\lib_json\json_reader.cpp" />
     <ClCompile Include="Libs\jsoncpp-1.9.5\src\lib_json\json_value.cpp" />
     <ClCompile Include="Libs\jsoncpp-1.9.5\src\lib_json\json_writer.cpp" />
@@ -175,6 +178,7 @@
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="PlaybackScreen.cpp" />
+    <ClCompile Include="PoolWorkerThread.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
@@ -188,6 +192,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureComponent.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="ThreadPool.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UIScreen.cpp" />
@@ -218,6 +223,8 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GraphicsEngine.h" />
+    <ClInclude Include="IETThread.h" />
+    <ClInclude Include="IExecutionEvent.h" />
     <ClInclude Include="imfilebrowser.h" />
     <ClInclude Include="Hierarchy.h" />
     <ClInclude Include="ImGui\imconfig.h" />
@@ -232,6 +239,7 @@
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="InputListener.h" />
     <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="IWorkerAction.h" />
     <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\allocator.h" />
     <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\assertions.h" />
     <ClInclude Include="Libs\jsoncpp-1.9.5\include\json\config.h" />
@@ -256,6 +264,7 @@
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="PlaybackScreen.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="PoolWorkerThread.h" />
     <ClInclude Include="Prerequisites.h" />
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="Resource.h" />
@@ -270,6 +279,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureComponent.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="UIScreen.h" />
