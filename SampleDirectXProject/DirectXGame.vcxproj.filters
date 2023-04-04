@@ -79,6 +79,9 @@
     <Filter Include="GameEngine\JSON">
       <UniqueIdentifier>{6a2ec5b0-eb43-48aa-a4d3-d8fe6e5b6a38}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Multithreading">
+      <UniqueIdentifier>{1c1c0921-c435-4b32-913f-40e7014d47f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
